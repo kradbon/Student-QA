@@ -1,0 +1,85 @@
+@startuml
+skinparam classAttributeIconSize 0
+class User {
+  +id: int
+  +name: string
+  +email: string
+  +role: string
+  +status: string
+  +reputation: int
+  +questions()
+  +answers()
+  +isRole(...roles)
+}
+class Category {
+  +id: int
+  +name: string
+  +slug: string
+  +is_active: bool
+  +questions()
+}
+class Question {
+  +id: int
+  +title: string
+  +body: text
+  +status: string
+  +accepted_answer_id: int?
+  +answers()
+  +votes()
+}
+class Answer {
+  +id: int
+  +question_id: int
+  +body: text
+  +status: string
+  +votes()
+}
+class Vote {
+  +id: int
+  +user_id: int
+  +votable_type: string
+  +votable_id: int
+  +value: int
+}
+class ReputationTransaction {
+  +id: int
+  +event_key: string
+  +reason: string
+  +points: int
+}
+class Report {
+  +id: int
+  +reason: string
+  +status: string
+}
+class ModerationLog {
+  +id: int
+  +action: string
+  +note: text?
+}
+class QuestionAttachment
+class AnswerAttachment
+class PlatformSetting
+class VotingService
+class ReputationService
+class SimilarQuestionService
+
+User "1" -- "0..*" Question : authors
+User "1" -- "0..*" Answer : authors
+Category "1" -- "0..*" Question
+Question "1" -- "0..*" Answer
+Question "0..1" --> "1" Answer : accepted answer
+User "1" -- "0..*" Vote : casts
+Vote "0..*" ..> "1" Question : votable
+Vote "0..*" ..> "1" Answer : votable
+User "1" -- "0..*" ReputationTransaction : receives
+User "0..1" -- "0..*" ReputationTransaction : actor
+Question "1" -- "0..*" QuestionAttachment
+Answer "1" -- "0..*" AnswerAttachment
+User "1" -- "0..*" Report : submits
+Question ..> Report : reportable
+Answer ..> Report : reportable
+User "1" -- "0..*" ModerationLog : moderator
+VotingService ..> ReputationService
+SimilarQuestionService ..> Question
+@enduml

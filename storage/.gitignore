@@ -1,0 +1,7 @@
+*
+!app/
+!framework/
+!logs/
+!private/
+!public/
+!.gitignore

@@ -1,19 +1,30 @@
-# Variant 24 compliance checklist
+# Рӯйхати санҷиши талаботи варианти 24
 
-- [x] PHP 8.2+ and PDO (no backend framework)
-- [x] MySQL/MariaDB schema with 3NF-oriented separation
-- [x] 9 tables and foreign keys
-- [x] utf8mb4 and indexes
-- [x] Three roles: student, moderator, admin
-- [x] Password hashing with password_hash/password_verify
-- [x] Server-side role checks on protected pages
-- [x] Basic question and answer create/read
-- [x] Voting and accepted answer workflow foundation
-- [x] JSON API used by frontend for similar-question suggestions
-- [x] CSRF token foundation and output escaping
-- [x] 30 seed questions
-- [x] 5 initial PHPUnit examples
-- [ ] Full CRUD, moderation, uploads, CSV, complete translations
-- [ ] 10+ manual test cases
-- [ ] Deployment over HTTPS
-- [ ] 30–40 page explanatory note
+## Платформа ва маълумот
+
+- [x] Laravel 13 ва PHP 8.5; сохтори монолитии стандартӣ.
+- [x] MySQL ҳамчун пайвасти пешфарзи муҳит; `utf8mb4`, калидҳои хориҷӣ ва индексҳо.
+- [x] Migration, Eloquent model, relationship, factory ва seeder.
+- [x] Нақшҳои `student`, `moderator`, `admin`; Demo account барои ҳар нақш.
+- [x] Қолаби responsive бо Blade, Tailwind CSS ва JavaScript/Vite.
+
+## Амалиёт
+
+- [x] Бақайдгирӣ, воридшавӣ, баромадан, hash-и рамз ва маҳдудкунии кӯшиши воридшавӣ.
+- [x] Иҷозати нақш ва соҳиби мавод тавассути Middleware ва Policy.
+- [x] CRUD-и саволу ҷавоб ва тасдиқи ҷавоби беҳтарин.
+- [x] Ҷустуҷӯ, филтри бахшҳо, pagination ва пешниҳод кардани саволҳои монанд.
+- [x] Овоз барои савол ва ҷавоб; муҳофизат аз овози такрорӣ ва овоз ба маводи худ.
+- [x] Таърихи reputation бо калиди ягонаи ҳодиса ва амалиёти транзаксионӣ.
+- [x] Навбати модератсия, шикоят, пинҳонкунӣ ва таърихи амалиёт.
+- [x] Замимаҳои хусусӣ, огоҳиномаҳои database, танзимоти асосӣ ва CSV.
+- [x] Интерфейси тоҷикӣ, русӣ ва англисӣ; забони санҷиши вуруд ҳам тарҷума дорад.
+
+## Санҷиш ва ҳуҷҷат
+
+- [x] 19 санҷиши PHPUnit/Laravel; натиҷаи охирин: 19 гузашт.
+- [x] 20 ҳолати санҷиши дастӣ дар `docs/MANUAL_TESTING.md`.
+- [x] Ҳисоботи курсӣ ва дастури нашр ба забони тоҷикӣ дар `docs/COURSE_REPORT.md`.
+- [x] Диаграммаҳои таҳриршавандаи PlantUML дар `docs/diagrams/`.
+- [ ] Migration дар MySQL-и воқеӣ санҷида шавад; дар ин муҳит сервери MySQL/MariaDB фаъол нест.
+- [ ] Суроға, рамзҳои Demo ва HTTPS-и сервери ниҳоиро соҳиби лоиҳа муайян кунад.

@@ -1,64 +1,75 @@
-# Student Q&A — Variant 24
+# Платформаи саволу ҷавоби донишҷӯён — варианти 24
 
-A standalone PHP 8.2+ / MySQL student question-and-answer platform. Backend frameworks are intentionally not used, in accordance with the course brief.
+## Мақсад
 
-## Requirements
-- PHP 8.2+ with PDO MySQL and mbstring
-- MySQL 8.0+ or MariaDB 10.6+
-- Composer (for PHPUnit development dependency)
-- Apache/Nginx; document root should point to `public/`
+Ин лоиҳа барои мубодилаи саволҳо ва ҷавобҳои донишҷӯён сохта мешавад. Донишҷӯён савол мегузоранд, ба саволҳо ҷавоб медиҳанд ва ба мундариҷа овоз медиҳанд. Модераторон мундариҷаро баррасӣ мекунанд, маъмурон бошад корбарон ва танзимоти платформаро идора мекунанд.
 
-## Local setup (XAMPP/Laragon)
-1. Create a MySQL database by importing `database/schema.sql`.
-2. Import `database/seed.sql`.
-3. Copy `.env.example` to `.env` and set DB credentials.
-4. Run `composer install`.
-5. Configure Apache virtual host/document root to this project's `public` directory.
-6. Open the local site in your browser.
+## Нақшаи татбиқ
 
-For PHP's built-in development server, from the project root run:
-`php -S 127.0.0.1:8000 -t public`
-Then open `http://127.0.0.1:8000`.
+1. Омода кардани сохтори Laravel ва пайвасти MySQL.
+2. Сохтани migration, model, relationship, factory ва seeder.
+3. Илова кардани authentication ва иҷозатҳои нақшҳо.
+4. Сохтани dashboard-и донишҷӯ ва амалиёти саволу ҷавоб.
+5. Илова кардани овоздиҳӣ, reputation ва ҷустуҷӯи саволҳои монанд.
+6. Сохтани воситаҳои модератор ва маъмур.
+7. Илова кардани тарҷумаҳо, замимаҳо, notification ва ҳисоботи CSV.
+8. Санҷиш, ҳуҷҷатгузории тоҷикӣ ва диаграммаҳои UML.
 
-## Development demo accounts
-- student@example.com
-- moderator@example.com
-- admin@example.com
-- Password: `password`
+## Технологияҳо
 
-These accounts are for local development only. Replace demo credentials and remove seed users before deployment.
+- PHP 8.3 ё навтар ва Laravel 13
+- MySQL 8 ё навтар
+- Blade, Tailwind CSS, JavaScript ва Vite
+- Eloquent ORM, Laravel authentication ва PHPUnit
 
-## Implemented foundation
-- PDO database connection with native prepared statements
-- Registration, login, logout and session ID regeneration
-- Student, moderator and administrator roles
-- Question creation, listing, detail view and pagination
-- Answer submission
-- Upvote/downvote with one vote per user per answer
-- Reputation recalculation from answer votes
-- Question author can select a best answer
-- Live similar-question suggestions through a JSON endpoint
-- CSRF token validation on POST requests and HTML output escaping
-- Basic responsive Bootstrap 5 interface and language selector
-- Initial PHPUnit test examples
+## Ҳисобҳои намоишӣ
 
-## Course requirements still to complete before final submission
-This repository is a working project foundation, not a claim that every rubric item is finished. Complete and verify:
-- Full edit/delete CRUD for questions and answers, including ownership checks
-- Full moderator report queue and admin user/role management
-- Tag CRUD, tag filtering and search filters
-- Secure image/document upload (MIME, extension, size, randomized name, storage outside executable paths)
-- Notifications UI and read/unread workflow
-- CSV export and printable reports using aggregate SQL
-- Robust similar-question matching/ranking and AJAX UX
-- Full multilingual translation coverage (all pages, validation and messages)
-- 10+ documented manual test cases and 5+ business-rule PHPUnit tests
-- Production HTTPS deployment, secure environment configuration, backups and deployment guide
-- Figma screens and 30–40 page explanatory report
+Пас аз `php artisan migrate --seed` барои ҳар ҳисоб рамзи `password` истифода мешавад:
 
-## Security notes
-- Never deploy with `APP_DEBUG=true` or demo accounts.
-- Use HTTPS, secure/HttpOnly/SameSite cookies, restrictive upload storage and a production web-server configuration.
-- Add rate limiting for authentication, voting and report submission.
-- Validate authorization on every state-changing endpoint.
-- Review and test every SQL query and business rule before public deployment.
+- `student@example.com` — донишҷӯ
+- `peer@example.com` — донишҷӯи дигар
+- `moderator@example.com` — модератор
+- `admin@example.com` — маъмур
+
+Ин ҳисобҳо танҳо барои муҳити маҳаллӣ мебошанд; пеш аз нашри лоиҳа рамзҳоро иваз ё ҳисобҳоро нест кунед.
+
+## Оғози кор
+
+1. PHP 8.3+, Composer, Node.js/npm ва MySQL насб кунед.
+2. Пойгоҳи додаи `student_qa`-ро дар MySQL созед.
+3. Файли намунавии муҳитро нусхабардорӣ ва маълумоти пайвасти MySQL-ро танзим кунед:
+
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+
+4. Вобастагиҳоро насб карда, калиди барномаро эҷод кунед:
+
+   ```powershell
+   composer install
+   php artisan key:generate
+   ```
+
+5. Сохтори пойгоҳи дода ва маълумоти намунавиро бор кунед:
+
+   ```powershell
+   php artisan migrate --seed
+   ```
+
+6. Дар муҳити рушд серверро оғоз намоед:
+
+   ```powershell
+   php artisan serve
+   ```
+
+   Барои сохтани файлҳои frontend: `npm install` ва `npm run build`.
+
+## Вазъи кор
+
+Асоси Laravel 13 ва модулҳои асосӣ амалӣ шудаанд: authentication, нақшҳо, CRUD, овоз ва reputation, модератсия, ҷустуҷӯи монандӣ, замимаҳо, огоҳинома, се забон ва ҳисоботи CSV. Schema ва seed-и кӯҳнаи SQL ҳамчун маводи истинодӣ дар `database/` нигоҳ дошта шуданд. Migration ва seeder бо SQLite санҷида шуданд; санҷиши пайвастшавӣ ба MySQL дар муҳити дорои сервери MySQL бояд иҷро шавад.
+
+Ҳисоботи курсӣ ва дастури насб/нашр: `docs/COURSE_REPORT.md`; ҳолатҳои дастӣ: `docs/MANUAL_TESTING.md`; диаграммаҳои таҳриршавандаи PlantUML: `docs/diagrams/`.
+
+## Эзоҳ барои амният
+
+Файли `.env`-ро ба Git нафиристед. Барои нашри оммавӣ `APP_DEBUG=false` гузоред, HTTPS ва маълумоти воқеии махфиро истифода баред ва ҳисобҳои намунавиро нест кунед.

@@ -1,0 +1,129 @@
+@startuml
+hide circle
+skinparam linetype ortho
+entity users {
+  * id : BIGINT <<PK>>
+  --
+  name : VARCHAR
+  email : VARCHAR <<UNIQUE>>
+  password : VARCHAR
+  role : VARCHAR
+  status : VARCHAR
+  reputation : INT
+  locale : VARCHAR
+}
+entity categories {
+  * id : BIGINT <<PK>>
+  --
+  name : VARCHAR <<UNIQUE>>
+  slug : VARCHAR <<UNIQUE>>
+  is_active : BOOLEAN
+}
+entity questions {
+  * id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  category_id : BIGINT <<FK>>
+  title : VARCHAR
+  body : LONGTEXT
+  status : VARCHAR
+  accepted_answer_id : BIGINT <<FK, NULL>>
+}
+entity answers {
+  * id : BIGINT <<PK>>
+  --
+  question_id : BIGINT <<FK>>
+  user_id : BIGINT <<FK>>
+  body : LONGTEXT
+  status : VARCHAR
+}
+entity votes {
+  * id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  votable_type : VARCHAR
+  votable_id : BIGINT
+  value : SMALLINT
+  UNIQUE(user_id, votable_type, votable_id)
+}
+entity reputation_transactions {
+  * id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  actor_id : BIGINT <<FK, NULL>>
+  event_key : VARCHAR <<UNIQUE>>
+  reason : VARCHAR
+  points : INT
+  source_type : VARCHAR?
+  source_id : BIGINT?
+}
+entity question_attachments {
+  * id : BIGINT <<PK>>
+  --
+  question_id : BIGINT <<FK>>
+  user_id : BIGINT <<FK>>
+  path : VARCHAR
+  mime_type : VARCHAR
+  size : BIGINT
+}
+entity answer_attachments {
+  * id : BIGINT <<PK>>
+  --
+  answer_id : BIGINT <<FK>>
+  user_id : BIGINT <<FK>>
+  path : VARCHAR
+  mime_type : VARCHAR
+  size : BIGINT
+}
+entity reports {
+  * id : BIGINT <<PK>>
+  --
+  user_id : BIGINT <<FK>>
+  reportable_type : VARCHAR
+  reportable_id : BIGINT
+  reason : VARCHAR
+  status : VARCHAR
+  reviewed_by : BIGINT <<FK, NULL>>
+}
+entity moderation_logs {
+  * id : BIGINT <<PK>>
+  --
+  moderator_id : BIGINT <<FK>>
+  moderatable_type : VARCHAR
+  moderatable_id : BIGINT
+  action : VARCHAR
+  note : TEXT?
+}
+entity notifications {
+  * id : UUID <<PK>>
+  --
+  notifiable_type : VARCHAR
+  notifiable_id : BIGINT
+  type : VARCHAR
+  data : LONGTEXT
+  read_at : TIMESTAMP?
+}
+entity platform_settings {
+  * id : BIGINT <<PK>>
+  --
+  key : VARCHAR <<UNIQUE>>
+  value : TEXT
+}
+
+users ||--o{ questions
+categories ||--o{ questions
+questions ||--o{ answers
+users ||--o{ answers
+answers }o--o| questions : accepted_answer
+users ||--o{ votes
+users ||--o{ reputation_transactions : recipient
+users |o--o{ reputation_transactions : actor
+questions ||--o{ question_attachments
+answers ||--o{ answer_attachments
+users ||--o{ question_attachments
+users ||--o{ answer_attachments
+users ||--o{ reports : reporter
+users |o--o{ reports : reviewer
+users ||--o{ moderation_logs : moderator
+users ||--o{ notifications : polymorphic_notifiable
+@enduml

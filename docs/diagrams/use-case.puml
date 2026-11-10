@@ -1,0 +1,47 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor "Меҳмон" as Guest
+actor "Донишҷӯ" as Student
+actor "Модератор" as Moderator
+actor "Маъмур" as Admin
+
+rectangle "Student Q&A" {
+  usecase "Бақайдгирӣ ва воридшавӣ" as Auth
+  usecase "Ҷустуҷӯ ва дидани савол" as Browse
+  usecase "Фиристодан ва идораи савол" as Questions
+  usecase "Ҷавоб додан" as Answer
+  usecase "Овоз додан" as Vote
+  usecase "Интихоби ҷавоби беҳтарин" as Accept
+  usecase "Идораи профил ва огоҳинома" as Profile
+  usecase "Баррасии навбат" as Review
+  usecase "Баррасии шикоят ва пинҳонкунӣ" as Reports
+  usecase "Дидани таърихи модератсия" as History
+  usecase "Идораи корбар ва нақш" as Users
+  usecase "Идораи бахш ва танзим" as Settings
+  usecase "Идораи саволу ҷавоб" as Content
+  usecase "Содироти CSV" as Export
+}
+
+Guest --> Auth
+Guest --> Browse
+Student --> Browse
+Student --> Questions
+Student --> Answer
+Student --> Vote
+Student --> Accept
+Student --> Profile
+Moderator --> Browse
+Moderator --> Review
+Moderator --> Reports
+Moderator --> History
+Admin --> Browse
+Admin --> Review
+Admin --> Reports
+Admin --> History
+Admin --> Users
+Admin --> Settings
+Admin --> Content
+Admin --> Export
+Admin --|> Moderator
+@enduml
