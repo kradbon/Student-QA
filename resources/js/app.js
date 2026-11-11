@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             results.append(heading);
             data.data.forEach((question) => {
                 const link = document.createElement('a');
-                link.className = 'block rounded-xl border border-slate-200 p-3 hover:border-indigo-400';
+                link.className = 'block rounded-xl border border-slate-200 p-3 hover:border-orange-400';
                 link.href = question.url;
                 link.textContent = question.title;
                 results.append(link);

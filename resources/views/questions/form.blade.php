@@ -13,6 +13,6 @@
         <label class="block text-sm font-semibold">{{ __('messages.attachments') }}<input class="mt-1 block w-full rounded-xl border border-slate-300 p-2 text-sm" type="file" name="attachments[]" multiple accept=".jpg,.jpeg,.png,.pdf,.txt,.doc,.docx,.zip"><span class="mt-1 block text-xs font-normal text-slate-500">{{ __('messages.attachment_help', ['max' => $uploadMaxMb]) }}</span></label>
         <div class="flex items-center justify-between"><a class="text-sm font-semibold text-slate-600" href="{{ $question->exists ? route('questions.show', $question) : route('questions.index') }}">{{ __('messages.cancel') }}</a><button class="btn-primary" type="submit">{{ $question->exists ? __('messages.save_changes') : __('messages.submit_question') }}</button></div>
     </form>
-    @if($question->exists && $question->attachments->isNotEmpty())<div class="mt-5 rounded-2xl border border-slate-200 bg-white p-5"><h2 class="font-bold">{{ __('messages.attachments') }}</h2>@foreach($question->attachments as $file)<a class="mt-2 block text-sm text-indigo-700" href="{{ route('attachments.question', $file) }}">{{ $file->original_name }}</a>@endforeach</div>@endif
+    @if($question->exists && $question->attachments->isNotEmpty())<div class="mt-5 rounded-2xl border border-slate-200 bg-white p-5"><h2 class="font-bold">{{ __('messages.attachments') }}</h2>@foreach($question->attachments as $file)<a class="mt-2 block text-sm text-orange-700" href="{{ route('attachments.question', $file) }}">{{ $file->original_name }}</a>@endforeach</div>@endif
 </div>
 @endsection

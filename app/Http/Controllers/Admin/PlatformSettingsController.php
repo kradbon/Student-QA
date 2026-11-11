@@ -14,7 +14,7 @@ class PlatformSettingsController extends Controller
     {
         return view('admin.settings', [
             'settings' => [
-                'default_locale' => $settings->get('default_locale', 'tj'),
+                'default_locale' => $settings->get('default_locale', 'ru'),
                 'registration_open' => $settings->get('registration_open', '1') === '1',
                 'upload_max_mb' => $settings->get('upload_max_mb', '5'),
             ],

@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('role', 20)->default('student')->index();
             $table->string('status', 20)->default('active')->index();
             $table->integer('reputation')->default(0);
-            $table->string('locale', 5)->default('tj');
+            $table->string('locale', 5)->default('ru');
             $table->string('avatar_path')->nullable();
         });
 

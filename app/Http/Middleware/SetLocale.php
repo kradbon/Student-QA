@@ -13,9 +13,9 @@ class SetLocale
 
     public function handle(Request $request, Closure $next): Response
     {
-        $default = $this->settings->get('default_locale', 'tj');
+        $default = $this->settings->get('default_locale', 'ru');
         $locale = $request->user()?->locale ?? $request->session()->get('locale', $default);
-        app()->setLocale(in_array($locale, ['tj', 'ru', 'en'], true) ? $locale : 'tj');
+        app()->setLocale(in_array($locale, ['tj', 'ru', 'en'], true) ? $locale : 'ru');
 
         return $next($request);
     }

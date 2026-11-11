@@ -9,6 +9,6 @@
         <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="remember" class="rounded border-slate-300">{{ __('messages.remember_me') }}</label>
         <button class="btn-primary w-full" type="submit">{{ __('messages.login') }}</button>
     </form>
-    <p class="mt-5 text-sm text-slate-600">{{ __('messages.no_account') }} <a class="font-semibold text-indigo-700" href="{{ route('register') }}">{{ __('messages.register') }}</a></p>
+    <p class="mt-5 text-sm text-slate-600">{{ __('messages.no_account') }} <a class="font-semibold text-orange-700" href="{{ route('register') }}">{{ __('messages.register') }}</a></p>
 </div>
 @endsection

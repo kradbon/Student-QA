@@ -14,7 +14,7 @@
             <a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('dashboard') }}">{{ __('messages.dashboard') }}</a>
             @if(auth()->user()->isRole('moderator', 'admin'))<a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('moderator.queue') }}">{{ __('messages.moderation') }}</a>@endif
             @if(auth()->user()->isRole('admin'))<a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('admin.dashboard') }}">{{ __('messages.admin_dashboard') }}</a>@endif
-            <a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('notifications.index') }}">{{ __('messages.notifications') }}@if($unreadNotificationCount = auth()->user()->unreadNotifications()->count())<span class="ml-1 rounded-full bg-blue-700 px-1.5 py-0.5 text-xs text-white">{{ $unreadNotificationCount }}</span>@endif</a>
+            <a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('notifications.index') }}">{{ __('messages.notifications') }}@if($unreadNotificationCount = auth()->user()->unreadNotifications()->count())<span class="ml-1 rounded-full bg-orange-700 px-1.5 py-0.5 text-xs text-white">{{ $unreadNotificationCount }}</span>@endif</a>
             @if(auth()->user()->isRole('student'))<a class="btn-primary min-h-10 px-3 py-2 text-sm" href="{{ route('questions.create') }}">{{ __('messages.ask_question') }}</a>@endif
             <a class="text-sm font-semibold text-slate-700 hover:text-slate-950" href="{{ route('profile.edit') }}">{{ auth()->user()->name }}</a>
             <form method="post" action="{{ route('logout') }}">@csrf<button class="text-sm font-medium text-slate-600 hover:text-slate-950">{{ __('messages.logout') }}</button></form>
@@ -31,9 +31,9 @@
     </nav>
 </header>
 <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-    @if(session('success'))<div class="mb-5 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-900" role="status">{{ session('success') }}</div>@endif
-    @if(session('error'))<div class="mb-5 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-900" role="alert">{{ session('error') }}</div>@endif
-    @if($errors->any())<div class="mb-5 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900" role="alert"><p class="font-semibold">{{ __('messages.form_errors') }}</p><ul class="mt-2 list-inside list-disc">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+    @if(session('success'))<div class="mb-5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm font-medium text-orange-900" role="status">{{ session('success') }}</div>@endif
+    @if(session('error'))<div class="mb-5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm font-medium text-orange-900" role="alert">{{ session('error') }}</div>@endif
+    @if($errors->any())<div class="mb-5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-900" role="alert"><p class="font-semibold">{{ __('messages.form_errors') }}</p><ul class="mt-2 list-inside list-disc">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
     @yield('content')
 </main>
 <footer class="mt-12 border-t border-slate-200 bg-white"><div class="mx-auto flex max-w-7xl flex-wrap justify-between gap-3 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:px-8"><span>Student Q&amp;A · Variant 24</span><a class="hover:text-slate-900" href="{{ route('questions.index') }}">{{ __('messages.questions') }}</a></div></footer>

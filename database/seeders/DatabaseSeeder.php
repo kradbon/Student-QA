@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         foreach ($accounts as $account) {
             User::updateOrCreate(
                 ['email' => $account['email']],
-                [...$account, 'status' => 'active', 'locale' => 'tj', 'password' => Hash::make('password')],
+                [...$account, 'status' => 'active', 'locale' => 'ru', 'password' => Hash::make('password')],
             );
         }
 

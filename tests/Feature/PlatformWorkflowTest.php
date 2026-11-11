@@ -28,7 +28,7 @@ class PlatformWorkflowTest extends TestCase
             'password_confirmation' => 'secure-password',
         ])->assertRedirect(route('dashboard'));
 
-        $this->assertDatabaseHas('users', ['email' => 'new@example.test', 'role' => 'student']);
+        $this->assertDatabaseHas('users', ['email' => 'new@example.test', 'role' => 'student', 'locale' => 'ru']);
         $this->post(route('logout'))->assertRedirect(route('home'));
         $this->assertGuest();
         $this->post(route('login'), ['email' => 'new@example.test', 'password' => 'secure-password'])->assertRedirect(route('dashboard'));
@@ -54,6 +54,14 @@ class PlatformWorkflowTest extends TestCase
                 ->get(route('home'))
                 ->assertRedirect(route($dashboard));
         }
+    }
+
+    public function test_guest_landing_uses_russian_as_the_default_locale(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('<html lang="ru">', false)
+            ->assertSee(__('messages.landing_title', [], 'ru'));
     }
 
     public function test_student_can_create_update_and_delete_owned_question(): void
