@@ -1,0 +1,159 @@
+
+@startuml
+title Student Q&A Platform: Class Diagram
+
+skinparam classAttributeIconSize 0
+hide empty members
+skinparam packageStyle rectangle
+
+package "Domain Model (Eloquent Models)" {
+
+    enum UserRole {
+        student
+        moderator
+        admin
+    }
+
+    enum QuestionStatus {
+        pending
+        published
+        rejected
+        closed
+    }
+
+    enum VoteType {
+        upvote
+        downvote
+    }
+
+    class User <<entity>> {
+        +id: int
+        +name: string
+        +email: string
+        -password: string
+        +role: UserRole
+        +reputation: int
+        +isActive: bool
+        +createdAt: datetime
+        +hasRole(role: string): bool
+    }
+
+    class Category <<entity>> {
+        +id: int
+        +name: string
+        +description: ?string
+        +slug: string
+        +isActive: bool
+    }
+
+    class Question <<entity>> {
+        +id: int
+        +userId: int
+        +categoryId: int
+        +title: string
+        +description: text
+        +status: QuestionStatus
+        +acceptedAnswerId: ?int
+        +createdAt: datetime
+        +isPublished(): bool
+    }
+
+    class Answer <<entity>> {
+        +id: int
+        +questionId: int
+        +userId: int
+        +body: text
+        +isAccepted: bool
+        +score: int
+        +createdAt: datetime
+        +accept(): void
+    }
+
+    class Vote <<entity>> {
+        +id: int
+        +userId: int
+        +answerId: int
+        +type: VoteType
+        +createdAt: datetime
+    }
+
+    class ReputationTransaction <<entity>> {
+        +id: int
+        +userId: int
+        +answerId: ?int
+        +points: int
+        +reason: string
+        +createdAt: datetime
+    }
+
+    class Attachment <<entity>> {
+        +id: int
+        +userId: int
+        +questionId: ?int
+        +answerId: ?int
+        +fileName: string
+        +filePath: string
+        +mimeType: string
+    }
+
+    class ModerationLog <<entity>> {
+        +id: int
+        +moderatorId: int
+        +questionId: ?int
+        +answerId: ?int
+        +action: string
+        +reason: ?string
+        +createdAt: datetime
+    }
+}
+
+User "1" -- "0..*" Question : creates
+Category "1" -- "0..*" Question : contains
+Question "1" *-- "0..*" Answer : has
+User "1" -- "0..*" Answer : writes
+User "1" -- "0..*" Vote : casts
+Answer "1" -- "0..*" Vote : receives
+User "1" -- "0..*" ReputationTransaction : earns
+Answer "0..1" -- "0..*" ReputationTransaction : related to
+Question "0..1" --> "0..1" Answer : accepted answer
+Question "1" *-- "0..*" Attachment
+Answer "1" *-- "0..*" Attachment
+User "1" -- "0..*" ModerationLog : performs
+
+package "Application Layer (Laravel)" {
+
+    class AnswerController <<controller>> {
+        -answerRepository: AnswerRepository
+        +index(questionId: int): void
+        +store(questionId: int): void
+        +update(id: int): void
+        +destroy(id: int): void
+        +acceptBest(id: int): void
+        +vote(id: int): void
+    }
+
+    class AnswerRepository <<repository>> {
+        -database: Database
+        +findById(id: int): ?Answer
+        +findByQuestion(questionId: int): array
+        +create(data: array): Answer
+        +update(id: int, data: array): bool
+        +delete(id: int): bool
+        +acceptBestAnswer(id: int, userId: int): bool
+        +saveVote(data: array): bool
+    }
+
+    class Database <<infrastructure>> {
+        -connection: Connection
+        +connection(): Connection
+        +transaction(callback: callable): mixed
+    }
+}
+
+AnswerController --> AnswerRepository
+AnswerRepository --> Database
+AnswerRepository ..> Answer : reads / writes
+AnswerRepository ..> Vote : manages
+AnswerRepository ..> ReputationTransaction : records
+
+@enduml
