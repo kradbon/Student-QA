@@ -18,6 +18,7 @@ class AnswerController extends Controller
     public function store(Request $request, Question $question, PlatformSettingsService $settings): RedirectResponse
     {
         abort_unless($request->user()->isRole('student') && $question->status === 'published', 403);
+        abort_if($question->user_id === $request->user()->id, 403);
         $uploadMaxKb = max(1024, min(20480, (int) $settings->get('upload_max_mb', '5') * 1024));
         $data = $request->validate([
             'body' => ['required', 'string', 'min:10', 'max:20000'],
@@ -78,7 +79,8 @@ class AnswerController extends Controller
         $this->authorize('accept', $answer);
         $question = $answer->question;
         DB::transaction(function () use ($answer, $question, $request, $reputation): void {
-            $question->newQuery()->whereKey($question->id)->lockForUpdate()->firstOrFail();
+            $question = Question::query()->whereKey($question->id)->lockForUpdate()->firstOrFail();
+            abort_unless($answer->question_id === $question->id && $answer->status === 'published', 409);
             $previous = $question->acceptedAnswer;
             if ($previous?->is($answer)) {
                 return;

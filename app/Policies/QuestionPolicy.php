@@ -30,7 +30,7 @@ class QuestionPolicy
 
     public function vote(User $user, Question $question): bool
     {
-        return $question->status === 'published' && $question->user_id !== $user->id;
+        return $user->isRole('student') && $question->status === 'published' && $question->user_id !== $user->id;
     }
 
     public function close(User $user, Question $question): bool

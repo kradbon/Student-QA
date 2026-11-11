@@ -7,3 +7,95 @@
     --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@layer base {
+    :root {
+        color-scheme: light;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        background: #f5f7fa;
+        color: #172033;
+    }
+
+    input:not([type='checkbox']):not([type='radio']):not([type='file']),
+    select,
+    textarea {
+        color: #172033;
+        background-color: #fff;
+        border-color: #cbd5e1;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #64748b;
+        opacity: 1;
+    }
+
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    button:focus-visible,
+    a:focus-visible,
+    summary:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 2px;
+    }
+
+    button:disabled {
+        cursor: not-allowed;
+        opacity: .55;
+    }
+}
+
+@layer components {
+    .surface {
+        border: 1px solid #dbe2ea;
+        border-radius: .875rem;
+        background: #fff;
+        box-shadow: 0 1px 2px rgb(15 23 42 / 4%);
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        min-height: 2.75rem;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        border: 1px solid #1d4ed8;
+        border-radius: .625rem;
+        background: #1d4ed8;
+        padding: .625rem 1rem;
+        color: #fff;
+        font-weight: 650;
+        transition: background-color .15s ease, border-color .15s ease;
+    }
+
+    .btn-primary:hover { background: #1e40af; border-color: #1e40af; }
+
+    .btn-secondary {
+        display: inline-flex;
+        min-height: 2.625rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #cbd5e1;
+        border-radius: .625rem;
+        background: #fff;
+        padding: .5rem .875rem;
+        color: #334155;
+        font-weight: 600;
+    }
+
+    .btn-secondary:hover { border-color: #94a3b8; background: #f8fafc; }
+
+    .eyebrow {
+        color: #475569;
+        font-size: .75rem;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+}

@@ -35,9 +35,22 @@ class QuestionController extends Controller
             $query->where('category_id', $category);
         }
 
+        $sort = $request->query('sort', 'latest');
+        if (! in_array($sort, ['latest', 'popular', 'unanswered'], true)) {
+            $sort = 'latest';
+        }
+
+        $query->withCount('votes');
+        match ($sort) {
+            'popular' => $query->orderByDesc('votes_count')->orderByDesc('created_at'),
+            'unanswered' => $query->whereDoesntHave('answers', fn ($builder) => $builder->where('status', 'published'))->latest(),
+            default => $query->latest(),
+        };
+
         return view('questions.index', [
-            'questions' => $query->withCount(['answers' => fn ($builder) => $builder->where('status', 'published')])->latest()->paginate(12)->withQueryString(),
+            'questions' => $query->withCount(['answers' => fn ($builder) => $builder->where('status', 'published')])->paginate(12)->withQueryString(),
             'categories' => Category::where('is_active', true)->orderBy('name')->get(),
+            'sort' => $sort,
         ]);
     }
 
@@ -94,8 +107,7 @@ class QuestionController extends Controller
     {
         $this->authorize('view', $question);
         $question->increment('views');
-        $question->load(['author', 'category', 'acceptedAnswer.author', 'attachments', 'answers' => fn ($query) => $query->where('status', 'published')->with(['author', 'attachments', 'votes'])])
-            ->loadCount('votes');
+        $question->load(['author', 'category', 'acceptedAnswer.author', 'attachments', 'votes', 'answers' => fn ($query) => $query->where('status', 'published')->with(['author', 'attachments', 'votes'])]);
         $question->setRelation('answers', $question->answers->sort(function ($first, $second) use ($question): int {
             $acceptedOrder = ($second->id === $question->accepted_answer_id) <=> ($first->id === $question->accepted_answer_id);
 

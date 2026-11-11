@@ -19,7 +19,7 @@ class AnswerPolicy
 
     public function vote(User $user, Answer $answer): bool
     {
-        return $answer->status === 'published' && $answer->question->status === 'published' && $answer->user_id !== $user->id;
+        return $user->isRole('student') && $answer->status === 'published' && $answer->question->status === 'published' && $answer->user_id !== $user->id;
     }
 
     public function accept(User $user, Answer $answer): bool

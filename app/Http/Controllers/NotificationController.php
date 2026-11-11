@@ -21,4 +21,11 @@ class NotificationController extends Controller
 
         return redirect($notification->data['url'] ?? route('notifications.index'));
     }
+
+    public function readAll(Request $request): RedirectResponse
+    {
+        $request->user()->unreadNotifications()->update(['read_at' => now()]);
+
+        return back()->with('success', __('messages.notifications_marked_read'));
+    }
 }

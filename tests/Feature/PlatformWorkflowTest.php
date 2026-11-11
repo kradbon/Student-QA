@@ -8,6 +8,7 @@ use App\Models\Question;
 use App\Models\QuestionAttachment;
 use App\Models\Report;
 use App\Models\User;
+use App\Notifications\PlatformNotification;
 use App\Services\SimilarQuestionService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -40,6 +41,19 @@ class PlatformWorkflowTest extends TestCase
         $this->actingAs($student)->get(route('admin.dashboard'))->assertForbidden();
         $this->get(route('moderator.dashboard'))->assertForbidden();
         $this->get(route('student.dashboard'))->assertOk();
+    }
+
+    public function test_signed_in_home_routes_each_role_to_its_workspace(): void
+    {
+        foreach ([
+            'student' => 'student.dashboard',
+            'moderator' => 'moderator.dashboard',
+            'admin' => 'admin.dashboard',
+        ] as $role => $dashboard) {
+            $this->actingAs(User::factory()->create(['role' => $role]))
+                ->get(route('home'))
+                ->assertRedirect(route($dashboard));
+        }
     }
 
     public function test_student_can_create_update_and_delete_owned_question(): void
@@ -101,11 +115,60 @@ class PlatformWorkflowTest extends TestCase
     public function test_home_student_moderator_and_admin_screens_render(): void
     {
         $question = Question::factory()->create();
-        $this->get(route('home'))->assertOk()->assertSee($question->title);
+        $this->get(route('home'))->assertOk()->assertSee(__('messages.landing_title'));
+        $this->get(route('questions.index'))->assertOk()->assertSee($question->title);
+        $this->get(route('questions.show', $question))->assertOk()->assertSee($question->title);
         $this->actingAs(User::factory()->create(['role' => 'moderator']))->get(route('moderator.dashboard'))->assertOk();
         $this->get(route('moderator.queue'))->assertOk();
         $this->actingAs(User::factory()->create(['role' => 'admin']))->get(route('admin.dashboard'))->assertOk();
         $this->get(route('admin.content.index'))->assertOk();
+    }
+
+    public function test_question_discovery_supports_unanswered_sorting(): void
+    {
+        $answered = Question::factory()->create();
+        Answer::factory()->create(['question_id' => $answered->id]);
+        $unanswered = Question::factory()->create(['title' => 'A distinct question with no answer yet']);
+
+        $response = $this->get(route('questions.index', ['sort' => 'unanswered']))->assertOk();
+        $response->assertSee($unanswered->title)->assertDontSee($answered->title);
+    }
+
+    public function test_question_author_cannot_answer_their_own_question(): void
+    {
+        $author = User::factory()->create();
+        $question = Question::factory()->create(['user_id' => $author->id]);
+
+        $this->actingAs($author)->post(route('answers.store', $question), [
+            'body' => 'This self-answer must be rejected by the server side rules.',
+        ])->assertForbidden();
+        $this->assertDatabaseCount('answers', 0);
+    }
+
+    public function test_only_question_author_can_accept_and_award_goes_to_answer_author(): void
+    {
+        $owner = User::factory()->create();
+        $answerer = User::factory()->create();
+        $other = User::factory()->create();
+        $question = Question::factory()->create(['user_id' => $owner->id]);
+        $answer = Answer::factory()->create(['question_id' => $question->id, 'user_id' => $answerer->id]);
+
+        $this->actingAs($other)->post(route('answers.accept', $answer))->assertForbidden();
+        $this->actingAs($owner)->post(route('answers.accept', $answer))->assertRedirect();
+        $this->assertSame(15, $answerer->fresh()->reputation);
+        $this->assertSame(0, $owner->fresh()->reputation);
+        $this->actingAs($owner)->post(route('answers.accept', $answer))->assertRedirect();
+        $this->assertDatabaseCount('reputation_transactions', 1);
+        $this->assertSame(15, $answerer->fresh()->reputation);
+    }
+
+    public function test_user_can_mark_all_notifications_read(): void
+    {
+        $user = User::factory()->create();
+        $user->notify(new PlatformNotification('Test notice', route('home'), 'test'));
+
+        $this->actingAs($user)->post(route('notifications.read-all'))->assertRedirect();
+        $this->assertDatabaseMissing('notifications', ['notifiable_id' => $user->id, 'read_at' => null]);
     }
 
     public function test_student_can_submit_and_edit_their_answer(): void
