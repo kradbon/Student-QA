@@ -47,8 +47,12 @@ class QuestionController extends Controller
             default => $query->latest(),
         };
 
+        $questions = $query->withCount(['answers' => fn ($builder) => $builder->where('status', 'published')])->paginate(12)->withQueryString();
+
         return view('questions.index', [
-            'questions' => $query->withCount(['answers' => fn ($builder) => $builder->where('status', 'published')])->paginate(12)->withQueryString(),
+            'questions' => $questions,
+            'featuredQuestions' => $questions->getCollection()->take(3),
+            'hotQuestions' => Question::query()->with('category')->withCount(['answers' => fn ($builder) => $builder->where('status', 'published')])->whereIn('status', ['published', 'closed'])->orderByDesc('answers_count')->latest()->take(6)->get(),
             'categories' => Category::where('is_active', true)->orderBy('name')->get(),
             'sort' => $sort,
         ]);

@@ -61,7 +61,9 @@ class PlatformWorkflowTest extends TestCase
         $this->get(route('home'))
             ->assertOk()
             ->assertSee('<html lang="ru">', false)
-            ->assertSee(__('messages.landing_title', [], 'ru'));
+            ->assertSee(__('messages.landing_title', [], 'ru'))
+            ->assertSee(__('messages.register', [], 'ru'))
+            ->assertDontSee(__('messages.workspace', [], 'ru'));
     }
 
     public function test_student_can_create_update_and_delete_owned_question(): void
@@ -238,6 +240,107 @@ class PlatformWorkflowTest extends TestCase
         $this->post(route('moderator.questions.review', [$rejected, 'reject']))->assertRedirect();
         $this->assertDatabaseHas('questions', ['id' => $rejected->id, 'status' => 'rejected']);
         $this->assertDatabaseHas('moderation_logs', ['moderator_id' => $moderator->id, 'action' => 'question_reject']);
+    }
+
+    public function test_moderator_can_suspend_ban_and_restore_student_accounts(): void
+    {
+        $moderator = User::factory()->create(['role' => 'moderator']);
+        $student = User::factory()->create();
+        $this->actingAs($moderator);
+
+        $this->post(route('moderator.users.action', $student), ['decision' => 'suspend', 'note' => 'Repeated abuse'])
+            ->assertRedirect();
+        $this->assertSame('suspended', $student->fresh()->status);
+        $this->post(route('moderator.users.action', $student), ['decision' => 'restore'])->assertRedirect();
+        $this->assertSame('active', $student->fresh()->status);
+        $this->post(route('moderator.users.action', $student), ['decision' => 'ban'])->assertRedirect();
+        $this->assertSame('blocked', $student->fresh()->status);
+        $this->post(route('moderator.users.action', $student), ['decision' => 'restore'])->assertRedirect();
+        $this->assertSame('active', $student->fresh()->status);
+        $this->assertDatabaseHas('moderation_logs', ['moderatable_type' => User::class, 'moderatable_id' => $student->id, 'action' => 'account_ban']);
+        $this->assertDatabaseCount('notifications', 4);
+    }
+
+    public function test_moderator_cannot_suspend_another_moderator_or_self(): void
+    {
+        $moderator = User::factory()->create(['role' => 'moderator']);
+        $otherModerator = User::factory()->create(['role' => 'moderator']);
+        $this->actingAs($moderator);
+        $this->post(route('moderator.users.action', $otherModerator), ['decision' => 'ban'])->assertForbidden();
+        $this->post(route('moderator.users.action', $moderator), ['decision' => 'ban'])->assertForbidden();
+        $this->assertSame('active', $otherModerator->fresh()->status);
+        $this->assertDatabaseCount('moderation_logs', 0);
+    }
+
+    public function test_only_students_see_and_submit_content_reports(): void
+    {
+        $question = Question::factory()->create(['status' => 'published']);
+        $moderator = User::factory()->create(['role' => 'moderator']);
+        $this->actingAs($moderator)->get(route('questions.show', $question))->assertOk()->assertDontSee(__('messages.report'));
+        $this->post(route('reports.store'), ['type' => 'question', 'id' => $question->id, 'reason' => 'spam'])->assertForbidden();
+        $this->actingAs(User::factory()->create())->get(route('questions.show', $question))->assertSee(__('messages.report'));
+    }
+
+    public function test_moderators_see_question_and_answer_authors_with_account_action_links(): void
+    {
+        $author = User::factory()->create(['name' => 'Question Owner']);
+        $answerer = User::factory()->create(['name' => 'Answer Author']);
+        $moderator = User::factory()->create(['role' => 'moderator']);
+        $question = Question::factory()->create(['user_id' => $author->id, 'status' => 'published']);
+        Answer::factory()->create(['question_id' => $question->id, 'user_id' => $answerer->id]);
+
+        $response = $this->actingAs($moderator)->get(route('questions.show', $question))->assertOk();
+        $response->assertSee('Question Owner')->assertSee('Answer Author');
+        $response->assertSee(route('moderator.users.index', ['q' => $answerer->email]), false);
+    }
+
+    public function test_moderator_can_hide_and_restore_published_question(): void
+    {
+        $moderator = User::factory()->create(['role' => 'moderator']);
+        $author = User::factory()->create();
+        $question = Question::factory()->create(['user_id' => $author->id, 'status' => 'published']);
+
+        $this->actingAs($moderator)->get(route('moderator.content'))->assertOk()->assertSee($question->title);
+        $this->post(route('moderator.content.action', [$question, 'hide']), ['note' => 'Policy violation'])->assertRedirect();
+        $this->assertSame('hidden', $question->fresh()->status);
+        $this->post(route('moderator.content.action', [$question, 'restore']))->assertRedirect();
+        $this->assertSame('published', $question->fresh()->status);
+        $this->assertDatabaseHas('moderation_logs', ['moderatable_id' => $question->id, 'action' => 'question_hide']);
+    }
+
+    public function test_moderator_can_restore_hidden_answer_and_revoke_its_acceptance_cleanly(): void
+    {
+        $owner = User::factory()->create();
+        $answerer = User::factory()->create();
+        $moderator = User::factory()->create(['role' => 'moderator']);
+        $question = Question::factory()->create(['user_id' => $owner->id]);
+        $answer = Answer::factory()->create(['question_id' => $question->id, 'user_id' => $answerer->id]);
+        $this->actingAs($owner)->post(route('answers.accept', $answer))->assertRedirect();
+        $this->assertSame(15, $answerer->fresh()->reputation);
+
+        $this->actingAs($moderator)->post(route('moderator.answers.action', [$answer, 'hide']), ['note' => 'Needs review'])->assertRedirect();
+        $this->assertSame('hidden', $answer->fresh()->status);
+        $this->assertNull($question->fresh()->accepted_answer_id);
+        $this->assertSame(0, $answerer->fresh()->reputation);
+        $this->post(route('moderator.answers.action', [$answer, 'restore']))->assertRedirect();
+        $this->assertSame('published', $answer->fresh()->status);
+        $this->assertDatabaseHas('moderation_logs', ['moderatable_id' => $answer->id, 'action' => 'answer_hide']);
+    }
+
+    public function test_user_can_update_profile_password_and_avatar(): void
+    {
+        Storage::fake('public');
+        $user = User::factory()->create(['password' => 'old-password']);
+        $this->actingAs($user)->put(route('profile.update'), [
+            'name' => 'Updated Student', 'email' => $user->email, 'locale' => 'ru',
+            'current_password' => 'old-password', 'password' => 'new-password-123',
+            'password_confirmation' => 'new-password-123', 'avatar' => UploadedFile::fake()->image('profile.png'),
+        ])->assertRedirect();
+
+        $user->refresh();
+        $this->assertSame('Updated Student', $user->name);
+        $this->assertTrue(password_verify('new-password-123', $user->password));
+        Storage::disk('public')->assertExists($user->avatar_path);
     }
 
     public function test_moderator_can_hide_reported_answer_and_remove_its_vote_reputation(): void

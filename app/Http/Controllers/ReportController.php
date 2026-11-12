@@ -14,6 +14,8 @@ class ReportController extends Controller
 {
     public function store(Request $request): RedirectResponse
     {
+        abort_unless($request->user()->isRole('student'), 403);
+
         $data = $request->validate([
             'type' => ['required', Rule::in(['question', 'answer'])],
             'id' => ['required', 'integer'],

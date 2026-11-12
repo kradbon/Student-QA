@@ -5,37 +5,40 @@
     <title>@yield('title', __('messages.app_name')) · Student Q&amp;A</title>
     @unless(app()->environment('testing')) @vite(['resources/css/app.css', 'resources/js/app.js']) @endunless
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
-<header class="border-b border-slate-200 bg-white">
-    <nav class="mx-auto flex min-h-16 max-w-7xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3 sm:px-6 lg:px-8" aria-label="{{ __('messages.main_navigation') }}">
-        <a href="{{ route('home') }}" class="mr-auto flex items-center gap-2 text-base font-bold tracking-tight text-slate-950"><span class="grid size-8 place-items-center rounded-lg bg-slate-950 text-[10px] font-bold text-white" aria-hidden="true">Q&amp;A</span>Student Q&amp;A</a>
-        <a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('questions.index') }}">{{ __('messages.questions') }}</a>
-        @auth
-            <a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('dashboard') }}">{{ __('messages.dashboard') }}</a>
-            @if(auth()->user()->isRole('moderator', 'admin'))<a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('moderator.queue') }}">{{ __('messages.moderation') }}</a>@endif
-            @if(auth()->user()->isRole('admin'))<a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('admin.dashboard') }}">{{ __('messages.admin_dashboard') }}</a>@endif
-            <a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('notifications.index') }}">{{ __('messages.notifications') }}@if($unreadNotificationCount = auth()->user()->unreadNotifications()->count())<span class="ml-1 rounded-full bg-orange-700 px-1.5 py-0.5 text-xs text-white">{{ $unreadNotificationCount }}</span>@endif</a>
-            @if(auth()->user()->isRole('student'))<a class="btn-primary min-h-10 px-3 py-2 text-sm" href="{{ route('questions.create') }}">{{ __('messages.ask_question') }}</a>@endif
-            <a class="text-sm font-semibold text-slate-700 hover:text-slate-950" href="{{ route('profile.edit') }}">{{ auth()->user()->name }}</a>
-            <form method="post" action="{{ route('logout') }}">@csrf<button class="text-sm font-medium text-slate-600 hover:text-slate-950">{{ __('messages.logout') }}</button></form>
-        @else
-            <a class="text-sm font-medium text-slate-600 hover:text-slate-950" href="{{ route('login') }}">{{ __('messages.login') }}</a>
-            <a class="btn-primary min-h-10 px-3 py-2 text-sm" href="{{ route('register') }}">{{ __('messages.register') }}</a>
-        @endauth
-        <form method="post" action="{{ route('language.update') }}">@csrf
-            <label class="sr-only" for="locale">{{ __('messages.language') }}</label>
-            <select id="locale" name="locale" onchange="this.form.submit()" class="min-h-9 rounded-lg border px-2 py-1 text-sm">
-                @foreach(['tj' => 'Тоҷикӣ', 'ru' => 'Русский', 'en' => 'English'] as $code => $label)<option value="{{ $code }}" @selected(app()->getLocale() === $code)>{{ $label }}</option>@endforeach
-            </select>
-        </form>
-    </nav>
+<body class="min-h-screen text-slate-900 antialiased">
+@php($publicLanding = request()->routeIs('home') && auth()->guest())
+<header class="sticky top-0 z-30 border-b border-neutral-800 bg-neutral-950 text-white shadow-sm">
+    <div class="mx-auto flex h-[60px] max-w-[1800px] items-center gap-5 px-4 sm:px-6 lg:px-8">
+        <a href="{{ route('questions.index') }}" class="flex shrink-0 items-center gap-3 font-bold tracking-tight text-white"><span class="grid size-9 place-items-center rounded-lg bg-orange-500 text-[10px] font-extrabold text-white">Q&amp;A</span><span>Students QA</span></a>
+        @if($publicLanding)
+            <nav class="ml-auto hidden items-center gap-2 sm:flex" aria-label="{{ __('messages.main_navigation') }}"><a class="rounded-lg px-3 py-2 text-sm font-medium text-slate-100 hover:bg-white/10" href="{{ route('questions.index') }}">{{ __('messages.questions') }}</a><a class="rounded-lg px-3 py-2 text-sm font-medium text-slate-100 hover:bg-white/10" href="{{ route('login') }}">{{ __('messages.login') }}</a><a class="btn-primary min-h-10 px-4 py-2 text-sm" href="{{ route('register') }}">{{ __('messages.register') }}</a></nav>
+            <details class="relative ml-auto sm:hidden"><summary class="grid size-10 cursor-pointer list-none place-items-center rounded-lg border border-slate-300 text-lg text-slate-800" aria-label="{{ __('messages.open_navigation') }}">☰</summary><nav class="absolute right-0 mt-2 grid w-48 gap-1 rounded-xl border border-slate-200 bg-white p-2 shadow-lg" aria-label="{{ __('messages.main_navigation') }}"><a class="rounded-lg px-3 py-2 text-sm text-slate-800 hover:bg-slate-100" href="{{ route('questions.index') }}">{{ __('messages.questions') }}</a><a class="rounded-lg px-3 py-2 text-sm text-slate-800 hover:bg-slate-100" href="{{ route('login') }}">{{ __('messages.login') }}</a><a class="rounded-lg px-3 py-2 text-sm text-slate-800 hover:bg-slate-100" href="{{ route('register') }}">{{ __('messages.register') }}</a></nav></details>
+        @endif
+        <form method="get" action="{{ route('questions.index') }}" class="mx-auto hidden w-full max-w-2xl lg:block"><label class="relative block"><span class="sr-only">{{ __('messages.search') }}</span><svg class="pointer-events-none absolute left-3.5 top-1/2 size-5 -translate-y-1/2 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input class="h-11 w-full rounded-lg border border-white/15 bg-white/15 pl-11 pr-4 text-sm text-white placeholder:text-white/70 focus:border-white/40 focus:bg-white/20" type="search" name="q" value="{{ request('q') }}" placeholder="{{ __('messages.search') }}"></label></form>
+        <div class="ml-auto flex items-center gap-3">
+            @auth
+                @if(auth()->user()->isRole('student'))<details class="relative hidden sm:block"><summary class="flex h-10 cursor-pointer list-none items-center gap-2 rounded-lg border border-white/30 px-3 text-sm font-semibold hover:bg-white/10"><span aria-hidden="true">+</span>{{ __('messages.ask_question') }}<span aria-hidden="true">⌄</span></summary><div class="absolute right-0 mt-2 w-48 rounded-lg border border-slate-200 bg-white p-1.5 text-slate-800 shadow-xl"><a class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100" href="{{ route('student.questions.create') }}">{{ __('messages.ask_question') }}</a></div></details>@endif
+                <a href="{{ route('notifications.index') }}" class="relative grid size-10 place-items-center rounded-lg text-white hover:bg-white/10" aria-label="{{ __('messages.notifications') }}"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>@if($unreadCount = auth()->user()->unreadNotifications()->count())<span class="absolute right-1 top-1 size-2.5 rounded-full border-2 border-neutral-950 bg-orange-400"></span>@endif</a>
+                <a href="{{ route('community.badges') }}" class="hidden size-10 place-items-center rounded-lg text-white hover:bg-white/10 sm:grid" aria-label="{{ __('messages.badges') }}"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v4a5 5 0 0 1-10 0V4Zm0 2H4v2a4 4 0 0 0 4 4m9-6h3v2a4 4 0 0 1-4 4"/><path d="m12 5 1 2 2 .3-1.5 1.5.4 2.2-1.9-1-1.9 1 .4-2.2L9 7.3l2-.3 1-2Z"/></svg></a>
+                <details class="relative"><summary class="flex cursor-pointer list-none items-center gap-2 rounded-full p-1 hover:bg-white/10"><x-user-avatar :user="auth()->user()" size="sm"/><span class="hidden max-w-28 truncate text-sm font-semibold md:inline">{{ auth()->user()->name }}</span></summary><div class="absolute right-0 mt-2 w-52 rounded-lg border border-slate-200 bg-white p-1.5 text-slate-800 shadow-xl"><a class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100" href="{{ route('profile.edit') }}">{{ __('messages.profile') }}</a>@if(auth()->user()->isRole('student'))<a class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100" href="{{ route('student.questions') }}">{{ __('messages.my_questions') }}</a>@endif<a class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100" href="{{ route('settings') }}">{{ __('messages.settings') }}</a><form method="post" action="{{ route('logout') }}">@csrf<button class="block w-full rounded-md px-3 py-2 text-left text-sm hover:bg-slate-100">{{ __('messages.logout') }}</button></form></div></details>
+            @endauth
+            <form method="post" action="{{ route('language.update') }}">@csrf<label class="sr-only" for="locale">{{ __('messages.language') }}</label><select id="locale" name="locale" onchange="this.form.submit()" class="min-h-9 rounded-lg border border-white/25 bg-white/10 px-2 py-1 text-sm text-white">@foreach(['tj' => __('messages.language_tajik'), 'ru' => __('messages.language_russian'), 'en' => 'English'] as $code => $label)<option class="text-slate-900" value="{{ $code }}" @selected(app()->getLocale() === $code)>{{ $label }}</option>@endforeach</select></form>
+            @unless($publicLanding)<details class="relative lg:hidden"><summary class="grid size-10 cursor-pointer list-none place-items-center rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-50" aria-label="{{ __('messages.open_navigation') }}"><span class="text-lg" aria-hidden="true">☰</span></summary><div class="absolute right-0 mt-2 max-h-[75vh] w-72 overflow-y-auto rounded-xl border border-slate-200 bg-white p-3 shadow-xl">@include('layouts.navigation')</div></details>@endunless
+        </div>
+    </div>
 </header>
-<main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-    @if(session('success'))<div class="mb-5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm font-medium text-orange-900" role="status">{{ session('success') }}</div>@endif
-    @if(session('error'))<div class="mb-5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm font-medium text-orange-900" role="alert">{{ session('error') }}</div>@endif
-    @if($errors->any())<div class="mb-5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-900" role="alert"><p class="font-semibold">{{ __('messages.form_errors') }}</p><ul class="mt-2 list-inside list-disc">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
-    @yield('content')
-</main>
-<footer class="mt-12 border-t border-slate-200 bg-white"><div class="mx-auto flex max-w-7xl flex-wrap justify-between gap-3 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:px-8"><span>Student Q&amp;A · Variant 24</span><a class="hover:text-slate-900" href="{{ route('questions.index') }}">{{ __('messages.questions') }}</a></div></footer>
+<div class="mx-auto flex max-w-[1800px] items-start lg:min-h-[calc(100vh-3.75rem)]">
+    @unless($publicLanding)<aside class="sticky top-[60px] hidden h-[calc(100vh-3.75rem)] w-[230px] shrink-0 overflow-y-auto border-r border-slate-200 bg-white px-4 py-6 lg:block">@include('layouts.navigation')</aside>@endunless
+    <div class="min-w-0 flex-1">
+        <main class="mx-auto min-h-[calc(100vh-3.75rem)] max-w-[1600px] px-4 py-7 sm:px-6 lg:px-8 lg:py-8">
+            <form method="get" action="{{ route('questions.index') }}" class="mb-5 lg:hidden"><label class="relative block"><span class="sr-only">{{ __('messages.search') }}</span><svg class="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input class="min-h-11 w-full border-slate-300 pl-10" type="search" name="q" value="{{ request('q') }}" placeholder="{{ __('messages.search') }}"></label></form>
+            @if(session('success'))<div class="mb-5 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm font-medium text-orange-950" role="status">{{ session('success') }}</div>@endif
+            @if(session('error'))<div class="mb-5 rounded-lg border border-orange-300 bg-orange-50 px-4 py-3 text-sm font-medium text-orange-950" role="alert">{{ session('error') }}</div>@endif
+            @if($errors->any())<div class="mb-5 rounded-lg border border-orange-300 bg-orange-50 px-4 py-3 text-sm text-orange-950" role="alert"><p class="font-semibold">{{ __('messages.form_errors') }}</p><ul class="mt-2 list-inside list-disc">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+            @yield('content')
+        </main>
+        <footer class="mt-12 border-t border-slate-200 bg-white"><div class="mx-auto flex max-w-7xl flex-wrap justify-between gap-3 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:px-8"><span>Student Q&amp;A · Variant 24</span><a class="hover:text-slate-950" href="{{ route('questions.index') }}">{{ __('messages.questions') }}</a></div></footer>
+    </div>
+</div>
 </body>
 </html>

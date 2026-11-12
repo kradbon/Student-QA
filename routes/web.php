@@ -10,6 +10,7 @@ use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ModerationController;
 use App\Http\Controllers\NotificationController;
@@ -22,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', LandingController::class)->name('home');
 Route::get('/questions', [QuestionController::class, 'index'])->name('questions.index');
+Route::get('/tags', [CommunityController::class, 'tags'])->name('community.tags');
+Route::get('/users', [CommunityController::class, 'users'])->name('community.users');
+Route::get('/badges', [CommunityController::class, 'badges'])->name('community.badges');
 Route::get('/questions/similar', [QuestionController::class, 'similar'])->middleware(['auth', 'throttle:30,1'])->name('questions.similar');
 Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
 Route::post('/language', function (Request $request) {
@@ -45,12 +49,15 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/settings', fn () => redirect()->route('profile.edit'))->name('settings');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/student/dashboard', StudentDashboardController::class)->middleware('role:student')->name('student.dashboard');
+    Route::get('/student/questions/create', [QuestionController::class, 'create'])->middleware('role:student')->name('student.questions.create');
     Route::get('/student/questions', [StudentDashboardController::class, 'questions'])->middleware('role:student')->name('student.questions');
     Route::get('/student/answers', [StudentDashboardController::class, 'answers'])->middleware('role:student')->name('student.answers');
 
     Route::get('/questions/create', [QuestionController::class, 'create'])->middleware('role:student')->name('questions.create');
+    Route::get('/ask', [QuestionController::class, 'create'])->middleware('role:student')->name('questions.ask');
     Route::resource('questions', QuestionController::class)->except(['create', 'index', 'show']);
     Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->middleware('throttle:10,1')->name('answers.store');
     Route::put('/answers/{answer}', [AnswerController::class, 'update'])->name('answers.update');
@@ -70,10 +77,18 @@ Route::middleware('auth')->group(function (): void {
 Route::prefix('moderator')->name('moderator.')->middleware(['auth', 'role:moderator,admin'])->group(function (): void {
     Route::get('/', [ModerationController::class, 'dashboard'])->name('dashboard');
     Route::get('/queue', [ModerationController::class, 'queue'])->name('queue');
+    Route::get('/content', [ModerationController::class, 'content'])->name('content');
     Route::post('/questions/{question}/{decision}', [ModerationController::class, 'question'])->name('questions.review');
+    Route::post('/content/{question}/{decision}', [ModerationController::class, 'contentAction'])->name('content.action');
+    Route::post('/answers/{answer}/{decision}', [ModerationController::class, 'answerAction'])->name('answers.action');
     Route::post('/reports/{report}/{decision}', [ModerationController::class, 'report'])->name('reports.review');
     Route::get('/history', [ModerationController::class, 'history'])->name('history');
+    Route::get('/users', [ModerationController::class, 'users'])->name('users.index');
+    Route::post('/users/{user}/action', [ModerationController::class, 'account'])->name('users.action');
 });
+
+Route::get('/review', fn () => redirect()->route('moderator.queue'))
+    ->middleware(['auth', 'role:moderator,admin'])->name('review');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function (): void {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');

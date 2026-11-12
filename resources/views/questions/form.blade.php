@@ -2,7 +2,7 @@
 @section('title', $question->exists ? __('messages.edit_question') : __('messages.ask_question'))
 @section('content')
 <div class="mx-auto max-w-3xl">
-    <h1 class="text-3xl font-black">{{ $question->exists ? __('messages.edit_question') : __('messages.ask_question') }}</h1>
+    <h1 class="text-2xl font-semibold tracking-tight">{{ $question->exists ? __('messages.edit_question') : __('messages.ask_question') }}</h1>
     <p class="mt-2 text-slate-600">{{ __('messages.question_help') }}</p>
     <form method="post" enctype="multipart/form-data" action="{{ $question->exists ? route('questions.update', $question) : route('questions.store') }}" class="mt-6 space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         @csrf @if($question->exists) @method('PUT') @endif
