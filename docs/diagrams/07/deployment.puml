@@ -1,0 +1,51 @@
+
+@startuml
+title Student Q&A Platform - Deployment Diagram
+
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+
+node "Student / Moderator / Admin Device" as client {
+    artifact "Web Browser\n(Chrome / Firefox)" as browser
+}
+
+node "Application Server\nUbuntu 24.04 LTS" as app {
+
+    node "Nginx Web Server" as nginx {
+        artifact "public/index.php" as front
+        artifact "public/build\n(CSS / JavaScript)" as assets
+    }
+
+    node "PHP Runtime\nPHP-FPM 8.2+" as php {
+        artifact "Laravel Application\napp/, routes/, resources/" as laravel
+        artifact ".env\n(database and app config)" as env
+        artifact "vendor/" as vendor
+    }
+
+    folder "storage/app/public\nUploaded question files" as uploads
+}
+
+database "MySQL 8.0+\nstudent_qa_platform" as db {
+    artifact "12 relational tables\nPK / FK / indexes" as schema
+}
+
+browser --> nginx : HTTPS :443
+nginx --> php : FastCGI
+php --> db : MySQL TCP :3306
+php --> uploads : Read / write files
+
+note right of db
+    Character set: utf8mb4
+    Engine: InnoDB
+    External database access:
+    disabled; application server only
+end note
+
+note bottom of app
+    Only public/ is exposed by the web server.
+    .env, app/, database/ and storage/
+    must not be directly accessible over HTTP.
+end note
+
+@enduml

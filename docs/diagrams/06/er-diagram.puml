@@ -1,0 +1,144 @@
+
+@startuml
+title Student Q&A Platform — ER Diagram
+hide circle
+skinparam linetype ortho
+skinparam entity {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    FontColor #0F172A
+}
+
+entity users {
+  * id : BIGINT <<PK>>
+  --
+  * username : VARCHAR(50) <<UQ>>
+  * email : VARCHAR(120) <<UQ>>
+  * password_hash : VARCHAR(255)
+  * full_name : VARCHAR(150)
+  * role : ENUM(student, moderator, admin)
+  * status : ENUM(active, blocked)
+  * reputation : INT
+  * created_at : DATETIME
+}
+
+entity categories {
+  * id : BIGINT <<PK>>
+  --
+  * name : VARCHAR(100) <<UQ>>
+  description : TEXT
+}
+
+entity questions {
+  * id : BIGINT <<PK>>
+  --
+  * user_id : BIGINT <<FK>>
+  * category_id : BIGINT <<FK>>
+  * title : VARCHAR(200)
+  * body : TEXT
+  * status : ENUM(pending, published, rejected, closed)
+  * created_at : DATETIME
+  updated_at : DATETIME
+}
+
+entity answers {
+  * id : BIGINT <<PK>>
+  --
+  * question_id : BIGINT <<FK>>
+  * user_id : BIGINT <<FK>>
+  * body : TEXT
+  * created_at : DATETIME
+  updated_at : DATETIME
+}
+
+entity accepted_answers {
+  * question_id : BIGINT <<PK, FK>>
+  --
+  * answer_id : BIGINT <<FK, UQ>>
+  * accepted_at : DATETIME
+}
+
+entity tags {
+  * id : BIGINT <<PK>>
+  --
+  * name : VARCHAR(50) <<UQ>>
+}
+
+entity question_tags {
+  * question_id : BIGINT <<PK, FK>>
+  * tag_id : BIGINT <<PK, FK>>
+}
+
+entity votes {
+  * id : BIGINT <<PK>>
+  --
+  * user_id : BIGINT <<FK>>
+  * answer_id : BIGINT <<FK>>
+  * vote_type : ENUM(upvote, downvote)
+  * created_at : DATETIME
+  --
+  UQ(user_id, answer_id)
+}
+
+entity reputation_transactions {
+  * id : BIGINT <<PK>>
+  --
+  * user_id : BIGINT <<FK>>
+  answer_id : BIGINT <<FK>>
+  * points : INT
+  * reason : ENUM(best_answer, vote_bonus, moderation)
+  * created_at : DATETIME
+}
+
+entity attachments {
+  * id : BIGINT <<PK>>
+  --
+  * question_id : BIGINT <<FK>>
+  * file_name : VARCHAR(255)
+  * file_path : VARCHAR(500)
+  * mime_type : VARCHAR(100)
+  * uploaded_at : DATETIME
+}
+
+entity notifications {
+  * id : BIGINT <<PK>>
+  --
+  * user_id : BIGINT <<FK>>
+  * message : TEXT
+  * type : VARCHAR(50)
+  * is_read : BOOLEAN
+  * created_at : DATETIME
+}
+
+entity moderation_logs {
+  * id : BIGINT <<PK>>
+  --
+  * moderator_id : BIGINT <<FK>>
+  * question_id : BIGINT <<FK>>
+  action : ENUM(approve, reject, delete)
+  reason : TEXT
+  * created_at : DATETIME
+}
+
+' One-to-many relationships
+users ||--o{ questions : creates
+categories ||--o{ questions : contains
+questions ||--o{ answers : has
+users ||--o{ answers : writes
+users ||--o{ votes : casts
+answers ||--o{ votes : receives
+users ||--o{ reputation_transactions : earns
+answers |o--o{ reputation_transactions : source
+users ||--o{ notifications : receives
+users ||--o{ moderation_logs : performs
+questions ||--o{ attachments : contains
+
+' One-to-one optional relationships
+questions ||--o| accepted_answers : has
+answers ||--o| accepted_answers : selected_as
+
+' Many-to-many relationship through junction table
+questions ||--o{ question_tags
+tags ||--o{ question_tags
+
+@enduml
