@@ -11,7 +11,7 @@
 - **admin** — корбар/role/status, category, setting ва export-ро идора мекунад.
 - **Guest** — actor-и беруна барои дидани саҳифаҳои оммавӣ ва сабти ном; role-и база нест.
 
-Дар Laravel role-ҳои student/moderator/admin мавҷуданд; тафсилот дар 01-domain-analysis/01-domain-analysis.md.
+Дар Laravel role-ҳои student/moderator/admin мавҷуданд; тафсилот дар [таҳлили домен](../01-domain-analysis/01-domain-analysis.md).
 
 ## 3. Талаботи функсионалӣ
 
@@ -111,9 +111,9 @@ MVP: FR-01–FR-04, FR-07–FR-14 ва FR-18. Яъне authentication, проф�
 
 ## 9. Манбаъҳои талабот ва татбиқ
 
-- Таҳлили домен: 01-domain-analysis/01-domain-analysis.md.
-- Муқоисаи аналогҳо: 02-comparison-matrix/02-comparison-matrix.md.
-- Татбиқ: routes/web.php, app/Http/Controllers, app/Models, app/Services.
-- Схемаи runtime: database/migrations/2026_11_09_220000_create_platform_tables.php.
-- Санҷишҳои workflow: tests/Feature/PlatformWorkflowTest.php.
+- Таҳлили домен: [01-domain-analysis.md](../01-domain-analysis/01-domain-analysis.md).
+- Муқоисаи аналогҳо: [02-comparison-matrix.md](../02-comparison-matrix/02-comparison-matrix.md).
+- Татбиқ: [routes/web.php](../../routes/web.php), app/Http/Controllers, app/Models, app/Services.
+- Схемаи runtime: [migration-и платформа](../../database/migrations/2026_11_09_220000_create_platform_tables.php).
+- Санҷишҳои workflow: [PlatformWorkflowTest.php](../../tests/Feature/PlatformWorkflowTest.php).
 
