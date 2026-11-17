@@ -1,0 +1,4 @@
+[deploy]
+# Temporary mode while the Railway MySQL service is unavailable.
+# Remove this override and restore DB_CONNECTION=mysql when MySQL is ready.
+startCommand = 'export DB_CONNECTION=sqlite DB_DATABASE="$PWD/database/database.sqlite" SESSION_DRIVER=file CACHE_STORE=file QUEUE_CONNECTION=sync; php artisan migrate --force --seed && exec php artisan serve --host 0.0.0.0 --port "$PORT"'

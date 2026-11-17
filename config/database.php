@@ -17,6 +17,8 @@ return [
     |
     */
 
+    // SQLite is the temporary deployment default while the hosted MySQL
+    // service is unavailable. Set DB_CONNECTION=mysql to restore MySQL.
     'default' => env('DB_CONNECTION', 'sqlite'),
 
     /*
