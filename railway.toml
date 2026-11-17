@@ -1,3 +1,6 @@
+[build]
+buildCommand = 'npm ci && npm run build'
+
 [deploy]
 # Temporary mode while the Railway MySQL service is unavailable.
 # Remove this override and restore DB_CONNECTION=mysql when MySQL is ready.
