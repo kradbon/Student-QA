@@ -26,7 +26,6 @@ Route::get('/questions', [QuestionController::class, 'index'])->name('questions.
 Route::get('/tags', [CommunityController::class, 'tags'])->name('community.tags');
 Route::get('/users', [CommunityController::class, 'users'])->name('community.users');
 Route::get('/leaderboard', [CommunityController::class, 'leaderboard'])->name('community.leaderboard');
-Route::get('/badges', [CommunityController::class, 'badges'])->name('community.badges');
 Route::get('/questions/similar', [QuestionController::class, 'similar'])->middleware(['auth', 'throttle:30,1'])->name('questions.similar');
 Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
 Route::post('/language', function (Request $request) {

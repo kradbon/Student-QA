@@ -84,10 +84,4 @@ class CommunityController extends Controller
         return view('community.users', ['users' => $query->orderByDesc('reputation')->orderBy('name')->paginate(24)->withQueryString()]);
     }
 
-    public function badges(): View
-    {
-        return view('community.badges', [
-            'contributors' => User::query()->where('status', 'active')->orderByDesc('reputation')->orderBy('name')->take(12)->get(),
-        ]);
-    }
 }

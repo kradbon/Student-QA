@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', __('messages.login'))
 @section('content')
-<div class="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+<div class="auth-panel mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
     <h1 class="text-2xl font-bold">{{ __('messages.welcome_back') }}</h1>
     <form method="post" action="{{ route('login') }}" class="mt-6 space-y-4">@csrf
         <label class="block text-sm font-medium text-slate-800">{{ __('messages.email') }}<input class="mt-1.5 min-h-11 w-full rounded-lg border px-3.5 py-2.5" type="email" name="email" value="{{ old('email') }}" required autocomplete="email"></label>
