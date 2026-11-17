@@ -97,4 +97,5 @@ return [
     'total_points' => 'Total points', 'no_students_ranked' => 'No active students to rank yet.',
     'tier_bronze' => 'Bronze', 'tier_silver' => 'Silver', 'tier_gold' => 'Gold',
     'points_to_next_tier' => ':points points to the next tier', 'highest_tier_reached' => 'Highest tier reached',
+    'toggle_theme' => 'Switch color theme',
 ];

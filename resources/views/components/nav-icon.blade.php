@@ -9,6 +9,7 @@
         @case('moderation')<path d="m12 3 8 3v5c0 5-3.4 8-8 10-4.6-2-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/>@break
         @case('users')<path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM17 11a4 4 0 0 0 0-8M21 21v-2a4 4 0 0 0-3-3.87"/>@break
         @case('history')<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2M4 5v4h4"/>@break
+        @case('leaderboard')<path d="M4 20h16M6 17v-4h3v4m3 0V7h3v10m3 0v-7h3v7"/><path d="m5 8 4-3 4 1 5-4"/>@break
         @case('tag')<path d="M20 13 13 20a2 2 0 0 1-3 0l-6-6V4h10l6 6a2 2 0 0 1 0 3Z"/><circle cx="8" cy="8" r="1"/>@break
         @case('settings')<circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.1.9-1.1 1.9-1.4-.5a8 8 0 0 1-1.5.9l-.2 1.5h-2.2l-.3-1.5a8 8 0 0 1-1.6-.9l-1.4.5-1.1-1.9 1.1-.9a7 7 0 0 1 0-1.8l-1.1-.9 1.1-1.9 1.4.5a8 8 0 0 1 1.6-.9l.3-1.5h2.2l.2 1.5a8 8 0 0 1 1.5.9l1.4-.5 1.1 1.9-1.1.9a7 7 0 0 1-.1 1.7Z"/>@break
         @case('content')<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/>@break

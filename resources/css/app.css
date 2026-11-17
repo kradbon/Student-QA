@@ -775,3 +775,166 @@
     .page-leaderboard .leaderboard-header { border-color: #303138; background: radial-gradient(ellipse at 94% 0%, rgb(249 115 22 / 9%), transparent 18rem), #1b1c21; }
     body.text-slate-900 { color: #f0f0f2 !important; }
 }
+
+.theme-toggle {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 22%);
+    border-radius: .75rem;
+    background: rgb(255 255 255 / 7%);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color .16s ease, border-color .16s ease, transform .16s ease;
+}
+.theme-toggle:hover { border-color: rgb(255 255 255 / 40%); background: rgb(255 255 255 / 13%); transform: translateY(-1px); }
+.theme-toggle svg { width: 1.15rem; height: 1.15rem; }
+.theme-toggle__sun { display: none; }
+html[data-theme="dark"] .theme-toggle__moon { display: none; }
+html[data-theme="dark"] .theme-toggle__sun { display: block; }
+
+/* Theme overrides are late utility-layer rules so the selected mode wins over page utility classes. */
+@layer utilities {
+    html[data-theme="dark"] { color-scheme: dark; }
+    html[data-theme="dark"] body { background: #000 !important; color: #f5f5f5 !important; }
+    html[data-theme="dark"] .app-main { background: #000 !important; }
+    html[data-theme="dark"] .app-sidebar,
+    html[data-theme="dark"] footer,
+    html[data-theme="dark"] .app-header { background: #000 !important; border-color: #222 !important; }
+    html[data-theme="dark"] .app-main .surface,
+    html[data-theme="dark"] main article.rounded-2xl.border,
+    html[data-theme="dark"] main .divide-y.rounded-2xl.border,
+    html[data-theme="dark"] main .leaderboard-table-wrap,
+    html[data-theme="dark"] main .podium-card,
+    html[data-theme="dark"] main .my-achievement,
+    html[data-theme="dark"] main .landing-stats,
+    html[data-theme="dark"] main .landing-leaders li,
+    html[data-theme="dark"] main .landing-features article,
+    html[data-theme="dark"] main .landing-preview,
+    html[data-theme="dark"] main .metric-card,
+    html[data-theme="dark"] main .page-questions aside section { background: #050505 !important; border-color: #282828 !important; color: #f5f5f5 !important; box-shadow: none !important; }
+    html[data-theme="dark"] main .landing-hero,
+    html[data-theme="dark"] main .landing-cta,
+    html[data-theme="dark"] main .dashboard-hero { background: #000 !important; border-color: #282828 !important; box-shadow: none !important; }
+    html[data-theme="dark"] main.page-leaderboard .leaderboard-header { background: #050505 !important; border-color: #282828 !important; }
+    html[data-theme="dark"] main .leaderboard-period,
+    html[data-theme="dark"] main .leaderboard-empty,
+    html[data-theme="dark"] main .leaderboard-mobile-card,
+    html[data-theme="dark"] main .btn-secondary,
+    html[data-theme="dark"] main .reputation-tier,
+    html[data-theme="dark"] main .role-badge,
+    html[data-theme="dark"] main .leaderboard-rank,
+    html[data-theme="dark"] main .vote-controls { background: #050505 !important; border-color: #282828 !important; color: #f1f1f1 !important; }
+    html[data-theme="dark"] main .answer-accepted { background: #050505 !important; border-color: #276344 !important; }
+    html[data-theme="dark"] main .accepted-label,
+    html[data-theme="dark"] main .answer-accepted .post-layout__content > p:first-child { background: #07190e !important; }
+    html[data-theme="dark"] main [class~="bg-white"],
+    html[data-theme="dark"] main [class~="bg-slate-50"],
+    html[data-theme="dark"] main [class~="bg-slate-100"] { background-color: #050505 !important; }
+    html[data-theme="dark"] .app-sidebar nav a:hover,
+    html[data-theme="dark"] .app-sidebar nav button:hover { background: #1b1b1b !important; color: #fff !important; }
+    html[data-theme="dark"] .app-sidebar nav a,
+    html[data-theme="dark"] .app-sidebar nav button { color: #ededed; }
+    html[data-theme="dark"] .app-header details > summary { border-color: #353535 !important; color: #f2f2f2 !important; }
+    html[data-theme="dark"] .app-sidebar nav a.bg-orange-50 { background: #20140c !important; color: #ffb36f !important; border-color: #a94d12 !important; }
+    html[data-theme="dark"] .app-header details > div,
+    html[data-theme="dark"] .app-header details > nav { background: #080808 !important; border-color: #303030 !important; color: #f5f5f5 !important; }
+    html[data-theme="dark"] .app-header details > div a,
+    html[data-theme="dark"] .app-header details > nav a { color: #eee !important; }
+    html[data-theme="dark"] .app-header details > div a:hover,
+    html[data-theme="dark"] .app-header details > nav a:hover { background: #1a1a1a !important; }
+    html[data-theme="dark"] main [class~="text-slate-950"],
+    html[data-theme="dark"] main [class~="text-slate-900"],
+    html[data-theme="dark"] main [class~="text-slate-800"] { color: #f5f5f5 !important; }
+    html[data-theme="dark"] main [class~="text-slate-700"] { color: #dedede !important; }
+    html[data-theme="dark"] main [class~="text-slate-600"],
+    html[data-theme="dark"] main [class~="text-slate-500"] { color: #a6a6a6 !important; }
+    html[data-theme="dark"] main .eyebrow { color: #ffb36f !important; }
+    html[data-theme="dark"] [class~="text-orange-700"],
+    html[data-theme="dark"] [class~="text-orange-800"],
+    html[data-theme="dark"] [class~="text-orange-900"],
+    html[data-theme="dark"] [class~="text-orange-950"],
+    html[data-theme="dark"] [class~="text-blue-700"],
+    html[data-theme="dark"] [class~="text-blue-800"] { color: #ffb36f !important; }
+    html[data-theme="dark"] [class~="bg-orange-50"],
+    html[data-theme="dark"] [class~="bg-blue-50"] { background-color: #20140c !important; }
+    html[data-theme="dark"] [class~="bg-orange-100"],
+    html[data-theme="dark"] [class~="bg-blue-100"] { background-color: #2a1a0e !important; }
+    html[data-theme="dark"] [class~="border-slate-200"],
+    html[data-theme="dark"] [class~="border-slate-300"],
+    html[data-theme="dark"] [class~="border-orange-200"],
+    html[data-theme="dark"] [class~="border-orange-300"] { border-color: #282828 !important; }
+    html[data-theme="dark"] main :is(input, select, textarea) { background: #080808 !important; border-color: #383838 !important; color: #f5f5f5 !important; }
+    html[data-theme="dark"] main :is(input, select, textarea)::placeholder { color: #969696 !important; }
+    html[data-theme="dark"] main table thead { background: #090909 !important; }
+    html[data-theme="dark"] main table tbody tr:hover { background: #151515 !important; }
+    html[data-theme="dark"] main .my-achievement__icon { background: #151515 !important; }
+    html[data-theme="dark"] .theme-toggle { background: #080808; border-color: #383838; }
+
+    html[data-theme="light"] { color-scheme: light; }
+    html[data-theme="light"] body { background: #fff !important; color: #171717 !important; }
+    html[data-theme="light"] .app-main { background: #fff !important; }
+    html[data-theme="light"] .app-sidebar,
+    html[data-theme="light"] footer { background: #fff !important; border-color: #171717 !important; }
+    html[data-theme="light"] main .surface,
+    html[data-theme="light"] main article.rounded-2xl.border,
+    html[data-theme="light"] main .divide-y.rounded-2xl.border,
+    html[data-theme="light"] main .leaderboard-table-wrap,
+    html[data-theme="light"] main .podium-card,
+    html[data-theme="light"] main .my-achievement,
+    html[data-theme="light"] main .landing-stats,
+    html[data-theme="light"] main .landing-leaders li,
+    html[data-theme="light"] main .landing-features article,
+    html[data-theme="light"] main .landing-preview,
+    html[data-theme="light"] main .metric-card,
+    html[data-theme="light"] main .page-questions aside section { background: #fff !important; border-color: #171717 !important; box-shadow: none !important; }
+    html[data-theme="light"] main .landing-hero,
+    html[data-theme="light"] main .landing-cta,
+    html[data-theme="light"] main .dashboard-hero { background: #fff !important; border-color: #171717 !important; box-shadow: none !important; }
+    html[data-theme="light"] main .leaderboard-header { background: #fff !important; border-color: #171717 !important; }
+    html[data-theme="light"] main .leaderboard-period,
+    html[data-theme="light"] main .leaderboard-empty,
+    html[data-theme="light"] main .leaderboard-mobile-card,
+    html[data-theme="light"] main .btn-secondary,
+    html[data-theme="light"] main .reputation-tier,
+    html[data-theme="light"] main .role-badge,
+    html[data-theme="light"] main .leaderboard-rank,
+    html[data-theme="light"] main .vote-controls { background: #fff !important; border-color: #171717 !important; color: #171717 !important; }
+    html[data-theme="light"] main .landing-hero h1,
+    html[data-theme="light"] main .landing-cta h2,
+    html[data-theme="light"] main .dashboard-hero h1 { color: #171717 !important; }
+    html[data-theme="light"] main .landing-hero .eyebrow,
+    html[data-theme="light"] main .dashboard-hero .eyebrow { color: #c2410c !important; }
+    html[data-theme="light"] main .landing-hero > div:first-child > p:not(.eyebrow),
+    html[data-theme="light"] main .landing-hero > div:first-child > p:last-child,
+    html[data-theme="light"] main .dashboard-hero p:not(.eyebrow) { color: #525252 !important; }
+    html[data-theme="light"] main .landing-hero .btn-secondary { color: #171717 !important; background: #fff !important; border-color: #171717 !important; }
+    html[data-theme="light"] main .answer-accepted { background: #fff !important; border-color: #171717 !important; }
+    html[data-theme="light"] main [class~="bg-white"],
+    html[data-theme="light"] main [class~="bg-slate-50"],
+    html[data-theme="light"] main [class~="bg-slate-100"] { background-color: #fff !important; }
+    html[data-theme="light"] main [class*="border"] { border-color: #171717 !important; }
+    html[data-theme="light"] main .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
+    html[data-theme="light"] main .leaderboard-row,
+    html[data-theme="light"] .app-sidebar nav section + section { border-color: #171717 !important; }
+    html[data-theme="light"] main [class~="text-slate-950"],
+    html[data-theme="light"] main [class~="text-slate-900"],
+    html[data-theme="light"] main [class~="text-slate-800"] { color: #171717 !important; }
+    html[data-theme="light"] main [class~="text-slate-700"] { color: #333 !important; }
+    html[data-theme="light"] main [class~="text-slate-600"],
+    html[data-theme="light"] main [class~="text-slate-500"] { color: #5c5c5c !important; }
+    html[data-theme="light"] [class~="text-orange-700"],
+    html[data-theme="light"] [class~="text-orange-800"],
+    html[data-theme="light"] [class~="text-orange-900"],
+    html[data-theme="light"] [class~="text-orange-950"],
+    html[data-theme="light"] [class~="text-blue-700"],
+    html[data-theme="light"] [class~="text-blue-800"] { color: #c2410c !important; }
+    html[data-theme="light"] [class~="bg-orange-50"],
+    html[data-theme="light"] [class~="bg-blue-50"] { background-color: #fff7ed !important; }
+    html[data-theme="light"] [class~="bg-orange-100"],
+    html[data-theme="light"] [class~="bg-blue-100"] { background-color: #ffedd5 !important; }
+    html[data-theme="light"] main :is(input, select, textarea) { background: #fff !important; border-color: #171717 !important; color: #171717 !important; }
+    html[data-theme="light"] .theme-toggle { background: rgb(255 255 255 / 8%); border-color: rgb(255 255 255 / 35%); color: #fff; }
+}

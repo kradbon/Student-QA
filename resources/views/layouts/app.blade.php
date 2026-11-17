@@ -3,6 +3,17 @@
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', __('messages.app_name')) · Student Q&amp;A</title>
+    <script>
+        (() => {
+            try {
+                const saved = localStorage.getItem('student-qa-theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : (prefersDark ? 'dark' : 'light');
+            } catch {
+                document.documentElement.dataset.theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+        })();
+    </script>
     @unless(app()->environment('testing')) @vite(['resources/css/app.css', 'resources/js/app.js']) @endunless
 </head>
 <body class="min-h-screen text-slate-900 antialiased">
@@ -20,11 +31,12 @@
             @auth
                 @if(auth()->user()->isRole('student'))<details class="relative hidden sm:block"><summary class="flex h-10 cursor-pointer list-none items-center gap-2 rounded-lg border border-white/30 px-3 text-sm font-semibold hover:bg-white/10"><span aria-hidden="true">+</span>{{ __('messages.ask_question') }}<span aria-hidden="true">⌄</span></summary><div class="absolute right-0 mt-2 w-48 rounded-lg border border-slate-200 bg-white p-1.5 text-slate-800 shadow-xl"><a class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100" href="{{ route('student.questions.create') }}">{{ __('messages.ask_question') }}</a></div></details>@endif
                 <a href="{{ route('notifications.index') }}" class="relative grid size-10 place-items-center rounded-lg text-white hover:bg-white/10" aria-label="{{ __('messages.notifications') }}"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>@if($unreadCount = auth()->user()->unreadNotifications()->count())<span class="absolute right-1 top-1 size-2.5 rounded-full border-2 border-neutral-950 bg-orange-400"></span>@endif</a>
-                <a href="{{ route('community.leaderboard') }}" class="hidden size-10 place-items-center rounded-lg text-white hover:bg-white/10 sm:grid" aria-label="{{ __('messages.leaderboard') }}"><x-nav-icon name="history" class="text-white" /></a>
+                <a href="{{ route('community.leaderboard') }}" class="hidden size-10 place-items-center rounded-lg text-white hover:bg-white/10 sm:grid" aria-label="{{ __('messages.leaderboard') }}"><x-nav-icon name="leaderboard" class="text-white" /></a>
 
                 <details class="relative"><summary class="flex cursor-pointer list-none items-center gap-2 rounded-full p-1 hover:bg-white/10"><x-user-avatar :user="auth()->user()" size="sm"/><span class="hidden max-w-28 truncate text-sm font-semibold md:inline">{{ auth()->user()->name }}</span></summary><div class="absolute right-0 mt-2 w-52 rounded-lg border border-slate-200 bg-white p-1.5 text-slate-800 shadow-xl"><a class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100" href="{{ route('profile.edit') }}">{{ __('messages.profile') }}</a>@if(auth()->user()->isRole('student'))<a class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100" href="{{ route('student.questions') }}">{{ __('messages.my_questions') }}</a>@endif<a class="block rounded-md px-3 py-2 text-sm hover:bg-slate-100" href="{{ route('settings') }}">{{ __('messages.settings') }}</a><form method="post" action="{{ route('logout') }}">@csrf<button class="block w-full rounded-md px-3 py-2 text-left text-sm hover:bg-slate-100">{{ __('messages.logout') }}</button></form></div></details>
             @endauth
             <form method="post" action="{{ route('language.update') }}">@csrf<label class="sr-only" for="locale">{{ __('messages.language') }}</label><select id="locale" name="locale" onchange="this.form.submit()" class="min-h-9 rounded-lg border border-white/25 bg-white/10 px-2 py-1 text-sm text-white">@foreach(['tj' => __('messages.language_tajik'), 'ru' => __('messages.language_russian'), 'en' => 'English'] as $code => $label)<option class="text-slate-900" value="{{ $code }}" @selected(app()->getLocale() === $code)>{{ $label }}</option>@endforeach</select></form>
+            <button type="button" class="theme-toggle" data-theme-toggle aria-label="{{ __('messages.toggle_theme') }}" title="{{ __('messages.toggle_theme') }}" aria-pressed="false"><svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.2 15.1A8.5 8.5 0 0 1 8.9 3.8 8.5 8.5 0 1 0 20.2 15.1Z"/></svg><svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></button>
             @unless($publicLanding)<details class="relative lg:hidden"><summary class="grid size-10 cursor-pointer list-none place-items-center rounded-lg border border-slate-300 text-slate-800 hover:bg-slate-50" aria-label="{{ __('messages.open_navigation') }}"><span class="text-lg" aria-hidden="true">☰</span></summary><div class="absolute right-0 mt-2 max-h-[75vh] w-72 overflow-y-auto rounded-xl border border-slate-200 bg-white p-3 shadow-xl">@include('layouts.navigation')</div></details>@endunless
         </div>
     </div>

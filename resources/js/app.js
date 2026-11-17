@@ -1,6 +1,40 @@
 import './bootstrap';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.querySelector('[data-theme-toggle]');
+    const themeKey = 'student-qa-theme';
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const savedTheme = () => {
+        try {
+            const theme = localStorage.getItem(themeKey);
+            return theme === 'dark' || theme === 'light' ? theme : null;
+        } catch {
+            return null;
+        }
+    };
+
+    const applyTheme = (theme, persist = false) => {
+        document.documentElement.dataset.theme = theme;
+        themeToggle?.setAttribute('aria-pressed', String(theme === 'dark'));
+
+        if (persist) {
+            try {
+                localStorage.setItem(themeKey, theme);
+            } catch {
+                // The theme still works for this page when storage is unavailable.
+            }
+        }
+    };
+
+    applyTheme(savedTheme() || (systemTheme.matches ? 'dark' : 'light'));
+    themeToggle?.addEventListener('click', () => {
+        applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
+    });
+    systemTheme.addEventListener?.('change', (event) => {
+        if (!savedTheme()) applyTheme(event.matches ? 'dark' : 'light');
+    });
+
     const title = document.querySelector('[data-similar-title]');
     const body = document.querySelector('[data-similar-body]');
     const results = document.querySelector('[data-similar-results]');
