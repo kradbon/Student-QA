@@ -40,7 +40,7 @@ class QuestionController extends Controller
             $sort = 'latest';
         }
 
-        $query->withCount('votes');
+        $query->withCount('votes')->withSum('votes', 'value');
         match ($sort) {
             'popular' => $query->orderByDesc('votes_count')->orderByDesc('created_at'),
             'unanswered' => $query->whereDoesntHave('answers', fn ($builder) => $builder->where('status', 'published'))->latest(),
@@ -52,7 +52,7 @@ class QuestionController extends Controller
         return view('questions.index', [
             'questions' => $questions,
             'featuredQuestions' => $questions->getCollection()->take(3),
-            'hotQuestions' => Question::query()->with('category')->withCount(['answers' => fn ($builder) => $builder->where('status', 'published')])->whereIn('status', ['published', 'closed'])->orderByDesc('answers_count')->latest()->take(6)->get(),
+            'hotQuestions' => Question::query()->with('category')->withCount(['answers' => fn ($builder) => $builder->where('status', 'published')])->whereIn('status', ['published', 'closed'])->when($sort === 'unanswered', fn ($builder) => $builder->whereDoesntHave('answers', fn ($answers) => $answers->where('status', 'published')))->orderByDesc('answers_count')->latest()->take(6)->get(),
             'categories' => Category::where('is_active', true)->orderBy('name')->get(),
             'sort' => $sort,
         ]);

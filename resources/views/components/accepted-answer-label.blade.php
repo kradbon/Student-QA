@@ -1,0 +1,1 @@
+<span {{ $attributes->class('accepted-label') }}><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ __('messages.accepted_answer') }}</span>
