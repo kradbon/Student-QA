@@ -15,6 +15,11 @@
         <div class="rounded-lg border border-orange-200 bg-orange-50/60 p-4"><div class="flex items-center gap-2 text-sm font-semibold text-orange-900"><span aria-hidden="true">✓</span>{{ __('messages.accepted_answer') }}</div><p class="mt-2 text-sm leading-6 text-slate-700">{{ __('messages.landing_preview_answer') }}</p><p class="mt-3 text-xs font-medium text-slate-500">{{ __('messages.landing_preview_author') }}</p></div>
     </div>
 </section>
+<section class="landing-stats" aria-label="{{ __('messages.platform_overview') }}">
+    @foreach([__('messages.total_students')=>$communityStats['students'], __('messages.total_questions')=>$communityStats['questions'], __('messages.total_answers')=>$communityStats['answers']] as $label=>$value)
+        <article><span class="landing-stats__value">{{ number_format($value) }}</span><span class="landing-stats__label">{{ $label }}</span></article>
+    @endforeach
+</section>
 <section class="landing-features border-t border-slate-200 py-10 sm:py-14" aria-label="{{ __('messages.landing_features') }}">
     <div class="grid gap-8 md:grid-cols-3">
         <article><span class="grid size-9 place-items-center rounded-lg bg-orange-50 font-semibold text-orange-800" aria-hidden="true">01</span><h2 class="mt-4 text-base font-semibold text-slate-950">{{ __('messages.landing_feature_questions') }}</h2><p class="mt-2 text-sm leading-6 text-slate-600">{{ __('messages.landing_feature_questions_text') }}</p></article>
@@ -22,5 +27,16 @@
         <article><span class="grid size-9 place-items-center rounded-lg bg-orange-50 font-semibold text-orange-800" aria-hidden="true">03</span><h2 class="mt-4 text-base font-semibold text-slate-950">{{ __('messages.landing_feature_trust') }}</h2><p class="mt-2 text-sm leading-6 text-slate-600">{{ __('messages.landing_feature_trust_text') }}</p></article>
     </div>
 </section>
+@if($topStudents->isNotEmpty())
+<section class="landing-leaders" aria-labelledby="landing-leaders-heading">
+    <div class="landing-leaders__heading"><div><p class="eyebrow">{{ __('messages.community') }}</p><h2 id="landing-leaders-heading">{{ __('messages.top_students') }}</h2></div><a href="{{ route('community.leaderboard') }}">{{ __('messages.view_all') }} <span aria-hidden="true">→</span></a></div>
+    <ol>
+        @foreach($topStudents as $student)
+            @php($metal = ['gold', 'silver', 'bronze'][$loop->index])
+            <li><x-medal-icon :metal="$metal" :rank="$loop->iteration" size="sm"/><x-user-avatar :user="$student" size="sm"/><span class="landing-leaders__name">{{ $student->name }}</span><x-reputation-badge :points="$student->reputation"/><strong>{{ number_format($student->reputation) }}</strong></li>
+        @endforeach
+    </ol>
+</section>
+@endif
 <section class="landing-cta surface flex flex-wrap items-center justify-between gap-5 p-6 sm:p-8"><h2 class="max-w-2xl text-xl font-semibold tracking-tight text-slate-950">{{ __('messages.landing_bottom_title') }}</h2><a class="btn-primary" href="{{ route('register') }}">{{ __('messages.landing_primary_cta') }}</a></section>
 @endsection

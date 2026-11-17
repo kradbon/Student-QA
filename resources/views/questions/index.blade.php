@@ -3,7 +3,7 @@
 @section('content')
 <div class="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_320px]">
     <div class="min-w-0">
-        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div class="questions-heading flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
             <div><p class="eyebrow">{{ __('messages.community') }}</p><h1 class="mt-1 text-2xl font-semibold tracking-tight text-slate-950">{{ __('messages.all_questions') }}</h1></div>
             <div class="flex flex-wrap items-center gap-2">
                 <div class="flex flex-wrap rounded-lg border border-slate-300 bg-white p-1 text-sm">
@@ -29,11 +29,11 @@
         </section>
         @endif
 
-        <section class="mt-6 border-t border-slate-200" aria-labelledby="question-list-heading">
+        <section class="question-list mt-6 border-t border-slate-200" aria-labelledby="question-list-heading">
             <div class="flex items-center justify-between py-4"><h2 id="question-list-heading" class="text-lg font-semibold text-slate-900">{{ __('messages.latest_questions') }}</h2><span class="text-sm text-slate-500">{{ $questions->total() }}</span></div>
-            <div class="divide-y divide-slate-200">
+            <div class="question-list__items divide-y divide-slate-200">
             @forelse($questions as $question)
-                <article class="py-5 sm:px-2">
+                <article class="question-card py-5 sm:px-2">
                     <div class="mb-2 flex flex-wrap items-center gap-2 text-xs text-slate-500"><x-user-avatar :user="$question->author" size="sm"/><a class="font-semibold text-blue-700 hover:underline" href="{{ route('questions.show', $question) }}">{{ $question->author->name }}</a><span class="role-badge role-badge--{{ $question->author->role }}">{{ __('messages.'.$question->author->role) }}</span><span class="user-reputation">✦ {{ number_format($question->author->reputation) }} {{ __('messages.reputation') }}</span><span aria-hidden="true">·</span><time datetime="{{ $question->created_at->toIso8601String() }}">{{ $question->created_at->diffForHumans() }}</time></div>
                     <a class="text-lg font-semibold leading-7 text-slate-900 hover:text-blue-700" href="{{ route('questions.show', $question) }}">{{ $question->title }}</a>
                     <p class="mt-1 line-clamp-2 text-sm leading-6 text-slate-600">{{ Str::limit($question->body, 250) }}</p>
