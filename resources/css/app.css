@@ -96,7 +96,6 @@
 }
 
 @layer components {
-    .app-header { background-color: rgb(23 23 23 / 94%) !important; border-color: rgb(255 255 255 / 9%); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
     .app-main { background: #f8fafc; }
     .app-sidebar { background: rgb(255 255 255 / 96%); }
     .post-layout { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: 1.25rem; }
@@ -1015,9 +1014,10 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     .app-header details > div a, .app-header details > nav a { color: var(--color-text-secondary) !important; }
     .app-header details > div a:hover, .app-header details > nav a:hover { background: var(--color-surface-elevated) !important; }
 
-    footer { background: #111111 !important; border-color: #404040 !important; color: #a3a3a3 !important; }
-    footer a { color: #a3a3a3 !important; }
-    footer a:hover { color: #ffffff !important; }
+    footer.bg-white { background: #ffffff !important; border-color: var(--color-border) !important; color: var(--color-text-muted) !important; }
+    footer.bg-white > div { color: var(--color-text-muted) !important; }
+    footer.bg-white a { color: var(--color-text-secondary) !important; }
+    footer.bg-white a:hover { color: var(--color-text-primary) !important; }
     main [role="alert"] { background: var(--color-danger-subtle) !important; border-color: var(--color-danger-border) !important; color: var(--color-danger) !important; }
     main [role="status"] { background: var(--color-success-subtle) !important; border-color: var(--color-success-border) !important; color: var(--color-success) !important; }
     main [class~="bg-emerald-50"], main [class~="bg-green-50"] { background: var(--color-success-subtle) !important; }
@@ -1117,5 +1117,96 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     html[data-theme="dark"] main .accepted-mark { color: #4ade80 !important; }
     html[data-theme="dark"] main table thead { background: #111111 !important; }
     html[data-theme="dark"] main table tbody tr:not(.leaderboard-row--first):hover { background: #171717 !important; }
-    html[data-theme="dark"] footer { background: #111111 !important; border-color: #404040 !important; }
+    html[data-theme="dark"] footer.bg-white { background: #111111 !important; border-color: #404040 !important; color: #a3a3a3 !important; }
+    html[data-theme="dark"] footer.bg-white > div, html[data-theme="dark"] footer.bg-white a { color: #a3a3a3 !important; }
+    html[data-theme="dark"] footer.bg-white a:hover { color: #fafafa !important; }
+
+    /* Theme-safe header/footer, restrained neon accents, and readable page chrome. */
+    .app-header form svg { color: var(--color-text-muted) !important; }
+    .app-header details > summary { border-color: var(--color-border) !important; }
+    .app-header .notification-dot { border-color: var(--color-surface) !important; }
+
+    .page-community-tags .category-pill {
+        border: 1px solid #fb923c !important;
+        background: #f97316 !important;
+        color: #171717 !important;
+        box-shadow: 0 0 0 1px rgb(249 115 22 / 18%), 0 0 14px rgb(249 115 22 / 26%) !important;
+        transition: box-shadow .18s ease, background-color .18s ease, transform .18s ease;
+    }
+    .page-community-tags a:hover .category-pill,
+    .page-community-tags a:focus-visible .category-pill {
+        background: #fb923c !important;
+        box-shadow: 0 0 0 2px rgb(249 115 22 / 24%), 0 0 20px rgb(249 115 22 / 42%) !important;
+    }
+
+    /* Keep the landing page editorial and calm in light mode, with a matching dark variant. */
+    main .landing-hero {
+        min-height: 27rem;
+        border-color: var(--color-border) !important;
+        border-radius: 1.25rem;
+        background: var(--color-surface) !important;
+        box-shadow: 0 10px 36px rgb(0 0 0 / 5%) !important;
+    }
+    main .landing-hero::before { opacity: .32; }
+    main .landing-hero h1 { color: var(--color-text-primary) !important; }
+    main .landing-hero .eyebrow { color: var(--color-brand-hover) !important; }
+    main .landing-hero > div:first-child > p:not(.eyebrow),
+    main .landing-hero > div:first-child > p:last-child { color: var(--color-text-secondary) !important; }
+    main .landing-hero > div:first-child > p:last-child a { color: var(--color-brand-hover) !important; }
+    main .landing-hero .btn-secondary {
+        background: #171717 !important;
+        border-color: #171717 !important;
+        color: #ffffff !important;
+        backdrop-filter: none;
+    }
+    main .landing-preview {
+        border-color: var(--color-border) !important;
+        border-radius: 1rem;
+        background: var(--color-surface) !important;
+        box-shadow: 0 12px 32px rgb(0 0 0 / 8%) !important;
+        transform: none;
+    }
+    main .landing-preview:hover { transform: translateY(-2px); }
+    main .landing-cta {
+        border-color: var(--color-border) !important;
+        background: var(--color-surface) !important;
+        color: var(--color-text-primary) !important;
+    }
+    main .landing-cta h2 { color: var(--color-text-primary) !important; }
+    main .landing-features article { background: var(--color-surface) !important; }
+    main .landing-features article > span {
+        background: var(--color-brand) !important;
+        color: #171717 !important;
+        box-shadow: 0 0 0 1px rgb(249 115 22 / 22%), 0 0 14px rgb(249 115 22 / 20%) !important;
+    }
+
+    /* Primary actions get a restrained neon edge only on interaction. */
+    main .btn-primary:hover,
+    main .btn-primary:focus-visible {
+        box-shadow: 0 0 0 1px #fdba74, 0 0 18px rgb(249 115 22 / 42%) !important;
+    }
+    main .landing-hero .btn-primary { box-shadow: 0 0 0 1px rgb(249 115 22 / 28%), 0 0 22px rgb(249 115 22 / 24%) !important; }
+
+    /* A thin, theme-aware scrollbar that remains visible without competing with content. */
+    html {
+        scrollbar-width: thin;
+        scrollbar-color: #a3a3a3 #f5f5f5;
+    }
+    html::-webkit-scrollbar, body::-webkit-scrollbar { width: 10px; height: 10px; }
+    html::-webkit-scrollbar-track, body::-webkit-scrollbar-track { background: #f5f5f5; }
+    html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+        border: 2px solid #f5f5f5;
+        border-radius: 999px;
+        background: #a3a3a3;
+        background-clip: padding-box;
+    }
+    html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover { background: #f97316; }
+    html[data-theme="dark"] { scrollbar-color: #525252 #111111; }
+    html[data-theme="dark"]::-webkit-scrollbar-track, html[data-theme="dark"] body::-webkit-scrollbar-track { background: #111111; }
+    html[data-theme="dark"]::-webkit-scrollbar-thumb, html[data-theme="dark"] body::-webkit-scrollbar-thumb {
+        border-color: #111111;
+        background: #525252;
+        background-clip: padding-box;
+    }
+    html[data-theme="dark"]::-webkit-scrollbar-thumb:hover, html[data-theme="dark"] body::-webkit-scrollbar-thumb:hover { background: #f97316; }
 }
