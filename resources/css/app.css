@@ -1664,8 +1664,8 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
 /* Final rank-color overrides stay in the component layer so they beat current-row styling. */
 @layer components {
     @keyframes leaderboard-gold-reflection {
-        0%, 100% { background-position: 175% 50%, 0 0; }
-        52% { background-position: -75% 50%, 0 0; }
+        0%, 100% { background-position: 130% 50%, 0 0; }
+        52% { background-position: -130% 50%, 0 0; }
     }
     @keyframes leaderboard-gold-halo {
         from { box-shadow: inset 4px 0 #d5a528, inset 0 0 0 rgb(246 196 70 / 0%); }
@@ -1677,16 +1677,16 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     }
     main tr.leaderboard-row--first {
         background-color: #fff4cf !important;
-        background-image: linear-gradient(112deg, transparent 0%, transparent 37%, rgb(255 255 248 / 88%) 47%, #f2c54a 50%, rgb(255 255 248 / 88%) 53%, transparent 64%, transparent 100%), linear-gradient(90deg, #fff4cf, #fff9e7 52%, #ffefbd) !important;
-        background-size: 250% 100%, 100% 100%;
+        background-image: linear-gradient(112deg, transparent 47%, rgb(255 255 248 / 55%) 49%, #f7d66c 50%, rgb(255 255 248 / 82%) 50.5%, #f7d66c 51%, transparent 53%), linear-gradient(90deg, #fff4cf, #fff9e7 52%, #ffefbd) !important;
+        background-size: 220% 100%, 100% 100%;
         animation: leaderboard-gold-reflection 5.2s cubic-bezier(.38, 0, .22, 1) infinite, leaderboard-gold-halo 2.5s ease-in-out infinite alternate !important;
         box-shadow: inset 4px 0 #d5a528 !important;
     }
     main tr.leaderboard-row--first .medal-icon { animation: leaderboard-medal-halo 2.5s ease-in-out infinite; }
     main .leaderboard-mobile-card.leaderboard-row--first {
         background-color: #fff4cf !important;
-        background-image: linear-gradient(112deg, transparent 0%, transparent 37%, rgb(255 255 248 / 88%) 47%, #f2c54a 50%, rgb(255 255 248 / 88%) 53%, transparent 64%, transparent 100%), linear-gradient(90deg, #fff4cf, #fff9e7 52%, #ffefbd) !important;
-        background-size: 250% 100%, 100% 100%;
+        background-image: linear-gradient(112deg, transparent 47%, rgb(255 255 248 / 55%) 49%, #f7d66c 50%, rgb(255 255 248 / 82%) 50.5%, #f7d66c 51%, transparent 53%), linear-gradient(90deg, #fff4cf, #fff9e7 52%, #ffefbd) !important;
+        background-size: 220% 100%, 100% 100%;
         animation: leaderboard-gold-reflection 5.2s cubic-bezier(.38, 0, .22, 1) infinite, leaderboard-gold-halo 2.5s ease-in-out infinite alternate !important;
     }
     main .leaderboard-mobile-card.leaderboard-row--first .medal-icon { animation: leaderboard-medal-halo 2.5s ease-in-out infinite; }
@@ -1704,11 +1704,11 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     main .leaderboard-mobile-card.leaderboard-row--third { background: #f5e8dc !important; border-color: #d6ae8e !important; animation: none !important; }
     html[data-theme="dark"] main tr.leaderboard-row--first {
         background-color: #332a16 !important;
-        background-image: linear-gradient(112deg, transparent 0%, transparent 37%, rgb(255 248 218 / 82%) 47%, #f6d261 50%, rgb(255 248 218 / 82%) 53%, transparent 64%, transparent 100%), linear-gradient(90deg, #332a16, #41351a 52%, #302716) !important;
+        background-image: linear-gradient(112deg, transparent 47%, rgb(255 248 218 / 48%) 49%, #f8d66d 50%, rgb(255 248 218 / 78%) 50.5%, #f8d66d 51%, transparent 53%), linear-gradient(90deg, #332a16, #41351a 52%, #302716) !important;
     }
     html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--first {
         background-color: #332a16 !important;
-        background-image: linear-gradient(112deg, transparent 0%, transparent 37%, rgb(255 248 218 / 82%) 47%, #f6d261 50%, rgb(255 248 218 / 82%) 53%, transparent 64%, transparent 100%), linear-gradient(90deg, #332a16, #41351a 52%, #302716) !important;
+        background-image: linear-gradient(112deg, transparent 47%, rgb(255 248 218 / 48%) 49%, #f8d66d 50%, rgb(255 248 218 / 78%) 50.5%, #f8d66d 51%, transparent 53%), linear-gradient(90deg, #332a16, #41351a 52%, #302716) !important;
     }
     html[data-theme="dark"] main tr.leaderboard-row--first td,
     html[data-theme="dark"] main tr.leaderboard-row--first .leaderboard-student__name,
@@ -1733,6 +1733,14 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     }
     html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--second { background: #272c32 !important; border-color: #59616b !important; }
     html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--third { background: #30231a !important; border-color: #754b30 !important; }
+    html[data-theme="dark"] main .reputation-progress__track { background: #353535 !important; }
+    html[data-theme="dark"] footer.bg-white:not(.site-footer) {
+        background-color: #111111 !important;
+        background-image: none !important;
+        border-color: #303030 !important;
+    }
+    html[data-theme="dark"] footer.bg-white:not(.site-footer) > div,
+    html[data-theme="dark"] footer.bg-white:not(.site-footer) a { color: #a3a3a3 !important; }
     @media (prefers-reduced-motion: reduce) {
         main tr.leaderboard-row--first, main tr.leaderboard-row--first .medal-icon,
         main .leaderboard-mobile-card.leaderboard-row--first,
