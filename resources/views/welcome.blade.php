@@ -8,16 +8,16 @@
             <h1 id="landing-title">{{ __('messages.landing_headline') }}</h1>
             <p class="landing-hero__description">{{ __('messages.landing_description') }}</p>
             <div class="landing-hero__actions">
-                <a class="btn-primary" href="{{ route('register') }}">{{ __('messages.ask_question') }}<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                <a class="btn-primary" href="{{ route('register') }}">{{ __('messages.landing_primary_cta') }}</a>
                 <a class="btn-secondary" href="{{ route('questions.index') }}">{{ __('messages.landing_secondary_cta') }}</a>
             </div>
-            <p class="landing-hero__microcopy"><span aria-hidden="true">✳</span>{{ __('messages.landing_built_for_students') }}</p>
+            <p class="landing-hero__microcopy">{{ __('messages.landing_existing_account') }} <a href="{{ route('login') }}">{{ __('messages.login') }}</a></p>
         </div>
 
         <div class="landing-product" aria-label="{{ __('messages.landing_questions_heading') }}">
-            <div class="landing-product__topbar"><span class="landing-product__mark" aria-hidden="true">Q</span><span>{{ __('messages.questions') }}</span><span class="landing-product__topbar-spacer"></span><span class="landing-product__live"><i></i>{{ __('messages.community') }}</span></div>
             @if($recentQuestions->isNotEmpty())
                 @php($spotlight = $recentQuestions->first())
+                <div class="landing-product__sample-heading"><div><h2>{{ __('messages.landing_question_example_title') }}</h2><span>{{ __('messages.landing_question_example') }}</span></div><span class="landing-product__published">{{ __('messages.status_published') }}</span></div>
                 <article class="landing-product__question">
                     <div class="landing-product__meta"><span>{{ $spotlight->category?->name ?? __('messages.categories') }}</span><span>{{ $spotlight->created_at->diffForHumans() }}</span></div>
                     <h2><a href="{{ route('questions.show', $spotlight) }}">{{ $spotlight->title }}</a></h2>
@@ -39,6 +39,14 @@
         </div>
     </section>
 
+    <section class="landing-how" id="how-it-works" aria-label="{{ __('messages.landing_how_heading') }}">
+        <div class="landing-steps">
+            <article class="landing-step"><span class="landing-step__number">01</span><h2>{{ __('messages.landing_feature_questions') }}</h2><p>{{ __('messages.landing_feature_questions_text') }}</p></article>
+            <article class="landing-step"><span class="landing-step__number">02</span><h2>{{ __('messages.landing_feature_answers') }}</h2><p>{{ __('messages.landing_feature_answers_text') }}</p></article>
+            <article class="landing-step"><span class="landing-step__number">03</span><h2>{{ __('messages.landing_feature_trust') }}</h2><p>{{ __('messages.landing_feature_trust_text') }}</p></article>
+        </div>
+    </section>
+
     <section class="landing-stats" aria-label="{{ __('messages.platform_overview') }}">
         @foreach([
             [__('messages.total_questions'), $communityStats['questions']],
@@ -48,15 +56,6 @@
         ] as [$label, $value])
             <article><span class="landing-stats__value">{{ number_format($value) }}</span><span class="landing-stats__label">{{ $label }}</span></article>
         @endforeach
-    </section>
-
-    <section class="landing-how" id="how-it-works" aria-labelledby="landing-how-heading">
-        <div class="landing-section-heading"><p class="landing-kicker">{{ __('messages.landing_eyebrow') }}</p><h2 id="landing-how-heading">{{ __('messages.landing_how_heading') }}</h2><p>{{ __('messages.landing_how_intro') }}</p></div>
-        <div class="landing-steps">
-            <article class="landing-step"><div class="landing-step__heading"><span>01</span><h3>{{ __('messages.landing_step_ask') }}</h3></div><p>{{ __('messages.landing_step_ask_text') }}</p><div class="landing-step__visual landing-step__visual--ask"><span class="landing-visual-label">{{ __('messages.ask_question') }}</span><span class="landing-visual-line landing-visual-line--long"></span><span class="landing-visual-line"></span><span class="landing-visual-action">＋</span></div></article>
-            <article class="landing-step"><div class="landing-step__heading"><span>02</span><h3>{{ __('messages.landing_step_discuss') }}</h3></div><p>{{ __('messages.landing_step_discuss_text') }}</p><div class="landing-step__visual landing-step__visual--discuss"><span class="landing-visual-vote">↑ <b>{{ $recentQuestions->first()?->votes_sum_value ?? '—' }}</b></span><span class="landing-visual-line landing-visual-line--long"></span><span class="landing-visual-line"></span><span class="landing-visual-reply">{{ __('messages.answers') }} <b>{{ $recentQuestions->first()?->answers_count ?? '—' }}</b></span></div></article>
-            <article class="landing-step"><div class="landing-step__heading"><span>03</span><h3>{{ __('messages.landing_step_grow') }}</h3></div><p>{{ __('messages.landing_step_grow_text') }}</p><div class="landing-step__visual landing-step__visual--grow"><span class="landing-visual-medal" aria-hidden="true">✦</span><span><b>{{ __('messages.reputation') }}</b><small>{{ __('messages.landing_feature_reputation') }}</small></span><span class="landing-visual-arrow" aria-hidden="true">↗</span></div></article>
-        </div>
     </section>
 
     <section class="landing-capabilities" aria-labelledby="landing-capabilities-heading">

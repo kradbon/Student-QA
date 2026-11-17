@@ -3,6 +3,7 @@
 return [
     'landing_home' => 'Home', 'landing_badge' => 'A better way to learn together',
     'landing_headline' => 'Knowledge grows when we share it.', 'landing_description' => 'Ask questions, exchange ideas, and learn from a community of students. Find answers, share what you know, and grow together.',
+    'landing_existing_account' => 'Already have an account?', 'landing_question_example_title' => 'How can I stay focused while studying?', 'landing_question_example' => 'Example question',
     'landing_built_for_students' => 'Built for students. Powered by knowledge.', 'landing_how_heading' => 'A community built around learning',
     'landing_how_intro' => 'From a thoughtful question to a useful answer, every contribution helps someone move forward.',
     'landing_step_ask' => 'Ask', 'landing_step_ask_text' => 'Share a course question with enough context for others to help.',
