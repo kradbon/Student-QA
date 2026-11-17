@@ -1,2 +1,4 @@
 *
 !.gitignore
+!app.php
+!providers.php
