@@ -10,20 +10,42 @@
 
 @layer base {
     :root {
-        color-scheme: light;
+        color-scheme: light !important;
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
-        --brand-ink: #171717;
-        --brand-accent: #f97316;
+        --color-background: #fafafa;
+        --color-content: #ffffff;
+        --color-surface: #ffffff;
+        --color-surface-elevated: #ffffff;
+        --color-text-primary: #171717;
+        --color-text-secondary: #404040;
+        --color-text-muted: #737373;
+        --color-text-disabled: #a3a3a3;
+        --color-border: #e5e5e5;
+        --color-divider: #f0f0f0;
+        --color-brand: #f97316;
+        --color-brand-hover: #ea580c;
+        --color-brand-subtle: #fff7ed;
+        --color-brand-border: #fed7aa;
+        --color-success: #15803d;
+        --color-success-subtle: #f0fdf4;
+        --color-success-border: #bbf7d0;
+        --color-warning: #b45309;
+        --color-warning-subtle: #fffbeb;
+        --color-danger: #dc2626;
+        --color-danger-subtle: #fef2f2;
+        --color-danger-border: #fecaca;
+        --brand-ink: var(--color-text-primary);
+        --brand-accent: var(--color-brand);
         --brand-bright: #fb923c;
-        --brand-accent-soft: #fff7ed;
-        --brand-border: #e2e8f0;
+        --brand-accent-soft: var(--color-brand-subtle);
+        --brand-border: var(--color-border);
     }
 
     body {
-        background: #f8fafc;
-        color: #171717;
+        background: var(--color-background);
+        color: var(--color-text-primary);
         font-family: Inter, 'Segoe UI Variable', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
         line-height: 1.6;
     }
@@ -39,21 +61,21 @@
     input:not([type='checkbox']):not([type='radio']):not([type='file']),
     select,
     textarea {
-        color: #172033;
-        background-color: #fff;
-        border-color: #cbd5e1;
+        color: var(--color-text-primary);
+        background-color: var(--color-content);
+        border-color: #d4d4d4;
         border-radius: .75rem;
     }
 
     input:not([type='checkbox']):not([type='radio']):not([type='file']):hover,
     select:hover,
     textarea:hover {
-        border-color: #94a3b8;
+        border-color: var(--color-text-disabled);
     }
 
     input::placeholder,
     textarea::placeholder {
-        color: #64748b;
+        color: var(--color-text-disabled);
         opacity: 1;
     }
 
@@ -994,3 +1016,300 @@ html[data-theme="dark"] .language-menu__panel button:hover,
 html[data-theme="dark"] .language-menu__panel button[aria-current="true"] { border-color: #414141; background: #1a1a1a; }
 html[data-theme="dark"] .language-menu__panel .language-flag { border-color: #555; }
 html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
+
+/* Final palette contract: every theme-sensitive component reads from these tokens. */
+@layer utilities {
+    :root, html[data-theme="light"] {
+        color-scheme: light !important;
+        --color-background: #fafafa;
+        --color-content: #ffffff;
+        --color-surface: #ffffff;
+        --color-surface-elevated: #ffffff;
+        --color-text-primary: #171717;
+        --color-text-secondary: #404040;
+        --color-text-muted: #737373;
+        --color-text-disabled: #a3a3a3;
+        --color-border: #e5e5e5;
+        --color-divider: #f0f0f0;
+        --color-brand: #f97316;
+        --color-brand-hover: #ea580c;
+        --color-brand-subtle: #fff7ed;
+        --color-brand-border: #fed7aa;
+        --color-success: #15803d;
+        --color-success-subtle: #f0fdf4;
+        --color-success-border: #bbf7d0;
+        --color-warning: #b45309;
+        --color-warning-subtle: #fffbeb;
+        --color-danger: #dc2626;
+        --color-danger-subtle: #fef2f2;
+        --color-danger-border: #fecaca;
+        --color-focus: #fdba74;
+    }
+
+    html[data-theme="dark"] {
+        color-scheme: dark !important;
+        --color-background: #0a0a0a;
+        --color-content: #111111;
+        --color-surface: #171717;
+        --color-surface-elevated: #1f1f1f;
+        --color-text-primary: #fafafa;
+        --color-text-secondary: #a3a3a3;
+        --color-text-muted: #737373;
+        --color-text-disabled: #737373;
+        --color-border: #262626;
+        --color-divider: #303030;
+        --color-brand: #f97316;
+        --color-brand-hover: #ea580c;
+        --color-brand-subtle: #2a1b12;
+        --color-brand-border: #7c3510;
+        --color-success: #4ade80;
+        --color-success-subtle: #102116;
+        --color-success-border: #245c38;
+        --color-warning: #fbbf24;
+        --color-warning-subtle: #251d0b;
+        --color-danger: #f87171;
+        --color-danger-subtle: #2a1111;
+        --color-danger-border: #6c2929;
+        --color-focus: #f97316;
+    }
+
+    html, body { background: var(--color-background) !important; color: var(--color-text-primary) !important; }
+    .app-header { background: var(--color-surface) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important; box-shadow: 0 1px 0 var(--color-border) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+    .app-header > div > a:first-child { color: var(--color-text-primary) !important; }
+    .app-header > div > a:first-child > span:last-child { color: var(--color-text-primary) !important; }
+    .app-header nav a:not(.btn-primary), .app-header > div > div > a, .app-header details > summary { color: var(--color-text-secondary) !important; }
+    .app-header nav a:not(.btn-primary):hover, .app-header > div > div > a:hover, .app-header details > summary:hover { background: var(--color-surface-elevated) !important; color: var(--color-text-primary) !important; }
+    .app-header input { background: var(--color-content) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important; }
+    .app-header input::placeholder { color: var(--color-text-muted) !important; }
+    .app-main { background: var(--color-background) !important; color: var(--color-text-primary) !important; }
+    .app-sidebar { background: var(--color-surface) !important; border-color: var(--color-border) !important; }
+    .app-sidebar nav section + section { border-color: var(--color-divider) !important; }
+    .app-sidebar nav h2 { color: var(--color-text-muted) !important; }
+    .app-sidebar nav a, .app-sidebar nav button { color: var(--color-text-secondary) !important; background: transparent !important; }
+    .app-sidebar nav a:hover, .app-sidebar nav button:hover { background: var(--color-surface-elevated) !important; color: var(--color-text-primary) !important; }
+    .app-sidebar nav a.bg-orange-50 { position: relative; background: var(--color-brand-subtle) !important; color: var(--color-text-primary) !important; box-shadow: inset 2px 0 var(--color-brand) !important; }
+    .app-sidebar nav a.bg-orange-50 svg { color: var(--color-brand) !important; }
+    .app-sidebar nav a.bg-orange-50:is(:hover, :focus-visible) { background: var(--color-brand-subtle) !important; }
+
+    .app-main .surface, main article.rounded-2xl.border, main .divide-y.rounded-2xl.border,
+    main .leaderboard-table-wrap, main .podium-card, main .my-achievement, main .landing-stats,
+    main .landing-leaders li, main .landing-features article, main .landing-preview,
+    main .metric-card, main.page-questions aside section, main .leaderboard-mobile-card,
+    main .leaderboard-empty, main .leaderboard-header, main .auth-panel {
+        background: var(--color-surface) !important;
+        border-color: var(--color-border) !important;
+        color: var(--color-text-primary) !important;
+        box-shadow: 0 1px 2px rgb(0 0 0 / 3%), 0 4px 12px rgb(0 0 0 / 3%) !important;
+    }
+    main .landing-hero, main .landing-cta, main .dashboard-hero { background: var(--color-surface) !important; border: 1px solid var(--color-border) !important; box-shadow: none !important; }
+    main .landing-hero::before, main .landing-hero::after, main .dashboard-hero::after { display: none !important; }
+    main .landing-hero h1, main .landing-cta h2, main .dashboard-hero h1,
+    main h1, main h2, main h3 { color: var(--color-text-primary); }
+    main p, main time { color: inherit; }
+    main .landing-hero > div:first-child > p:not(.eyebrow), main .dashboard-hero p:not(.eyebrow) { color: var(--color-text-muted) !important; }
+    main .landing-hero .eyebrow, main .dashboard-hero .eyebrow, main .eyebrow { color: var(--color-brand-hover) !important; }
+    main .landing-hero .btn-secondary { background: var(--color-text-primary) !important; border-color: var(--color-text-primary) !important; color: var(--color-content) !important; }
+    main .landing-features { background: var(--color-background) !important; border-color: var(--color-border) !important; }
+    main .landing-features article { background: var(--color-surface) !important; }
+    main .landing-features article > span { background: var(--color-surface-elevated) !important; color: var(--color-text-primary) !important; }
+    main .landing-features article:first-child > span { color: var(--color-brand) !important; }
+    main .landing-stats { background: #171717 !important; border-color: #171717 !important; }
+    main .landing-stats__value { color: #ffffff !important; }
+    main .landing-stats__label { color: #a3a3a3 !important; }
+    main .landing-stats article:last-child .landing-stats__value { color: #f97316 !important; }
+    main .landing-stats article + article { border-color: #404040 !important; }
+    main .landing-leaders li { background: var(--color-surface) !important; }
+    main .landing-leaders__heading h2, main .landing-leaders__name, main .landing-leaders li > strong { color: var(--color-text-primary) !important; }
+    main .landing-preview { background: var(--color-surface) !important; transform: none !important; }
+
+    .btn-primary, main .btn-primary { background: var(--color-brand) !important; border-color: var(--color-brand) !important; color: #ffffff !important; box-shadow: none !important; }
+    .btn-primary:hover, main .btn-primary:hover { background: var(--color-brand-hover) !important; border-color: var(--color-brand-hover) !important; }
+    .btn-secondary, main .btn-secondary { background: var(--color-surface) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important; }
+    .btn-secondary:hover, main .btn-secondary:hover { background: var(--color-surface-elevated) !important; border-color: var(--color-border) !important; }
+    .btn-dark { background: #171717 !important; border-color: #171717 !important; color: #ffffff !important; }
+    .btn-dark:hover { background: #000000 !important; }
+    .btn-danger { background: #ffffff !important; border-color: #fecaca !important; color: #dc2626 !important; }
+    .btn-danger:hover { background: #fef2f2 !important; }
+    .btn-primary:focus-visible, .btn-secondary:focus-visible, .theme-toggle:focus-visible, .language-toggle:focus-visible { outline: 3px solid var(--color-focus) !important; outline-offset: 2px !important; }
+
+    main [class~="text-slate-950"], main [class~="text-slate-900"], main [class~="text-slate-800"] { color: var(--color-text-primary) !important; }
+    main [class~="text-slate-700"], main [class~="text-slate-600"] { color: var(--color-text-secondary) !important; }
+    main [class~="text-slate-500"], main [class~="text-slate-400"] { color: var(--color-text-muted) !important; }
+    main [class~="text-orange-700"], main [class~="text-orange-800"], main [class~="text-orange-900"], main [class~="text-orange-950"] { color: var(--color-brand-hover) !important; }
+    main [class~="text-blue-700"], main [class~="text-blue-800"] { color: var(--color-text-secondary) !important; }
+    main [class~="bg-white"] { background-color: var(--color-surface) !important; }
+    main [class~="bg-slate-50"] { background-color: var(--color-background) !important; }
+    main [class~="bg-slate-100"], main [class~="bg-slate-200"] { background-color: var(--color-surface-elevated) !important; }
+    main [class~="bg-slate-700"] { background-color: var(--color-text-primary) !important; color: var(--color-content) !important; }
+    main [class~="bg-orange-50"], main [class~="bg-orange-100"] { background-color: var(--color-brand-subtle) !important; }
+    main [class~="bg-orange-700"] { background-color: var(--color-brand) !important; }
+    main [class~="bg-blue-50"], main [class~="bg-blue-100"] { background-color: #f5f5f5 !important; }
+    main [class~="border-slate-200"], main [class~="border-slate-300"] { border-color: var(--color-border) !important; }
+    main [class~="border-orange-200"], main [class~="border-orange-300"] { border-color: var(--color-brand-border) !important; }
+    main [class~="border-blue-100"], main [class~="border-blue-200"] { border-color: var(--color-border) !important; }
+    main [class~="divide-slate-200"] > :not([hidden]) ~ :not([hidden]) { border-color: var(--color-divider) !important; }
+    main [class~="hover:bg-slate-50"]:hover { background-color: var(--color-background) !important; }
+    main [class~="hover:bg-slate-100"]:hover { background-color: var(--color-surface-elevated) !important; }
+    main [class~="hover:border-slate-300"]:hover { border-color: var(--color-border) !important; }
+    main [class~="hover:text-blue-700"]:hover { color: var(--color-text-primary) !important; }
+    main [class~="hover:text-orange-800"]:hover, main [class~="hover:text-orange-900"]:hover { color: var(--color-brand-hover) !important; }
+
+    main table { background: var(--color-surface) !important; }
+    main table thead { background: var(--color-background) !important; }
+    main table th { color: var(--color-text-muted) !important; }
+    main table td { color: var(--color-text-secondary); }
+    main table tbody tr { border-color: var(--color-divider) !important; }
+    main table tbody tr:hover { background: var(--color-background) !important; }
+    main .leaderboard-row--current { background: var(--color-brand-subtle) !important; box-shadow: inset 3px 0 var(--color-brand) !important; }
+
+    main input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), main select, main textarea {
+        background: var(--color-content) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important;
+    }
+    main input::placeholder, main textarea::placeholder { color: var(--color-text-disabled) !important; }
+    main input:hover, main select:hover, main textarea:hover { border-color: var(--color-text-disabled) !important; }
+    main input:focus, main select:focus, main textarea:focus { border-color: var(--color-brand) !important; box-shadow: 0 0 0 3px rgb(253 186 116 / 40%) !important; }
+    main input:disabled, main select:disabled, main textarea:disabled { background: var(--color-surface-elevated) !important; color: var(--color-text-disabled) !important; }
+
+    .vote-button { color: #a3a3a3 !important; background: transparent !important; }
+    .vote-button:hover, .vote-button--up.is-selected { color: #f97316 !important; background: transparent !important; border-color: transparent !important; }
+    .vote-button--down:hover { color: #525252 !important; background: transparent !important; }
+    .vote-button--down.is-selected { color: #171717 !important; background: transparent !important; border-color: transparent !important; }
+    .vote-button.is-disabled { color: #d4d4d4 !important; }
+    .vote-score { color: var(--color-text-primary) !important; }
+    .vote-controls { background: transparent !important; border-color: transparent !important; }
+    .answer-accepted { background: #ffffff !important; border-color: #bbf7d0 !important; box-shadow: inset 3px 0 #16a34a !important; }
+    .accepted-label, .answer-accepted .post-layout__content > p:first-child { background: #f0fdf4 !important; color: #15803d !important; }
+    .accepted-mark { background: transparent !important; color: #16a34a !important; }
+    .role-badge, .reputation-tier, .leaderboard-rank { background: #f5f5f5 !important; border-color: var(--color-border) !important; color: var(--color-text-secondary) !important; }
+    .role-badge--admin { background: #171717 !important; border-color: #171717 !important; color: #ffffff !important; }
+    .role-badge--moderator { background: #f5f5f5 !important; color: #171717 !important; }
+    .role-badge--student { background: #ffffff !important; color: #737373 !important; }
+    .reputation-tier--gold { background: var(--color-brand-subtle) !important; border-color: var(--color-brand-border) !important; color: #c2410c !important; }
+    .reputation-tier--silver { background: #f5f5f5 !important; border-color: var(--color-border) !important; color: #525252 !important; }
+    .reputation-tier--bronze { background: #f5f5f5 !important; border-color: var(--color-border) !important; color: #404040 !important; }
+    .medal-icon--gold { color: var(--color-brand) !important; }
+    .medal-icon--silver { color: #a3a3a3 !important; }
+    .medal-icon--bronze { color: #404040 !important; }
+    .medal-disc { stroke: rgb(23 23 23 / 22%) !important; }
+    .user-reputation, .user-reputation span { color: var(--color-text-muted) !important; }
+    .user-reputation span { color: var(--color-brand) !important; }
+    .leaderboard-points, .podium-card__name, .leaderboard-student__name, .podium-card__points { color: var(--color-text-primary) !important; }
+    .podium-card__points { color: var(--color-brand-hover) !important; }
+    .podium-card--first { background: var(--color-surface) !important; border-color: var(--color-brand-border) !important; }
+    .my-achievement { background: var(--color-surface) !important; border-color: var(--color-border) !important; box-shadow: none !important; }
+    .my-achievement__icon { background: var(--color-brand-subtle) !important; color: var(--color-brand) !important; }
+    .my-achievement__identity h2, .my-achievement__points strong { color: var(--color-text-primary) !important; }
+    .my-achievement__rank strong, .my-achievement__link { color: var(--color-brand-hover) !important; }
+    .reputation-progress__track { background: #e5e5e5 !important; }
+    .reputation-progress__track span { background: var(--color-brand) !important; }
+
+    .metric-card { background: var(--color-surface) !important; border-color: var(--color-border) !important; }
+    .metric-card::after { display: none !important; }
+    .metric-card__icon { background: var(--color-surface-elevated) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important; }
+    .metric-card__hint { color: var(--color-brand-hover) !important; }
+    .metric-card--reports .metric-card__icon { background: var(--color-surface-elevated) !important; border-color: var(--color-border) !important; color: var(--color-text-secondary) !important; }
+    .page-admin-dashboard .metric-card { border-top: 2px solid var(--color-border) !important; }
+    .page-admin-dashboard .metric-card:nth-child(5) .metric-card__icon,
+    .page-admin-dashboard .metric-card:nth-child(6) .metric-card__icon { color: var(--color-brand) !important; }
+    .page-moderation #questions > div.mt-3 > article, .page-moderation #reports > div.mt-3 > article { border-left-color: var(--color-border) !important; }
+    .page-moderation #reports > div.mt-3 > article { border-left-color: var(--color-brand-border) !important; }
+
+    .app-header .theme-toggle, .app-header .language-toggle { background: transparent !important; border-color: var(--color-border) !important; color: var(--color-text-secondary) !important; }
+    .app-header .theme-toggle:hover, .app-header .language-toggle:hover, .app-header .language-menu[open] > .language-toggle { background: var(--color-surface-elevated) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important; }
+    .language-menu__panel { background: var(--color-surface) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important; box-shadow: 0 8px 24px rgb(0 0 0 / 10%) !important; }
+    .language-menu__panel button:hover, .language-menu__panel button[aria-current="true"] { background: var(--color-surface-elevated) !important; border-color: var(--color-border) !important; }
+    .language-menu__panel .language-flag { border-color: var(--color-border) !important; }
+    .language-menu__check { color: var(--color-brand-hover) !important; }
+    .app-header details > div, .app-header details > nav { background: var(--color-surface) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important; }
+    .app-header details > div a, .app-header details > nav a { color: var(--color-text-secondary) !important; }
+    .app-header details > div a:hover, .app-header details > nav a:hover { background: var(--color-surface-elevated) !important; }
+
+    footer { background: #111111 !important; border-color: #404040 !important; color: #a3a3a3 !important; }
+    footer a { color: #a3a3a3 !important; }
+    footer a:hover { color: #ffffff !important; }
+    main [role="alert"] { background: var(--color-danger-subtle) !important; border-color: var(--color-danger-border) !important; color: var(--color-danger) !important; }
+    main [role="status"] { background: var(--color-success-subtle) !important; border-color: var(--color-success-border) !important; color: var(--color-success) !important; }
+    main [class~="bg-emerald-50"], main [class~="bg-green-50"] { background: var(--color-success-subtle) !important; }
+    main [class~="text-emerald-700"], main [class~="text-emerald-800"], main [class~="text-green-700"] { color: var(--color-success) !important; }
+    main [class~="border-emerald-200"], main [class~="border-emerald-300"] { border-color: var(--color-success-border) !important; }
+    main [class~="bg-red-50"], main [class~="bg-rose-50"] { background: var(--color-danger-subtle) !important; }
+    main [class~="text-red-700"], main [class~="text-red-800"], main [class~="text-rose-700"] { color: var(--color-danger) !important; }
+    main [class~="border-red-200"], main [class~="border-red-300"] { border-color: var(--color-danger-border) !important; }
+    main [class~="bg-amber-50"], main [class~="bg-yellow-50"] { background: var(--color-warning-subtle) !important; }
+    main [class~="text-amber-700"], main [class~="text-yellow-700"] { color: var(--color-warning) !important; }
+
+    html[data-theme="dark"] .app-main .surface, html[data-theme="dark"] main article.rounded-2xl.border,
+    html[data-theme="dark"] main .divide-y.rounded-2xl.border, html[data-theme="dark"] main .leaderboard-table-wrap,
+    html[data-theme="dark"] main .podium-card, html[data-theme="dark"] main .my-achievement,
+    html[data-theme="dark"] main .landing-stats, html[data-theme="dark"] main .landing-leaders li,
+    html[data-theme="dark"] main .landing-features article, html[data-theme="dark"] main .landing-preview,
+    html[data-theme="dark"] main .metric-card, html[data-theme="dark"] main .leaderboard-mobile-card,
+    html[data-theme="dark"] main .leaderboard-empty, html[data-theme="dark"] main .leaderboard-header,
+    html[data-theme="dark"] main .auth-panel { background: var(--color-surface) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important; box-shadow: none !important; }
+    html[data-theme="dark"] .app-header { background: #111111 !important; border-color: var(--color-border) !important; }
+    html[data-theme="dark"] .app-sidebar { background: #111111 !important; border-color: var(--color-border) !important; }
+    html[data-theme="dark"] .app-main { background: var(--color-background) !important; }
+    html[data-theme="dark"] main .landing-hero, html[data-theme="dark"] main .landing-cta,
+    html[data-theme="dark"] main .dashboard-hero { background: var(--color-content) !important; border-color: var(--color-border) !important; }
+    html[data-theme="dark"] main .landing-stats { background: #111111 !important; border-color: #111111 !important; }
+    html[data-theme="dark"] main .landing-stats article + article { border-color: #404040 !important; }
+    html[data-theme="dark"] main.page-questions aside section > h2,
+    html[data-theme="dark"] main.page-questions aside section > div:first-child,
+    html[data-theme="dark"] main.page-student-dashboard > .mt-8.grid > section > div:first-child,
+    html[data-theme="dark"] main.page-student-dashboard > .mt-6.grid > section > h2,
+    html[data-theme="dark"] main.page-moderator-dashboard .mt-6.surface > div:first-child,
+    html[data-theme="dark"] main.page-admin-dashboard .mt-6.grid > section > h2 { background: #1f1f1f !important; color: #fafafa !important; }
+    html[data-theme="dark"] main [class~="bg-white"], html[data-theme="dark"] main [class~="bg-slate-50"] { background: var(--color-surface) !important; }
+    html[data-theme="dark"] main [class~="bg-slate-100"], html[data-theme="dark"] main [class~="bg-slate-200"] { background: var(--color-surface-elevated) !important; }
+    html[data-theme="dark"] main [class~="bg-slate-700"] { background: var(--color-brand) !important; color: #ffffff !important; }
+    html[data-theme="dark"] main [class~="bg-orange-50"], html[data-theme="dark"] main [class~="bg-orange-100"] { background: var(--color-brand-subtle) !important; }
+    html[data-theme="dark"] main [class~="bg-blue-50"], html[data-theme="dark"] main [class~="bg-blue-100"] { background: var(--color-surface-elevated) !important; }
+    html[data-theme="dark"] main [class~="hover:bg-blue-50"]:hover { background: var(--color-surface-elevated) !important; }
+    html[data-theme="dark"] main [class~="text-slate-950"], html[data-theme="dark"] main [class~="text-slate-900"],
+    html[data-theme="dark"] main [class~="text-slate-800"], html[data-theme="dark"] main [class~="text-slate-700"] { color: var(--color-text-primary) !important; }
+    html[data-theme="dark"] main [class~="text-slate-600"], html[data-theme="dark"] main [class~="text-slate-500"],
+    html[data-theme="dark"] main [class~="text-slate-400"] { color: var(--color-text-secondary) !important; }
+    html[data-theme="dark"] main [class~="text-blue-700"], html[data-theme="dark"] main [class~="text-blue-800"] { color: var(--color-text-secondary) !important; }
+    html[data-theme="dark"] main [class~="hover:text-blue-700"]:hover,
+    html[data-theme="dark"] main [class~="hover:text-orange-700"]:hover,
+    html[data-theme="dark"] main [class~="hover:text-orange-800"]:hover,
+    html[data-theme="dark"] main [class~="hover:text-orange-900"]:hover { color: var(--color-brand) !important; }
+    html[data-theme="dark"] main [class~="border-slate-200"], html[data-theme="dark"] main [class~="border-slate-300"],
+    html[data-theme="dark"] main [class~="divide-slate-200"] > :not([hidden]) ~ :not([hidden]) { border-color: var(--color-border) !important; }
+    html[data-theme="dark"] main [class~="hover:border-blue-300"]:hover,
+    html[data-theme="dark"] main [class~="hover:border-orange-400"]:hover { border-color: var(--color-border) !important; }
+    html[data-theme="dark"] main .answer-accepted { background: var(--color-surface) !important; border-color: var(--color-success-border) !important; }
+    html[data-theme="dark"] main input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+    html[data-theme="dark"] main select, html[data-theme="dark"] main textarea { background: var(--color-surface) !important; border-color: #404040 !important; color: var(--color-text-primary) !important; }
+    html[data-theme="dark"] main .btn-secondary { background: #262626 !important; border-color: #262626 !important; color: #fafafa !important; }
+    html[data-theme="dark"] main .btn-secondary:hover { background: #303030 !important; }
+    html[data-theme="dark"] main .btn-danger { background: #171717 !important; border-color: #6c2929 !important; color: #f87171 !important; }
+    html[data-theme="dark"] main .btn-danger:hover { background: #2a1111 !important; }
+    html[data-theme="dark"] .btn-dark { background: #262626 !important; border-color: #404040 !important; color: #fafafa !important; }
+    html[data-theme="dark"] .app-sidebar nav a:hover, html[data-theme="dark"] .app-sidebar nav button:hover { background: #262626 !important; color: #fafafa !important; }
+    html[data-theme="dark"] .app-sidebar nav a.bg-orange-50 { background: #2a1b12 !important; color: #fb923c !important; box-shadow: inset 2px 0 #f97316 !important; }
+    html[data-theme="dark"] .app-header nav a:not(.btn-primary), html[data-theme="dark"] .app-header > div > a:first-child > span:last-child,
+    html[data-theme="dark"] .app-header > div > div > a, html[data-theme="dark"] .app-header details > summary { color: #fafafa !important; }
+    html[data-theme="dark"] .app-header nav a:not(.btn-primary):hover, html[data-theme="dark"] .app-header details > summary:hover { background: #262626 !important; }
+    html[data-theme="dark"] .app-header .theme-toggle, html[data-theme="dark"] .app-header .language-toggle { background: #262626 !important; border-color: #404040 !important; color: #fafafa !important; }
+    html[data-theme="dark"] .language-menu__panel, html[data-theme="dark"] .app-header details > div,
+    html[data-theme="dark"] .app-header details > nav { background: #171717 !important; border-color: #404040 !important; color: #fafafa !important; }
+    html[data-theme="dark"] .language-menu__panel button:hover, html[data-theme="dark"] .language-menu__panel button[aria-current="true"],
+    html[data-theme="dark"] .app-header details > div a:hover, html[data-theme="dark"] .app-header details > nav a:hover { background: #262626 !important; }
+    html[data-theme="dark"] .app-header .notification-dot { border-color: #111111 !important; }
+    html[data-theme="dark"] main .leaderboard-row--current { background: #2a1b12 !important; }
+    html[data-theme="dark"] main .leaderboard-rank, html[data-theme="dark"] main .reputation-tier,
+    html[data-theme="dark"] main .role-badge, html[data-theme="dark"] main .vote-controls { background: #1f1f1f !important; border-color: #303030 !important; color: #fafafa !important; }
+    html[data-theme="dark"] main .role-badge--admin { background: #171717 !important; color: #fafafa !important; }
+    html[data-theme="dark"] main .role-badge--student { background: #171717 !important; color: #a3a3a3 !important; }
+    html[data-theme="dark"] main .reputation-tier--bronze, html[data-theme="dark"] main .reputation-tier--silver { background: #1f1f1f !important; color: #a3a3a3 !important; }
+    html[data-theme="dark"] main .reputation-tier--gold { background: #2a1b12 !important; color: #fb923c !important; }
+    html[data-theme="dark"] main .vote-score { color: #fafafa !important; }
+    html[data-theme="dark"] main .vote-button--down.is-selected { color: #fafafa !important; }
+    html[data-theme="dark"] main .vote-button--up.is-selected { color: #f97316 !important; }
+    html[data-theme="dark"] main .accepted-label, html[data-theme="dark"] main .answer-accepted .post-layout__content > p:first-child { background: #102116 !important; color: #4ade80 !important; }
+    html[data-theme="dark"] main .accepted-mark { color: #4ade80 !important; }
+    html[data-theme="dark"] main table thead { background: #111111 !important; }
+    html[data-theme="dark"] main table tbody tr:hover { background: #171717 !important; }
+    html[data-theme="dark"] footer { background: #111111 !important; border-color: #404040 !important; }
+}
