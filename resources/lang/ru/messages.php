@@ -91,7 +91,7 @@ return [
     'reason_inappropriate' => 'Неприемлемый контент', 'reason_spam' => 'Спам', 'reason_incorrect' => 'Недостоверная информация', 'reason_other' => 'Другое',
     'answer_restored' => 'Модератор восстановил ваш ответ.', 'restore_answer' => 'Восстановить ответ', 'no_moderated_answers' => 'Нет опубликованных или скрытых ответов для проверки.',
     'action_answer_hide' => 'скрыл ответ', 'action_answer_restore' => 'восстановил скрытый ответ',
-    'leaderboard' => 'Таблица лидеров', 'student_rankings' => 'Рейтинг студентов', 'leaderboard_intro' => 'Отметьте студентов, которые укрепляют учебное сообщество полезными вопросами и ответами.',
+    'leaderboard' => 'Таблица лидеров', 'student_rankings' => 'Рейтинг студентов', 'student_leaderboard' => 'Таблица лидеров студентов', 'leaderboard_intro' => 'Отметьте студентов, которые укрепляют учебное сообщество полезными вопросами и ответами.',
     'all_time' => 'За всё время', 'top_contributors' => 'Лидеры сообщества', 'top_students' => 'Лучшие студенты', 'my_achievement' => 'Мои достижения',
     'your_community_position' => 'Ваше место в студенческом сообществе', 'current_rank' => 'Текущее место', 'reputation_points' => 'баллов репутации',
     'find_my_position' => 'Найти моё место', 'join_to_see_position' => 'Присоединитесь к сообществу, чтобы видеть свой рейтинг и накапливать репутацию.',

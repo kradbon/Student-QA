@@ -106,7 +106,7 @@ return [
     'reason_inappropriate' => 'Маводи номуносиб', 'reason_spam' => 'Спам', 'reason_incorrect' => 'Маълумоти нодуруст', 'reason_other' => 'Дигар',
     'answer_restored' => 'Модератор ҷавоби шуморо барқарор кард.', 'restore_answer' => 'Барқарор кардани ҷавоб', 'no_moderated_answers' => 'Ҷавоби нашршуда ё пинҳоншуда барои баррасӣ нест.',
     'action_answer_hide' => 'ҷавобро пинҳон кард', 'action_answer_restore' => 'ҷавоби пинҳоншударо барқарор кард',
-    'leaderboard' => 'Ҷадвали пешсафон', 'student_rankings' => 'Рейтинги донишҷӯён', 'leaderboard_intro' => 'Донишҷӯёне, ки бо саволу ҷавобҳои муфид ҷомеаи омӯзиширо қавитар мекунанд, қадр намоед.',
+    'leaderboard' => 'Ҷадвали пешсафон', 'student_rankings' => 'Рейтинги донишҷӯён', 'student_leaderboard' => 'Ҷадвали рейтинги донишҷӯён', 'leaderboard_intro' => 'Донишҷӯёне, ки бо саволу ҷавобҳои муфид ҷомеаи омӯзиширо қавитар мекунанд, қадр намоед.',
     'all_time' => 'Дар тамоми давра', 'top_contributors' => 'Пешсафони ҷомеа', 'top_students' => 'Донишҷӯёни беҳтарин', 'my_achievement' => 'Дастоварди ман',
     'your_community_position' => 'Мақоми шумо дар ҷомеаи донишҷӯён', 'current_rank' => 'Мақоми кунунӣ', 'reputation_points' => 'холи обрӯ',
     'find_my_position' => 'Мақоми маро ёбед', 'join_to_see_position' => 'Барои дидани рейтинг ва баланд бардоштани обрӯи худ ба ҷомеа ҳамроҳ шавед.',

@@ -931,8 +931,27 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     main table th { color: var(--color-text-muted) !important; }
     main table td { color: var(--color-text-secondary); }
     main table tbody tr { border-color: var(--color-divider) !important; }
-    main table tbody tr:hover { background: var(--color-background) !important; }
+    main table tbody tr:not(.leaderboard-row--first):hover { background: var(--color-background) !important; }
     main .leaderboard-row--current { background: var(--color-brand-subtle) !important; box-shadow: inset 3px 0 var(--color-brand) !important; }
+    @keyframes leaderboard-gold-sweep {
+        0%, 100% { background-position: 100% 50%; }
+        50% { background-position: 0 50%; }
+    }
+    main .leaderboard-row--first {
+        background-color: #fff8df !important;
+        background-image: linear-gradient(105deg, #fff8df 0%, #fffdf7 42%, #fff1b8 50%, #fffdf7 58%, #fff8df 100%) !important;
+        background-position: 100% 50%;
+        background-size: 240% 100%;
+        animation: leaderboard-gold-sweep 7s ease-in-out infinite;
+        box-shadow: inset 3px 0 #f5c542 !important;
+    }
+    main .leaderboard-row--first td,
+    main .leaderboard-row--first .leaderboard-student__name,
+    main .leaderboard-row--first .leaderboard-points { color: #171717 !important; }
+    main .leaderboard-mobile-card.leaderboard-row--first {
+        border-color: #f5c542 !important;
+        color: #171717 !important;
+    }
 
     main input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), main select, main textarea {
         background: var(--color-content) !important; border-color: var(--color-border) !important; color: var(--color-text-primary) !important;
@@ -959,9 +978,9 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     .reputation-tier--gold { background: var(--color-brand-subtle) !important; border-color: var(--color-brand-border) !important; color: #c2410c !important; }
     .reputation-tier--silver { background: #f5f5f5 !important; border-color: var(--color-border) !important; color: #525252 !important; }
     .reputation-tier--bronze { background: #f5f5f5 !important; border-color: var(--color-border) !important; color: #404040 !important; }
-    .medal-icon--gold { color: var(--color-brand) !important; }
-    .medal-icon--silver { color: #a3a3a3 !important; }
-    .medal-icon--bronze { color: #404040 !important; }
+    .medal-icon--gold { color: #f5c542 !important; }
+    .medal-icon--silver { color: #aeb8c5 !important; }
+    .medal-icon--bronze { color: #cd8b52 !important; }
     .medal-disc { stroke: rgb(23 23 23 / 22%) !important; }
     .user-reputation, .user-reputation span { color: var(--color-text-muted) !important; }
     .user-reputation span { color: var(--color-brand) !important; }
@@ -1071,6 +1090,20 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     html[data-theme="dark"] .app-header details > div a:hover, html[data-theme="dark"] .app-header details > nav a:hover { background: #262626 !important; }
     html[data-theme="dark"] .app-header .notification-dot { border-color: #111111 !important; }
     html[data-theme="dark"] main .leaderboard-row--current { background: #2a1b12 !important; }
+    html[data-theme="dark"] main .leaderboard-row--first {
+        background-color: #241f13 !important;
+        background-image: linear-gradient(105deg, #241f13 0%, #2a2518 42%, #3a321b 50%, #2a2518 58%, #241f13 100%) !important;
+        box-shadow: inset 3px 0 #f5c542 !important;
+    }
+    html[data-theme="dark"] main .leaderboard-row--first td,
+    html[data-theme="dark"] main .leaderboard-row--first .leaderboard-student__name,
+    html[data-theme="dark"] main .leaderboard-row--first .leaderboard-points { color: #fafafa !important; }
+    html[data-theme="dark"] main .leaderboard-row--first:hover {
+        background-image: linear-gradient(105deg, #292313 0%, #302918 42%, #403619 50%, #302918 58%, #292313 100%) !important;
+    }
+    html[data-theme="dark"] main .medal-icon--gold { color: #f5c542 !important; }
+    html[data-theme="dark"] main .medal-icon--silver { color: #aeb8c5 !important; }
+    html[data-theme="dark"] main .medal-icon--bronze { color: #cd8b52 !important; }
     html[data-theme="dark"] main .leaderboard-rank, html[data-theme="dark"] main .reputation-tier,
     html[data-theme="dark"] main .role-badge, html[data-theme="dark"] main .vote-controls { background: #1f1f1f !important; border-color: #303030 !important; color: #fafafa !important; }
     html[data-theme="dark"] main .role-badge--admin { background: #171717 !important; color: #fafafa !important; }
@@ -1083,6 +1116,6 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     html[data-theme="dark"] main .accepted-label, html[data-theme="dark"] main .answer-accepted .post-layout__content > p:first-child { background: #102116 !important; color: #4ade80 !important; }
     html[data-theme="dark"] main .accepted-mark { color: #4ade80 !important; }
     html[data-theme="dark"] main table thead { background: #111111 !important; }
-    html[data-theme="dark"] main table tbody tr:hover { background: #171717 !important; }
+    html[data-theme="dark"] main table tbody tr:not(.leaderboard-row--first):hover { background: #171717 !important; }
     html[data-theme="dark"] footer { background: #111111 !important; border-color: #404040 !important; }
 }

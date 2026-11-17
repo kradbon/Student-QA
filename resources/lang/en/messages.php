@@ -89,7 +89,7 @@ return [
     'reason_inappropriate' => 'Inappropriate content', 'reason_spam' => 'Spam', 'reason_incorrect' => 'Incorrect information', 'reason_other' => 'Other',
     'answer_restored' => 'A moderator restored your answer.', 'restore_answer' => 'Restore answer', 'no_moderated_answers' => 'There are no published or hidden answers to review.',
     'action_answer_hide' => 'hid an answer', 'action_answer_restore' => 'restored a hidden answer',
-    'leaderboard' => 'Leaderboard', 'student_rankings' => 'Student rankings', 'leaderboard_intro' => 'Recognize the students building a stronger learning community through helpful questions and answers.',
+    'leaderboard' => 'Leaderboard', 'student_rankings' => 'Student rankings', 'student_leaderboard' => 'Student leaderboard', 'leaderboard_intro' => 'Recognize the students building a stronger learning community through helpful questions and answers.',
     'all_time' => 'All time', 'top_contributors' => 'Community leaders', 'top_students' => 'Top students', 'my_achievement' => 'My achievement',
     'your_community_position' => 'Your place in the student community', 'current_rank' => 'Current rank', 'reputation_points' => 'reputation points',
     'find_my_position' => 'Find my position', 'join_to_see_position' => 'Join the community to see your ranking and build reputation.',
