@@ -61,9 +61,21 @@ class PlatformWorkflowTest extends TestCase
         $this->get(route('home'))
             ->assertOk()
             ->assertSee('<html lang="ru">', false)
-            ->assertSee(__('messages.landing_title', [], 'ru'))
+            ->assertSee(__('messages.landing_headline', [], 'ru'))
             ->assertSee(__('messages.register', [], 'ru'))
             ->assertDontSee(__('messages.workspace', [], 'ru'));
+    }
+
+    public function test_landing_copy_is_available_in_every_supported_locale(): void
+    {
+        foreach (['en', 'ru', 'tj'] as $locale) {
+            $this->withSession(['locale' => $locale])
+                ->get(route('home'))
+                ->assertOk()
+                ->assertSee(__('messages.landing_headline', [], $locale))
+                ->assertSee(__('messages.landing_how_heading', [], $locale))
+                ->assertSee(__('messages.landing_cta_heading', [], $locale));
+        }
     }
 
     public function test_student_can_create_update_and_delete_owned_question(): void
@@ -125,7 +137,7 @@ class PlatformWorkflowTest extends TestCase
     public function test_home_student_moderator_and_admin_screens_render(): void
     {
         $question = Question::factory()->create();
-        $this->get(route('home'))->assertOk()->assertSee(__('messages.landing_title'));
+        $this->get(route('home'))->assertOk()->assertSee(__('messages.landing_headline'))->assertSee($question->title);
         $this->get(route('questions.index'))->assertOk()->assertSee($question->title);
         $this->get(route('questions.show', $question))->assertOk()->assertSee($question->title);
         $this->actingAs(User::factory()->create(['role' => 'moderator']))->get(route('moderator.dashboard'))->assertOk();

@@ -1,42 +1,101 @@
 @extends('layouts.app')
 @section('title', __('messages.app_name'))
 @section('content')
-<section class="landing-hero grid items-center gap-12 py-10 sm:py-16 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
-    <div class="max-w-2xl">
-        <p class="eyebrow">{{ __('messages.landing_eyebrow') }}</p>
-        <h1 class="mt-4 text-4xl font-semibold leading-tight tracking-[-.035em] text-slate-950 sm:text-5xl">{{ __('messages.landing_title') }}</h1>
-        <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600">{{ __('messages.landing_intro') }}</p>
-        <div class="mt-8 flex flex-wrap gap-3"><a class="btn-primary px-5" href="{{ route('register') }}">{{ __('messages.landing_primary_cta') }}</a><a class="btn-secondary px-5" href="{{ route('questions.index') }}">{{ __('messages.landing_secondary_cta') }} <span aria-hidden="true">→</span></a></div>
-        <p class="mt-4 text-sm text-slate-500">{{ __('messages.landing_signin_prompt') }} <a class="font-semibold text-orange-800 hover:underline" href="{{ route('login') }}">{{ __('messages.login') }}</a></p>
-    </div>
-    <div class="landing-preview surface overflow-hidden p-5 sm:p-7">
-        <div class="flex items-center justify-between border-b border-slate-200 pb-4"><div><p class="text-sm font-semibold text-slate-900">{{ __('messages.landing_preview_title') }}</p><p class="mt-1 text-xs text-slate-500">{{ __('messages.landing_preview_subtitle') }}</p></div><span class="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-semibold text-orange-800">{{ __('messages.status_published') }}</span></div>
-        <div class="py-5"><p class="text-xs font-semibold uppercase tracking-wide text-orange-800">{{ __('messages.category') }} · {{ __('messages.landing_preview_category') }}</p><h2 class="mt-2 text-xl font-semibold leading-7 text-slate-950">{{ __('messages.landing_preview_question') }}</h2><p class="mt-3 text-sm leading-6 text-slate-600">{{ __('messages.landing_preview_body') }}</p></div>
-        <div class="rounded-lg border border-orange-200 bg-orange-50/60 p-4"><div class="flex items-center gap-2 text-sm font-semibold text-orange-900"><span aria-hidden="true">✓</span>{{ __('messages.accepted_answer') }}</div><p class="mt-2 text-sm leading-6 text-slate-700">{{ __('messages.landing_preview_answer') }}</p><p class="mt-3 text-xs font-medium text-slate-500">{{ __('messages.landing_preview_author') }}</p></div>
-    </div>
-</section>
-<section class="landing-stats" aria-label="{{ __('messages.platform_overview') }}">
-    @foreach([__('messages.total_students')=>$communityStats['students'], __('messages.total_questions')=>$communityStats['questions'], __('messages.total_answers')=>$communityStats['answers']] as $label=>$value)
-        <article><span class="landing-stats__value">{{ number_format($value) }}</span><span class="landing-stats__label">{{ $label }}</span></article>
-    @endforeach
-</section>
-<section class="landing-features border-t border-slate-200 py-10 sm:py-14" aria-label="{{ __('messages.landing_features') }}">
-    <div class="grid gap-8 md:grid-cols-3">
-        <article><span class="grid size-9 place-items-center rounded-lg bg-orange-50 font-semibold text-orange-800" aria-hidden="true">01</span><h2 class="mt-4 text-base font-semibold text-slate-950">{{ __('messages.landing_feature_questions') }}</h2><p class="mt-2 text-sm leading-6 text-slate-600">{{ __('messages.landing_feature_questions_text') }}</p></article>
-        <article><span class="grid size-9 place-items-center rounded-lg bg-orange-50 font-semibold text-orange-800" aria-hidden="true">02</span><h2 class="mt-4 text-base font-semibold text-slate-950">{{ __('messages.landing_feature_answers') }}</h2><p class="mt-2 text-sm leading-6 text-slate-600">{{ __('messages.landing_feature_answers_text') }}</p></article>
-        <article><span class="grid size-9 place-items-center rounded-lg bg-orange-50 font-semibold text-orange-800" aria-hidden="true">03</span><h2 class="mt-4 text-base font-semibold text-slate-950">{{ __('messages.landing_feature_trust') }}</h2><p class="mt-2 text-sm leading-6 text-slate-600">{{ __('messages.landing_feature_trust_text') }}</p></article>
-    </div>
-</section>
-@if($topStudents->isNotEmpty())
-<section class="landing-leaders" aria-labelledby="landing-leaders-heading">
-    <div class="landing-leaders__heading"><div><p class="eyebrow">{{ __('messages.community') }}</p><h2 id="landing-leaders-heading">{{ __('messages.top_students') }}</h2></div><a href="{{ route('community.leaderboard') }}">{{ __('messages.view_all') }} <span aria-hidden="true">→</span></a></div>
-    <ol>
-        @foreach($topStudents as $student)
-            @php($metal = ['gold', 'silver', 'bronze'][$loop->index])
-            <li><x-medal-icon :metal="$metal" :rank="$loop->iteration" size="sm"/><x-user-avatar :user="$student" size="sm"/><span class="landing-leaders__name">{{ $student->name }}</span><x-reputation-badge :points="$student->reputation"/><strong>{{ number_format($student->reputation) }}</strong></li>
+<div class="landing-page">
+    <section class="landing-hero grid items-center gap-10 lg:grid-cols-[.94fr_1.06fr] lg:gap-16" aria-labelledby="landing-title">
+        <div class="landing-hero__copy">
+            <p class="landing-eyebrow"><span aria-hidden="true"></span>{{ __('messages.landing_badge') }}</p>
+            <h1 id="landing-title">{{ __('messages.landing_headline') }}</h1>
+            <p class="landing-hero__description">{{ __('messages.landing_description') }}</p>
+            <div class="landing-hero__actions">
+                <a class="btn-primary" href="{{ route('register') }}">{{ __('messages.ask_question') }}<svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                <a class="btn-secondary" href="{{ route('questions.index') }}">{{ __('messages.landing_secondary_cta') }}</a>
+            </div>
+            <p class="landing-hero__microcopy"><span aria-hidden="true">✳</span>{{ __('messages.landing_built_for_students') }}</p>
+        </div>
+
+        <div class="landing-product" aria-label="{{ __('messages.landing_questions_heading') }}">
+            <div class="landing-product__topbar"><span class="landing-product__mark" aria-hidden="true">Q</span><span>{{ __('messages.questions') }}</span><span class="landing-product__topbar-spacer"></span><span class="landing-product__live"><i></i>{{ __('messages.community') }}</span></div>
+            @if($recentQuestions->isNotEmpty())
+                @php($spotlight = $recentQuestions->first())
+                <article class="landing-product__question">
+                    <div class="landing-product__meta"><span>{{ $spotlight->category?->name ?? __('messages.categories') }}</span><span>{{ $spotlight->created_at->diffForHumans() }}</span></div>
+                    <h2><a href="{{ route('questions.show', $spotlight) }}">{{ $spotlight->title }}</a></h2>
+                    <p>{{ \Illuminate\Support\Str::limit(trim(strip_tags($spotlight->body)), 180) }}</p>
+                    <div class="landing-product__stats"><span><b>{{ (int) $spotlight->votes_sum_value }}</b> {{ __('messages.score') }}</span><span><b>{{ $spotlight->answers_count }}</b> {{ __('messages.answers') }}</span>@if($spotlight->accepted_answer_id)<span class="landing-product__accepted"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ __('messages.accepted_answer') }}</span>@endif</div>
+                </article>
+                @if($spotlight->acceptedAnswer)
+                    <article class="landing-product__answer"><div class="landing-product__answer-mark"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><p class="landing-product__answer-label">{{ __('messages.accepted_answer') }}</p><p class="landing-product__answer-copy">{{ \Illuminate\Support\Str::limit(trim(strip_tags($spotlight->acceptedAnswer->body)), 125) }}</p><p class="landing-product__answer-author">{{ $spotlight->acceptedAnswer->author?->name }}</p></div></article>
+                @else
+                    <div class="landing-product__community-note"><span aria-hidden="true">↗</span><span>{{ __('messages.landing_step_discuss_text') }}</span></div>
+                @endif
+            @else
+                <div class="landing-product__empty"><span class="landing-product__empty-icon" aria-hidden="true">?</span><h2>{{ __('messages.landing_step_ask') }}</h2><p>{{ __('messages.landing_questions_empty') }}</p><a href="{{ route('register') }}">{{ __('messages.ask_question') }} <span aria-hidden="true">→</span></a></div>
+                <div class="landing-product__footer landing-product__footer--empty"><span>{{ __('messages.landing_built_for_students') }}</span><a href="{{ route('questions.index') }}">{{ __('messages.landing_secondary_cta') }} <span aria-hidden="true">↗</span></a></div>
+            @endif
+            @if($recentQuestions->isNotEmpty())
+                <div class="landing-product__footer"><span><x-user-avatar :user="$spotlight->author" size="sm" />{{ $spotlight->author->name }}</span><a href="{{ route('questions.index') }}" aria-label="{{ __('messages.landing_view_all_questions') }}">{{ __('messages.landing_view_all_questions') }} <span aria-hidden="true">↗</span></a></div>
+            @endif
+        </div>
+    </section>
+
+    <section class="landing-stats" aria-label="{{ __('messages.platform_overview') }}">
+        @foreach([
+            [__('messages.total_questions'), $communityStats['questions']],
+            [__('messages.total_answers'), $communityStats['answers']],
+            [__('messages.total_students'), $communityStats['students']],
+            [__('messages.categories'), $communityStats['categories']],
+        ] as [$label, $value])
+            <article><span class="landing-stats__value">{{ number_format($value) }}</span><span class="landing-stats__label">{{ $label }}</span></article>
         @endforeach
-    </ol>
-</section>
-@endif
-<section class="landing-cta surface flex flex-wrap items-center justify-between gap-5 p-6 sm:p-8"><h2 class="max-w-2xl text-xl font-semibold tracking-tight text-slate-950">{{ __('messages.landing_bottom_title') }}</h2><a class="btn-primary" href="{{ route('register') }}">{{ __('messages.landing_primary_cta') }}</a></section>
+    </section>
+
+    <section class="landing-how" id="how-it-works" aria-labelledby="landing-how-heading">
+        <div class="landing-section-heading"><p class="landing-kicker">{{ __('messages.landing_eyebrow') }}</p><h2 id="landing-how-heading">{{ __('messages.landing_how_heading') }}</h2><p>{{ __('messages.landing_how_intro') }}</p></div>
+        <div class="landing-steps">
+            <article class="landing-step"><div class="landing-step__heading"><span>01</span><h3>{{ __('messages.landing_step_ask') }}</h3></div><p>{{ __('messages.landing_step_ask_text') }}</p><div class="landing-step__visual landing-step__visual--ask"><span class="landing-visual-label">{{ __('messages.ask_question') }}</span><span class="landing-visual-line landing-visual-line--long"></span><span class="landing-visual-line"></span><span class="landing-visual-action">＋</span></div></article>
+            <article class="landing-step"><div class="landing-step__heading"><span>02</span><h3>{{ __('messages.landing_step_discuss') }}</h3></div><p>{{ __('messages.landing_step_discuss_text') }}</p><div class="landing-step__visual landing-step__visual--discuss"><span class="landing-visual-vote">↑ <b>{{ $recentQuestions->first()?->votes_sum_value ?? '—' }}</b></span><span class="landing-visual-line landing-visual-line--long"></span><span class="landing-visual-line"></span><span class="landing-visual-reply">{{ __('messages.answers') }} <b>{{ $recentQuestions->first()?->answers_count ?? '—' }}</b></span></div></article>
+            <article class="landing-step"><div class="landing-step__heading"><span>03</span><h3>{{ __('messages.landing_step_grow') }}</h3></div><p>{{ __('messages.landing_step_grow_text') }}</p><div class="landing-step__visual landing-step__visual--grow"><span class="landing-visual-medal" aria-hidden="true">✦</span><span><b>{{ __('messages.reputation') }}</b><small>{{ __('messages.landing_feature_reputation') }}</small></span><span class="landing-visual-arrow" aria-hidden="true">↗</span></div></article>
+        </div>
+    </section>
+
+    <section class="landing-capabilities" aria-labelledby="landing-capabilities-heading">
+        <div class="landing-section-heading"><p class="landing-kicker">{{ __('messages.landing_features') }}</p><h2 id="landing-capabilities-heading">{{ __('messages.landing_capabilities_heading') }}</h2><p>{{ __('messages.landing_capabilities_intro') }}</p></div>
+        <div class="landing-capabilities__grid">
+            <article class="landing-feature landing-feature--large"><span class="landing-feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5.5h14v10H9l-4 3v-13Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 9h7m-7 3h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><h3>{{ __('messages.landing_feature_questions') }}</h3><p>{{ __('messages.landing_feature_questions_text') }}</p><div class="landing-feature__preview"><span>{{ __('messages.category') }}</span><span>{{ __('messages.questions') }}</span><span>{{ __('messages.answers') }}</span></div></article>
+            <article class="landing-feature"><span class="landing-feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m7 10 5-5 5 5m-5-5v12m-5-2 5 5 5-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>{{ __('messages.landing_feature_voting') }}</h3><p>{{ __('messages.landing_feature_voting_text') }}</p><div class="landing-feature__vote" aria-hidden="true"><span>↑</span><b>{{ __('messages.score') }}</b><span>↓</span></div></article>
+            <article class="landing-feature"><span class="landing-feature__icon landing-feature__icon--success" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>{{ __('messages.landing_feature_accepted') }}</h3><p>{{ __('messages.landing_feature_accepted_text') }}</p><span class="landing-feature__accepted">✓ {{ __('messages.accepted_answer') }}</span></article>
+            <article class="landing-feature"><span class="landing-feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 14.8 9l6.2.8-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.8 9.2 9 12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span><h3>{{ __('messages.landing_feature_reputation') }}</h3><p>{{ __('messages.landing_feature_reputation_text') }}</p><span class="landing-feature__rep">✦ {{ __('messages.reputation') }}</span></article>
+            <article class="landing-feature"><span class="landing-feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4zM8 9h8M8 12h5M8 15h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>{{ __('messages.landing_feature_categories') }}</h3><p>{{ __('messages.landing_feature_categories_text') }}</p><a class="landing-feature__link" href="{{ route('community.tags') }}">{{ __('messages.categories') }} <span aria-hidden="true">↗</span></a></article>
+            <article class="landing-feature landing-feature--wide"><span class="landing-feature__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V9m8 10V5m8 14v-7M2 19h20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><h3>{{ __('messages.landing_feature_leaderboard') }}</h3><p>{{ __('messages.landing_feature_leaderboard_text') }}</p><a class="landing-feature__link" href="{{ route('community.leaderboard') }}">{{ __('messages.leaderboard') }} <span aria-hidden="true">↗</span></a></article>
+        </div>
+    </section>
+
+    <section class="landing-questions" aria-labelledby="landing-questions-heading">
+        <div class="landing-section-heading landing-section-heading--row"><div><p class="landing-kicker">{{ __('messages.community') }}</p><h2 id="landing-questions-heading">{{ __('messages.landing_questions_heading') }}</h2><p>{{ __('messages.landing_questions_intro') }}</p></div><a class="landing-text-link" href="{{ route('questions.index') }}">{{ __('messages.landing_view_all_questions') }} <span aria-hidden="true">↗</span></a></div>
+        @if($recentQuestions->isNotEmpty())
+            <div class="landing-question-list">
+                @foreach($recentQuestions as $question)
+                    <article class="landing-question-card"><a class="landing-question-card__title" href="{{ route('questions.show', $question) }}">{{ $question->title }}</a><p>{{ \Illuminate\Support\Str::limit(trim(strip_tags($question->body)), 165) }}</p><div class="landing-question-card__footer"><span class="landing-question-card__category">{{ $question->category?->name ?? __('messages.categories') }}</span><span class="landing-question-card__author"><x-user-avatar :user="$question->author" size="sm"/>{{ $question->author->name }}</span><span>{{ $question->created_at->diffForHumans() }}</span><span>{{ (int) $question->votes_sum_value }} {{ __('messages.score') }}</span><span class="{{ $question->accepted_answer_id ? 'is-answered' : '' }}">{{ $question->answers_count }} {{ __('messages.answers') }}</span>@if($question->accepted_answer_id)<span class="landing-question-card__accepted">✓ {{ __('messages.accepted_answer') }}</span>@endif</div></article>
+                @endforeach
+            </div>
+        @else
+            <div class="landing-question-empty"><span aria-hidden="true">?</span><p>{{ __('messages.landing_questions_empty') }}</p><a class="btn-primary" href="{{ route('register') }}">{{ __('messages.ask_question') }}</a></div>
+            @endif
+    </section>
+
+    @if($topStudents->isNotEmpty())
+        <section class="landing-community" id="community" aria-labelledby="landing-community-heading">
+            <div class="landing-section-heading landing-section-heading--row"><div><p class="landing-kicker">{{ __('messages.community') }}</p><h2 id="landing-community-heading">{{ __('messages.landing_community_heading') }}</h2><p>{{ __('messages.landing_community_intro') }}</p></div><a class="landing-text-link" href="{{ route('community.leaderboard') }}">{{ __('messages.leaderboard') }} <span aria-hidden="true">↗</span></a></div>
+            <ol class="landing-community__list">
+                @foreach($topStudents as $student)
+                    @php($metal = ['gold', 'silver', 'bronze'][$loop->index])
+                    <li><x-medal-icon :metal="$metal" :rank="$loop->iteration" size="sm"/><x-user-avatar :user="$student" size="sm"/><span class="landing-community__name">{{ $student->name }}</span><strong>{{ number_format($student->reputation) }} <small>{{ __('messages.reputation') }}</small></strong></li>
+                @endforeach
+            </ol>
+        </section>
+    @endif
+
+    <section class="landing-final-cta" aria-labelledby="landing-cta-heading"><div><p class="landing-kicker">{{ __('messages.landing_badge') }}</p><h2 id="landing-cta-heading">{{ __('messages.landing_cta_heading') }}</h2><p>{{ __('messages.landing_cta_text') }}</p></div><div class="landing-final-cta__actions"><a class="btn-primary" href="{{ route('register') }}">{{ __('messages.register') }} <span aria-hidden="true">↗</span></a><a class="landing-final-cta__link" href="{{ route('questions.index') }}">{{ __('messages.landing_secondary_cta') }}</a></div></section>
+</div>
 @endsection
