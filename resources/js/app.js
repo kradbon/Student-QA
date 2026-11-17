@@ -17,6 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyTheme = (theme, persist = false) => {
         document.documentElement.dataset.theme = theme;
         themeToggle?.setAttribute('aria-pressed', String(theme === 'dark'));
+        const themeLabel = theme === 'dark'
+            ? themeToggle?.dataset.themeLabelLight
+            : themeToggle?.dataset.themeLabelDark;
+        if (themeLabel) {
+            themeToggle.setAttribute('aria-label', themeLabel);
+            themeToggle.setAttribute('title', themeLabel);
+        }
 
         if (persist) {
             try {
@@ -33,6 +40,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     systemTheme.addEventListener?.('change', (event) => {
         if (!savedTheme()) applyTheme(event.matches ? 'dark' : 'light');
+    });
+
+    const languageMenu = document.querySelector('.language-menu');
+    const languageSummary = languageMenu?.querySelector('summary');
+    document.addEventListener('click', (event) => {
+        if (languageMenu?.open && !languageMenu.contains(event.target)) {
+            languageMenu.open = false;
+        }
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && languageMenu?.open) {
+            languageMenu.open = false;
+            languageSummary?.focus();
+        }
     });
 
     const title = document.querySelector('[data-similar-title]');

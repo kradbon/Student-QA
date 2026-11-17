@@ -10,14 +10,14 @@
 
 @layer base {
     :root {
-        color-scheme: light !important;
+        color-scheme: light;
         font-synthesis: none;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
-        --color-background: #fafafa;
+        --color-background: #ffffff;
         --color-content: #ffffff;
         --color-surface: #ffffff;
-        --color-surface-elevated: #ffffff;
+        --color-surface-elevated: #fafafa;
         --color-text-primary: #171717;
         --color-text-secondary: #404040;
         --color-text-muted: #737373;
@@ -114,7 +114,7 @@
     .answer-accepted { border-color: #a6f4c5 !important; background: #f6fef9 !important; box-shadow: inset 3px 0 #12b76a, 0 2px 5px rgb(16 42 53 / 4%); }
     .accepted-mark { display: grid; width: 1.75rem; height: 1.75rem; margin-top: .5rem; place-items: center; border-radius: 999px; background: #dcfae6; color: #067647; font-size: 1rem; font-weight: 800; }
     .accepted-mark { font-size: 0; }
-    .accepted-mark::before { content: '✓'; font-size: 1rem; }
+    .accepted-mark::before { content: '\2713'; font-size: 1rem; }
     .answer-accepted .post-layout__content > p:first-child { display: flex; width: max-content; align-items: center; gap: .4rem; border-radius: .5rem; background: #ecfdf3; padding: .375rem .625rem; color: #067647; font-size: .8125rem; font-weight: 700; }
     .post-layout__content form[action*="/vote"] { display: none; }
     .role-badge { display: inline-flex; align-items: center; border: 1px solid #e2e8f0; border-radius: 999px; padding: .1rem .45rem; color: #475569; background: #f8fafc; font-size: .65rem; font-weight: 700; line-height: 1.2rem; }
@@ -686,50 +686,6 @@
         .page-moderation > div.max-w-5xl, .page-admin-management > div, .page-profile > div { animation: none; }
     }
 
-    @media (prefers-color-scheme: dark) {
-        :root { color-scheme: dark; --brand-border: #34353b; --brand-accent-soft: #2a1d16; }
-        body { background-color: #101114; background-image: radial-gradient(ellipse at 10% 0%, rgb(249 115 22 / 7%), transparent 34rem); color: #f1f1f3; }
-        .app-sidebar, footer { background: #15161a !important; border-color: #292a30 !important; }
-        .app-sidebar nav section + section { border-color: #292a30; }
-        .app-main, .app-main .surface, main article.rounded-2xl.border, main .divide-y.rounded-2xl.border,
-        .page-questions .grid.md\:grid-cols-3 > a, .page-questions aside section { background-color: #18191e; border-color: #303138; color: #e6e6e9; }
-        .metric-card { background: linear-gradient(150deg, #1b1c21, #17181c); border-color: #32333a; }
-        .metric-card::after { background: linear-gradient(135deg, transparent, rgb(249 115 22 / 11%)); }
-        .metric-card__icon { border-color: #55311f; background: #2b201a; color: #fd9c5a; }
-        .landing-features article { background: linear-gradient(145deg, #1c1d21, #17181c); border-color: #303138; }
-        .landing-cta { background: #1b1c20; border-color: #34353b; }
-        .landing-preview { background: #fdfdfd; }
-        .landing-stats { border-color: #303138; background: #1b1c21; }
-        .landing-stats article + article { border-color: #303138; }
-        .landing-stats__value, .landing-leaders__heading h2, .landing-leaders__name, .landing-leaders li > strong { color: #f1f1f3; }
-        .landing-stats__label { color: #a3a4ad; }
-        .landing-leaders li { border-color: #303138; background: #1b1c21; }
-        .page-community-users > .grid article, .page-community-tags > .grid > a { background: linear-gradient(150deg, #1b1c21, #18191e); }
-        .page-community-users > .grid article > span { box-shadow: 0 0 0 3px #1b1c21, 0 0 0 4px #55311f; }
-        .page-leaderboard .leaderboard-header { border-color: #303138; background: radial-gradient(ellipse at 94% 0%, rgb(249 115 22 / 9%), transparent 18rem), #1b1c21; }
-        .page-questions .question-list__items > article:hover { background: #1c1d22; }
-        .page-questions .questions-heading .rounded-lg.border { background: #191a1f; border-color: #35363d; }
-        .page-questions .questions-heading .rounded-lg.border a.bg-slate-700 { background: #f97316; }
-        .page-questions aside section > h2, .page-questions aside section > div:first-child,
-        .page-student-dashboard > .mt-8.grid > section > div:first-child,
-        .page-student-dashboard > .mt-6.grid > section > h2,
-        .page-moderator-dashboard .mt-6.surface > div:first-child,
-        .page-admin-dashboard .mt-6.grid > section > h2 { background: #202126; }
-        .page-question-detail .answer-accepted { background: linear-gradient(135deg, #15241b, #18191e 72%) !important; border-color: #245b3b !important; }
-        .page-profile form > section:first-child { background: linear-gradient(90deg, #2a1d16, transparent 68%); }
-        main :is(input, select, textarea) { background-color: #17181d; color: #f2f2f4; border-color: #46474f; }
-        main :is(input, select, textarea)::placeholder { color: #9697a1; }
-        main .bg-white, main .bg-slate-50, main .bg-slate-100 { background-color: #202126 !important; }
-        main .text-slate-950, main .text-slate-900, main .text-slate-800 { color: #f0f0f2 !important; }
-        main .text-slate-700 { color: #d0d1d6 !important; }
-        main .text-slate-600, main .text-slate-500 { color: #a3a4ad !important; }
-        main .border-slate-200, main .border-slate-300, main .divide-slate-200 > :not([hidden]) ~ :not([hidden]) { border-color: #303138 !important; }
-        .app-sidebar nav a.text-slate-700 { color: #d4d5d9; }
-        .app-sidebar nav a.bg-orange-50 { background: #2b201a !important; color: #fdba74 !important; }
-        .app-sidebar nav h2 { color: #9b9ca5; }
-        .page-moderation #questions > div.mt-3 > article { border-left-color: #b9602c; }
-        .page-moderation #reports > div.mt-3 > article { border-left-color: #a54f52; }
-    }
 }
 
 @layer utilities {
@@ -743,59 +699,6 @@
     [class~="bg-blue-50"] { background-color: #fff7ed !important; }
     [class~="bg-blue-100"] { background-color: #ffedd5 !important; }
     [class~="border-t-blue-600"] { border-top-color: #ea580c !important; }
-    @media (prefers-color-scheme: dark) {
-        [class~="text-orange-700"], [class~="text-orange-800"], [class~="text-orange-900"], [class~="text-orange-950"], [class~="text-blue-700"], [class~="text-blue-800"] { color: #fdba74 !important; }
-        [class~="bg-orange-50"], [class~="bg-blue-50"] { background-color: #2b201a !important; }
-        [class~="bg-orange-100"], [class~="bg-blue-100"] { background-color: #3a281e !important; }
-        [class~="border-orange-200"], [class~="border-orange-300"] { border-color: #55311f !important; }
-    }
-}
-
-/* Unlayered intentionally so operating-system dark mode wins over utility text and surface classes. */
-@media (prefers-color-scheme: dark) {
-    :root { color-scheme: dark; --brand-border: #34353b; --brand-accent-soft: #2a1d16; }
-    body { background-color: #101114; background-image: radial-gradient(ellipse at 10% 0%, rgb(249 115 22 / 7%), transparent 34rem); color: #f1f1f3; }
-    .app-sidebar, footer { background: #15161a !important; border-color: #292a30 !important; }
-    .app-sidebar nav section + section { border-color: #292a30; }
-    .app-main, .app-main .surface, main article.rounded-2xl.border, main .divide-y.rounded-2xl.border,
-    .page-questions .grid.md\:grid-cols-3 > a, .page-questions aside section { background-color: #18191e; border-color: #303138; color: #e6e6e9; }
-    .metric-card { background: linear-gradient(150deg, #1b1c21, #17181c); border-color: #32333a; }
-    .metric-card::after { background: linear-gradient(135deg, transparent, rgb(249 115 22 / 11%)); }
-    .metric-card__icon { border-color: #55311f; background: #2b201a; color: #fd9c5a; }
-    .landing-features article { background: linear-gradient(145deg, #1c1d21, #17181c); border-color: #303138; }
-    .landing-cta { background: #1b1c20; border-color: #34353b; }
-    .landing-preview { background: #fdfdfd; }
-    .landing-stats { border-color: #303138; background: #1b1c21; }
-    .landing-stats article + article { border-color: #303138; }
-    .landing-stats__value, .landing-leaders__heading h2, .landing-leaders__name, .landing-leaders li > strong { color: #f1f1f3; }
-    .landing-stats__label { color: #a3a4ad; }
-    .landing-leaders li { border-color: #303138; background: #1b1c21; }
-    .page-questions .question-list__items > article:hover { background: #1c1d22; }
-    .page-questions .questions-heading .rounded-lg.border { background: #191a1f; border-color: #35363d; }
-    .page-questions .questions-heading .rounded-lg.border a.bg-slate-700 { background: #f97316; }
-    .page-questions aside section > h2, .page-questions aside section > div:first-child,
-    .page-student-dashboard > .mt-8.grid > section > div:first-child,
-    .page-student-dashboard > .mt-6.grid > section > h2,
-    .page-moderator-dashboard .mt-6.surface > div:first-child,
-    .page-admin-dashboard .mt-6.grid > section > h2 { background: #202126; }
-    .page-question-detail .answer-accepted { background: linear-gradient(135deg, #15241b, #18191e 72%) !important; border-color: #245b3b !important; }
-    .page-profile form > section:first-child { background: linear-gradient(90deg, #2a1d16, transparent 68%); }
-    main :is(input, select, textarea) { background-color: #17181d; color: #f2f2f4; border-color: #46474f; }
-    main :is(input, select, textarea)::placeholder { color: #9697a1; }
-    main .bg-white, main .bg-slate-50, main .bg-slate-100 { background-color: #202126 !important; }
-    main .text-slate-950, main .text-slate-900, main .text-slate-800 { color: #f0f0f2 !important; }
-    main .text-slate-700 { color: #d0d1d6 !important; }
-    main .text-slate-600, main .text-slate-500 { color: #a3a4ad !important; }
-    main .border-slate-200, main .border-slate-300, main .divide-slate-200 > :not([hidden]) ~ :not([hidden]) { border-color: #303138 !important; }
-    .app-sidebar nav a.text-slate-700 { color: #d4d5d9; }
-    .app-sidebar nav a.bg-orange-50 { background: #2b201a !important; color: #fdba74 !important; }
-    .app-sidebar nav h2 { color: #9b9ca5; }
-    .page-moderation #questions > div.mt-3 > article { border-left-color: #b9602c; }
-    .page-moderation #reports > div.mt-3 > article { border-left-color: #a54f52; }
-    .page-community-users > .grid article, .page-community-tags > .grid > a { background: linear-gradient(150deg, #1b1c21, #18191e); }
-    .page-community-users > .grid article > span { box-shadow: 0 0 0 3px #1b1c21, 0 0 0 4px #55311f; }
-    .page-leaderboard .leaderboard-header { border-color: #303138; background: radial-gradient(ellipse at 94% 0%, rgb(249 115 22 / 9%), transparent 18rem), #1b1c21; }
-    body.text-slate-900 { color: #f0f0f2 !important; }
 }
 
 .theme-toggle {
@@ -813,159 +716,19 @@
 }
 .theme-toggle:hover { border-color: rgb(255 255 255 / 40%); background: rgb(255 255 255 / 13%); transform: translateY(-1px); }
 .theme-toggle svg { width: 1.15rem; height: 1.15rem; }
-.theme-toggle__sun { display: none; }
-html[data-theme="dark"] .theme-toggle__moon { display: none; }
-html[data-theme="dark"] .theme-toggle__sun { display: block; }
-
-/* Theme overrides are late utility-layer rules so the selected mode wins over page utility classes. */
-@layer utilities {
-    html[data-theme="dark"] { color-scheme: dark; }
-    html[data-theme="dark"] body { background: #000 !important; color: #f5f5f5 !important; }
-    html[data-theme="dark"] .app-main { background: #000 !important; }
-    html[data-theme="dark"] .app-sidebar,
-    html[data-theme="dark"] footer,
-    html[data-theme="dark"] .app-header { background: #000 !important; border-color: #222 !important; }
-    html[data-theme="dark"] .app-main .surface,
-    html[data-theme="dark"] main article.rounded-2xl.border,
-    html[data-theme="dark"] main .divide-y.rounded-2xl.border,
-    html[data-theme="dark"] main .leaderboard-table-wrap,
-    html[data-theme="dark"] main .podium-card,
-    html[data-theme="dark"] main .my-achievement,
-    html[data-theme="dark"] main .landing-stats,
-    html[data-theme="dark"] main .landing-leaders li,
-    html[data-theme="dark"] main .landing-features article,
-    html[data-theme="dark"] main .landing-preview,
-    html[data-theme="dark"] main .metric-card,
-    html[data-theme="dark"] main .page-questions aside section { background: #050505 !important; border-color: #282828 !important; color: #f5f5f5 !important; box-shadow: none !important; }
-    html[data-theme="dark"] main .landing-hero,
-    html[data-theme="dark"] main .landing-cta,
-    html[data-theme="dark"] main .dashboard-hero { background: #000 !important; border-color: #282828 !important; box-shadow: none !important; }
-    html[data-theme="dark"] main.page-leaderboard .leaderboard-header { background: #050505 !important; border-color: #282828 !important; }
-    html[data-theme="dark"] main .leaderboard-period,
-    html[data-theme="dark"] main .leaderboard-empty,
-    html[data-theme="dark"] main .leaderboard-mobile-card,
-    html[data-theme="dark"] main .btn-secondary,
-    html[data-theme="dark"] main .reputation-tier,
-    html[data-theme="dark"] main .role-badge,
-    html[data-theme="dark"] main .leaderboard-rank,
-    html[data-theme="dark"] main .vote-controls { background: #050505 !important; border-color: #282828 !important; color: #f1f1f1 !important; }
-    html[data-theme="dark"] main .answer-accepted { background: #050505 !important; border-color: #276344 !important; }
-    html[data-theme="dark"] main .accepted-label,
-    html[data-theme="dark"] main .answer-accepted .post-layout__content > p:first-child { background: #07190e !important; }
-    html[data-theme="dark"] main [class~="bg-white"],
-    html[data-theme="dark"] main [class~="bg-slate-50"],
-    html[data-theme="dark"] main [class~="bg-slate-100"] { background-color: #050505 !important; }
-    html[data-theme="dark"] .app-sidebar nav a:hover,
-    html[data-theme="dark"] .app-sidebar nav button:hover { background: #1b1b1b !important; color: #fff !important; }
-    html[data-theme="dark"] .app-sidebar nav a,
-    html[data-theme="dark"] .app-sidebar nav button { color: #ededed; }
-    html[data-theme="dark"] .app-header details > summary { border-color: #353535 !important; color: #f2f2f2 !important; }
-    html[data-theme="dark"] .app-sidebar nav a.bg-orange-50 { background: #20140c !important; color: #ffb36f !important; border-color: #a94d12 !important; }
-    html[data-theme="dark"] .app-header details > div,
-    html[data-theme="dark"] .app-header details > nav { background: #080808 !important; border-color: #303030 !important; color: #f5f5f5 !important; }
-    html[data-theme="dark"] .app-header details > div a,
-    html[data-theme="dark"] .app-header details > nav a { color: #eee !important; }
-    html[data-theme="dark"] .app-header details > div a:hover,
-    html[data-theme="dark"] .app-header details > nav a:hover { background: #1a1a1a !important; }
-    html[data-theme="dark"] main [class~="text-slate-950"],
-    html[data-theme="dark"] main [class~="text-slate-900"],
-    html[data-theme="dark"] main [class~="text-slate-800"] { color: #f5f5f5 !important; }
-    html[data-theme="dark"] main [class~="text-slate-700"] { color: #dedede !important; }
-    html[data-theme="dark"] main [class~="text-slate-600"],
-    html[data-theme="dark"] main [class~="text-slate-500"] { color: #a6a6a6 !important; }
-    html[data-theme="dark"] main .eyebrow { color: #ffb36f !important; }
-    html[data-theme="dark"] [class~="text-orange-700"],
-    html[data-theme="dark"] [class~="text-orange-800"],
-    html[data-theme="dark"] [class~="text-orange-900"],
-    html[data-theme="dark"] [class~="text-orange-950"],
-    html[data-theme="dark"] [class~="text-blue-700"],
-    html[data-theme="dark"] [class~="text-blue-800"] { color: #ffb36f !important; }
-    html[data-theme="dark"] [class~="bg-orange-50"],
-    html[data-theme="dark"] [class~="bg-blue-50"] { background-color: #20140c !important; }
-    html[data-theme="dark"] [class~="bg-orange-100"],
-    html[data-theme="dark"] [class~="bg-blue-100"] { background-color: #2a1a0e !important; }
-    html[data-theme="dark"] [class~="border-slate-200"],
-    html[data-theme="dark"] [class~="border-slate-300"],
-    html[data-theme="dark"] [class~="border-orange-200"],
-    html[data-theme="dark"] [class~="border-orange-300"] { border-color: #282828 !important; }
-    html[data-theme="dark"] main :is(input, select, textarea) { background: #080808 !important; border-color: #383838 !important; color: #f5f5f5 !important; }
-    html[data-theme="dark"] main :is(input, select, textarea)::placeholder { color: #969696 !important; }
-    html[data-theme="dark"] main table thead { background: #090909 !important; }
-    html[data-theme="dark"] main table tbody tr:hover { background: #151515 !important; }
-    html[data-theme="dark"] main .my-achievement__icon { background: #151515 !important; }
-    html[data-theme="dark"] .theme-toggle { background: #080808; border-color: #383838; }
-
-    html[data-theme="light"] { color-scheme: light; }
-    html[data-theme="light"] body { background: #fff !important; color: #171717 !important; }
-    html[data-theme="light"] .app-main { background: #fff !important; }
-    html[data-theme="light"] .app-sidebar,
-    html[data-theme="light"] footer { background: #fff !important; border-color: #171717 !important; }
-    html[data-theme="light"] main .surface,
-    html[data-theme="light"] main article.rounded-2xl.border,
-    html[data-theme="light"] main .divide-y.rounded-2xl.border,
-    html[data-theme="light"] main .leaderboard-table-wrap,
-    html[data-theme="light"] main .podium-card,
-    html[data-theme="light"] main .my-achievement,
-    html[data-theme="light"] main .landing-stats,
-    html[data-theme="light"] main .landing-leaders li,
-    html[data-theme="light"] main .landing-features article,
-    html[data-theme="light"] main .landing-preview,
-    html[data-theme="light"] main .metric-card,
-    html[data-theme="light"] main .page-questions aside section { background: #fff !important; border-color: #171717 !important; box-shadow: none !important; }
-    html[data-theme="light"] main .landing-hero,
-    html[data-theme="light"] main .landing-cta,
-    html[data-theme="light"] main .dashboard-hero { background: #fff !important; border-color: #171717 !important; box-shadow: none !important; }
-    html[data-theme="light"] main .leaderboard-header { background: #fff !important; border-color: #171717 !important; }
-    html[data-theme="light"] main .leaderboard-period,
-    html[data-theme="light"] main .leaderboard-empty,
-    html[data-theme="light"] main .leaderboard-mobile-card,
-    html[data-theme="light"] main .btn-secondary,
-    html[data-theme="light"] main .reputation-tier,
-    html[data-theme="light"] main .role-badge,
-    html[data-theme="light"] main .leaderboard-rank,
-    html[data-theme="light"] main .vote-controls { background: #fff !important; border-color: #171717 !important; color: #171717 !important; }
-    html[data-theme="light"] main .landing-hero h1,
-    html[data-theme="light"] main .landing-cta h2,
-    html[data-theme="light"] main .dashboard-hero h1 { color: #171717 !important; }
-    html[data-theme="light"] main .landing-hero .eyebrow,
-    html[data-theme="light"] main .dashboard-hero .eyebrow { color: #c2410c !important; }
-    html[data-theme="light"] main .landing-hero > div:first-child > p:not(.eyebrow),
-    html[data-theme="light"] main .landing-hero > div:first-child > p:last-child,
-    html[data-theme="light"] main .dashboard-hero p:not(.eyebrow) { color: #525252 !important; }
-    html[data-theme="light"] main .landing-hero .btn-secondary { color: #171717 !important; background: #fff !important; border-color: #171717 !important; }
-    html[data-theme="light"] main .answer-accepted { background: #fff !important; border-color: #171717 !important; }
-    html[data-theme="light"] main [class~="bg-white"],
-    html[data-theme="light"] main [class~="bg-slate-50"],
-    html[data-theme="light"] main [class~="bg-slate-100"] { background-color: #fff !important; }
-    html[data-theme="light"] main [class*="border"] { border-color: #171717 !important; }
-    html[data-theme="light"] main .divide-slate-200 > :not([hidden]) ~ :not([hidden]),
-    html[data-theme="light"] main .leaderboard-row,
-    html[data-theme="light"] .app-sidebar nav section + section { border-color: #171717 !important; }
-    html[data-theme="light"] main [class~="text-slate-950"],
-    html[data-theme="light"] main [class~="text-slate-900"],
-    html[data-theme="light"] main [class~="text-slate-800"] { color: #171717 !important; }
-    html[data-theme="light"] main [class~="text-slate-700"] { color: #333 !important; }
-    html[data-theme="light"] main [class~="text-slate-600"],
-    html[data-theme="light"] main [class~="text-slate-500"] { color: #5c5c5c !important; }
-    html[data-theme="light"] [class~="text-orange-700"],
-    html[data-theme="light"] [class~="text-orange-800"],
-    html[data-theme="light"] [class~="text-orange-900"],
-    html[data-theme="light"] [class~="text-orange-950"],
-    html[data-theme="light"] [class~="text-blue-700"],
-    html[data-theme="light"] [class~="text-blue-800"] { color: #c2410c !important; }
-    html[data-theme="light"] [class~="bg-orange-50"],
-    html[data-theme="light"] [class~="bg-blue-50"] { background-color: #fff7ed !important; }
-    html[data-theme="light"] [class~="bg-orange-100"],
-    html[data-theme="light"] [class~="bg-blue-100"] { background-color: #ffedd5 !important; }
-    html[data-theme="light"] main :is(input, select, textarea) { background: #fff !important; border-color: #171717 !important; color: #171717 !important; }
-    html[data-theme="light"] .theme-toggle { background: rgb(255 255 255 / 8%); border-color: rgb(255 255 255 / 35%); color: #fff; }
-}
+.theme-toggle__sun { display: block; }
+.theme-toggle__moon { display: none; }
+html[data-theme="dark"] .theme-toggle__sun { display: none; }
+html[data-theme="dark"] .theme-toggle__moon { display: block; }
 
 .language-toggle {
-    display: grid;
-    width: 2.5rem;
+    display: inline-flex;
+    min-width: 3.6rem;
     height: 2.5rem;
-    place-items: center;
+    align-items: center;
+    justify-content: center;
+    gap: .35rem;
+    padding: 0 .55rem;
     border: 1px solid rgb(255 255 255 / 22%);
     border-radius: .75rem;
     background: rgb(255 255 255 / 7%);
@@ -975,6 +738,9 @@ html[data-theme="dark"] .theme-toggle__sun { display: block; }
 }
 .language-toggle::-webkit-details-marker { display: none; }
 .language-toggle:hover, .language-menu[open] > .language-toggle { border-color: rgb(255 255 255 / 42%); background: rgb(255 255 255 / 14%); }
+.language-toggle__globe { width: 1rem; height: 1rem; flex: 0 0 auto; }
+.language-toggle > span { font-size: .7rem; font-weight: 750; letter-spacing: .04em; }
+.language-menu__code { margin-left: auto; color: var(--color-text-muted); font-size: .68rem; font-weight: 750; letter-spacing: .05em; }
 .language-flag { display: block; width: 1.5rem; height: 1rem; flex: 0 0 auto; overflow: hidden; border: 1px solid rgb(255 255 255 / 55%); border-radius: .2rem; box-shadow: 0 1px 2px rgb(0 0 0 / 20%); }
 .language-menu__panel {
     position: absolute;
@@ -1021,10 +787,10 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
 @layer utilities {
     :root, html[data-theme="light"] {
         color-scheme: light !important;
-        --color-background: #fafafa;
+        --color-background: #ffffff;
         --color-content: #ffffff;
         --color-surface: #ffffff;
-        --color-surface-elevated: #ffffff;
+        --color-surface-elevated: #fafafa;
         --color-text-primary: #171717;
         --color-text-secondary: #404040;
         --color-text-muted: #737373;
@@ -1059,7 +825,7 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
         --color-border: #262626;
         --color-divider: #303030;
         --color-brand: #f97316;
-        --color-brand-hover: #ea580c;
+        --color-brand-hover: #fb923c;
         --color-brand-subtle: #2a1b12;
         --color-brand-border: #7c3510;
         --color-success: #4ade80;
@@ -1101,18 +867,24 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
         color: var(--color-text-primary) !important;
         box-shadow: 0 1px 2px rgb(0 0 0 / 3%), 0 4px 12px rgb(0 0 0 / 3%) !important;
     }
-    main .landing-hero, main .landing-cta, main .dashboard-hero { background: var(--color-surface) !important; border: 1px solid var(--color-border) !important; box-shadow: none !important; }
-    main .landing-hero::before, main .landing-hero::after, main .dashboard-hero::after { display: none !important; }
+    main .landing-hero { background: #171717 !important; border: 1px solid #2c2d32 !important; box-shadow: 0 24px 70px rgb(15 15 15 / 20%) !important; }
+    main .landing-cta { background: #1b1b1e !important; border: 1px solid #303034 !important; box-shadow: none !important; }
+    main .dashboard-hero { background: var(--color-surface) !important; border: 1px solid var(--color-border) !important; box-shadow: none !important; }
+    main .dashboard-hero::after { display: none !important; }
     main .landing-hero h1, main .landing-cta h2, main .dashboard-hero h1,
     main h1, main h2, main h3 { color: var(--color-text-primary); }
     main p, main time { color: inherit; }
-    main .landing-hero > div:first-child > p:not(.eyebrow), main .dashboard-hero p:not(.eyebrow) { color: var(--color-text-muted) !important; }
-    main .landing-hero .eyebrow, main .dashboard-hero .eyebrow, main .eyebrow { color: var(--color-brand-hover) !important; }
-    main .landing-hero .btn-secondary { background: var(--color-text-primary) !important; border-color: var(--color-text-primary) !important; color: var(--color-content) !important; }
-    main .landing-features { background: var(--color-background) !important; border-color: var(--color-border) !important; }
+    main .landing-hero h1, main .landing-cta h2 { color: #ffffff !important; }
+    main .landing-hero .eyebrow { color: #fdba74 !important; }
+    main .landing-hero > div:first-child > p:not(.eyebrow) { color: #c8c8cc !important; }
+    main .landing-hero > div:first-child > p:last-child { color: #a3a3a8 !important; }
+    main .landing-hero > div:first-child > p:last-child a { color: #fdba74 !important; }
+    main .dashboard-hero p:not(.eyebrow) { color: var(--color-text-muted) !important; }
+    main .dashboard-hero .eyebrow, main .eyebrow { color: var(--color-brand-hover) !important; }
+    main .landing-hero .btn-secondary { background: rgb(255 255 255 / 7%) !important; border-color: rgb(255 255 255 / 18%) !important; color: #ffffff !important; backdrop-filter: blur(10px); }
+    main .landing-features { background: var(--color-surface-elevated) !important; border-color: var(--color-border) !important; }
     main .landing-features article { background: var(--color-surface) !important; }
-    main .landing-features article > span { background: var(--color-surface-elevated) !important; color: var(--color-text-primary) !important; }
-    main .landing-features article:first-child > span { color: var(--color-brand) !important; }
+    main .landing-features article > span { background: #fff0e4 !important; color: #c2410c !important; }
     main .landing-stats { background: #171717 !important; border-color: #171717 !important; }
     main .landing-stats__value { color: #ffffff !important; }
     main .landing-stats__label { color: #a3a3a3 !important; }
@@ -1120,7 +892,7 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     main .landing-stats article + article { border-color: #404040 !important; }
     main .landing-leaders li { background: var(--color-surface) !important; }
     main .landing-leaders__heading h2, main .landing-leaders__name, main .landing-leaders li > strong { color: var(--color-text-primary) !important; }
-    main .landing-preview { background: var(--color-surface) !important; transform: none !important; }
+    main .landing-preview { background: var(--color-surface) !important; }
 
     .btn-primary, main .btn-primary { background: var(--color-brand) !important; border-color: var(--color-brand) !important; color: #ffffff !important; box-shadow: none !important; }
     .btn-primary:hover, main .btn-primary:hover { background: var(--color-brand-hover) !important; border-color: var(--color-brand-hover) !important; }
@@ -1155,7 +927,7 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     main [class~="hover:text-orange-800"]:hover, main [class~="hover:text-orange-900"]:hover { color: var(--color-brand-hover) !important; }
 
     main table { background: var(--color-surface) !important; }
-    main table thead { background: var(--color-background) !important; }
+    main table thead { background: var(--color-surface-elevated) !important; }
     main table th { color: var(--color-text-muted) !important; }
     main table td { color: var(--color-text-secondary); }
     main table tbody tr { border-color: var(--color-divider) !important; }
@@ -1249,7 +1021,8 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     html[data-theme="dark"] .app-header { background: #111111 !important; border-color: var(--color-border) !important; }
     html[data-theme="dark"] .app-sidebar { background: #111111 !important; border-color: var(--color-border) !important; }
     html[data-theme="dark"] .app-main { background: var(--color-background) !important; }
-    html[data-theme="dark"] main .landing-hero, html[data-theme="dark"] main .landing-cta,
+    html[data-theme="dark"] main .landing-hero { background: #171717 !important; border-color: #2c2d32 !important; }
+    html[data-theme="dark"] main .landing-cta { background: #1b1b1e !important; border-color: #303034 !important; }
     html[data-theme="dark"] main .dashboard-hero { background: var(--color-content) !important; border-color: var(--color-border) !important; }
     html[data-theme="dark"] main .landing-stats { background: #111111 !important; border-color: #111111 !important; }
     html[data-theme="dark"] main .landing-stats article + article { border-color: #404040 !important; }

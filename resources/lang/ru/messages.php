@@ -98,5 +98,5 @@ return [
     'search_students' => 'Поиск студентов', 'rank' => 'Место', 'achievement' => 'Уровень', 'total_points' => 'Всего баллов',
     'no_students_ranked' => 'Пока нет активных студентов для рейтинга.', 'tier_bronze' => 'Бронза', 'tier_silver' => 'Серебро', 'tier_gold' => 'Золото',
     'points_to_next_tier' => 'До следующего уровня: :points баллов', 'highest_tier_reached' => 'Достигнут высший уровень',
-    'toggle_theme' => 'Переключить цветовую тему',
+    'toggle_theme' => 'Переключить цветовую тему', 'switch_to_dark_theme' => 'Включить тёмную тему', 'switch_to_light_theme' => 'Включить светлую тему',
 ];

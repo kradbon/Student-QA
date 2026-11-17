@@ -113,5 +113,5 @@ return [
     'search_students' => 'Ҷустуҷӯи донишҷӯён', 'rank' => 'Мақом', 'achievement' => 'Дастовард', 'total_points' => 'Ҳамагӣ хол',
     'no_students_ranked' => 'Ҳоло донишҷӯёни фаъоле барои рейтинг нестанд.', 'tier_bronze' => 'Биринҷӣ', 'tier_silver' => 'Нуқра', 'tier_gold' => 'Тилло',
     'points_to_next_tier' => 'То сатҳи навбатӣ :points хол мондааст', 'highest_tier_reached' => 'Сатҳи олӣ ба даст омад',
-    'toggle_theme' => 'Тағйир додани мавзӯи ранг',
+    'toggle_theme' => 'Тағйир додани мавзӯи ранг', 'switch_to_dark_theme' => 'Мавзӯи торикро фаъол кунед', 'switch_to_light_theme' => 'Мавзӯи равшанро фаъол кунед',
 ];
