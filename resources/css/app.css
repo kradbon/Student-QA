@@ -11,14 +11,13 @@
 /* Match the supplied public landing reference while keeping its content theme aware. */
 main.page-landing {
     position: relative;
-    left: 50%;
-    width: 100vw;
+    width: 100%;
     max-width: none;
-    margin-left: 0;
+    margin-inline: 0;
     padding: 2.4rem clamp(1.5rem, 2.1vw, 2.5rem) 3rem;
-    transform: translateX(-50%);
 }
 main.page-landing .landing-page { display: block; }
+main.page-landing section[id] { scroll-margin-top: 5rem; }
 main.page-landing .landing-hero {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
     align-items: center;
@@ -240,6 +239,7 @@ html[data-theme="dark"] main.page-landing .landing-product__answer-label { color
     .medal-icon { position: relative; display: inline-grid; width: 2.15rem; height: 2.15rem; flex: 0 0 auto; place-items: center; color: #cd8b52; vertical-align: middle; }
     .medal-icon svg { width: 100%; height: 100%; overflow: visible; }
     .medal-icon--sm { width: 1.05rem; height: 1.05rem; }
+    .medal-icon--sm .medal-icon__rank { font-size: .42rem; }
     .medal-icon--gold { color: #d6a91f; }
     .medal-icon--silver { color: #9ba6b4; }
     .medal-icon--bronze { color: #bd7843; }
@@ -1561,7 +1561,7 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
     main.page-landing .landing-step__visual--grow small { display: block; margin-top: .1rem; color: var(--color-text-muted); font-size: .64rem; }
     main.page-landing .landing-visual-arrow { margin-left: auto; color: var(--color-brand); }
 
-    main.page-landing .landing-capabilities__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .9rem; }
+    main.page-landing .landing-capabilities__grid { display: grid; min-width: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .9rem; }
     main.page-landing .landing-feature { min-width: 0; min-height: 14rem; border: 1px solid var(--color-border) !important; border-radius: .9rem; background: var(--color-surface) !important; padding: 1.25rem; transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
     main.page-landing .landing-feature:hover { transform: translateY(-2px); border-color: var(--color-text-disabled) !important; box-shadow: 0 10px 26px rgb(0 0 0 / 5%); }
     main.page-landing .landing-feature--large { grid-column: span 2; }
