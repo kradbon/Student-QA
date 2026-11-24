@@ -52,7 +52,7 @@ function initQuestionSearch() {
     const requestController = new AbortController();
     controller = requestController;
     list.setAttribute('aria-busy', 'true');
-    status.textContent = 'Ищем вопросы…';
+    status.textContent = 'Ҷустуҷӯи саволҳо…';
 
     const params = new URLSearchParams({ q: input.value.trim() });
     if (category?.value) params.set('category', category.value);
@@ -67,17 +67,17 @@ function initQuestionSearch() {
       if (!Array.isArray(questions)) throw new TypeError('Expected a list of questions');
 
       if (questions.length === 0) {
-        const empty = makeElement('article', 'surface-card p-4 text-center text-secondary', 'Вопросы не найдены. Измените запрос и попробуйте ещё раз.');
+        const empty = makeElement('article', 'surface-card p-4 text-center text-secondary', 'Савол ёфт нашуд. Дархостро тағйир дода, аз нав кӯшиш кунед.');
         list.replaceChildren(empty);
-        status.textContent = 'По вашему запросу ничего не найдено.';
+        status.textContent = 'Аз рӯи дархости шумо савол ёфт нашуд.';
       } else {
         list.replaceChildren(...questions.map(makeQuestionCard));
-        status.textContent = `Найдено вопросов: ${questions.length}`;
+        status.textContent = `Шумораи саволҳои ёфтшуда: ${questions.length}`;
       }
     } catch (error) {
       if (error.name === 'AbortError') return;
-      console.error('Не удалось выполнить поиск вопросов:', error);
-      status.textContent = 'Поиск временно недоступен. Проверьте соединение и повторите попытку.';
+      console.error('Ҷустуҷӯи саволҳо иҷро нашуд:', error);
+      status.textContent = 'Ҷустуҷӯ муваққатан дастрас нест. Пайвастро санҷед ва аз нав кӯшиш кунед.';
     } finally {
       if (!requestController.signal.aborted && controller === requestController) list.removeAttribute('aria-busy');
     }
@@ -94,14 +94,14 @@ function initQuestionSearch() {
 
 const questionFieldMessages = {
   title: {
-    valueMissing: 'Введите заголовок вопроса.',
-    tooShort: 'Заголовок должен содержать не менее 15 символов.',
+    valueMissing: 'Сарлавҳаи саволро ворид кунед.',
+    tooShort: 'Сарлавҳа бояд на кам аз 15 аломат бошад.',
   },
   body: {
-    valueMissing: 'Опишите вопрос подробнее.',
-    tooShort: 'Описание должно содержать не менее 30 символов.',
+    valueMissing: 'Матни саволро муфассал нависед.',
+    tooShort: 'Тавсиф бояд на кам аз 30 аломат бошад.',
   },
-  category_id: { valueMissing: 'Выберите категорию.' },
+  category_id: { valueMissing: 'Категорияро интихоб кунед.' },
 };
 
 function setQuestionCustomValidity(form) {
@@ -110,10 +110,10 @@ function setQuestionCustomValidity(form) {
   title.setCustomValidity('');
   body.setCustomValidity('');
   if (title.value.trim() && title.value.trim().length < 15) {
-    title.setCustomValidity('Заголовок должен содержать не менее 15 символов.');
+    title.setCustomValidity('Сарлавҳа бояд на кам аз 15 аломат бошад.');
   }
   if (body.value.trim() && body.value.trim().length < 30) {
-    body.setCustomValidity('Описание должно содержать не менее 30 символов.');
+    body.setCustomValidity('Тавсиф бояд на кам аз 30 аломат бошад.');
   }
 }
 
@@ -121,9 +121,9 @@ function questionFieldMessage(field) {
   if (field.validity.valid) return '';
   if (field.validity.customError) return field.validationMessage;
   const messages = questionFieldMessages[field.name] ?? {};
-  if (field.validity.valueMissing) return messages.valueMissing ?? 'Заполните это поле.';
-  if (field.validity.tooShort) return messages.tooShort ?? `Введите не менее ${field.minLength} символов.`;
-  return 'Проверьте значение этого поля.';
+  if (field.validity.valueMissing) return messages.valueMissing ?? 'Ин майдонро пур кунед.';
+  if (field.validity.tooShort) return messages.tooShort ?? `На кам аз ${field.minLength} аломат ворид кунед.`;
+  return 'Қимати майдонро санҷед.';
 }
 
 function showQuestionField(field) {
