@@ -10,18 +10,18 @@
 
 /* Unlayered theme tokens stay in effect when the utility layer is loaded later. */
 html[data-theme="dark"] {
-    --color-background: #090c12;
-    --color-content: #111722;
-    --color-surface: #151c28;
-    --color-surface-elevated: #202a39;
-    --color-text-primary: #f5f7fb;
-    --color-text-secondary: #c1cad8;
-    --color-text-muted: #929fb2;
-    --color-border: #344052;
-    --color-divider: #293444;
-    --color-brand: #ff8a24;
-    --color-brand-hover: #ffad55;
-    --color-focus: #ffad55;
+    --color-background: #0a0a0a;
+    --color-content: #111111;
+    --color-surface: #171717;
+    --color-surface-elevated: #202020;
+    --color-text-primary: #fafafa;
+    --color-text-secondary: #c4c4c4;
+    --color-text-muted: #9a9a9a;
+    --color-border: #353535;
+    --color-divider: #292929;
+    --color-brand: #ff7a1a;
+    --color-brand-hover: #ff9a45;
+    --color-focus: #ff8a24;
 }
 
 /* Match the supplied public landing reference while keeping its content theme aware. */
@@ -1846,39 +1846,52 @@ main.page-landing .landing-community__list { grid-template-columns: repeat(3, mi
 @layer components {
 /* High-contrast night palette and a polished metallic leaderboard podium. */
 html[data-theme="dark"] {
-    --color-background: #090c12;
-    --color-content: #111722;
-    --color-surface: #151c28;
-    --color-surface-elevated: #202a39;
-    --color-text-primary: #f5f7fb;
-    --color-text-secondary: #c1cad8;
-    --color-text-muted: #929fb2;
-    --color-border: #344052;
-    --color-divider: #293444;
-    --color-brand: #ff8a24;
-    --color-brand-hover: #ffad55;
-    --color-focus: #ffad55;
+    --color-background: #0a0a0a;
+    --color-content: #111111;
+    --color-surface: #171717;
+    --color-surface-elevated: #202020;
+    --color-text-primary: #fafafa;
+    --color-text-secondary: #c4c4c4;
+    --color-text-muted: #9a9a9a;
+    --color-border: #353535;
+    --color-divider: #292929;
+    --color-brand: #ff7a1a;
+    --color-brand-hover: #ff9a45;
+    --color-focus: #ff8a24;
 }
 
 html[data-theme="dark"] body {
     background-image:
-        radial-gradient(ellipse at 92% 0, rgb(56 189 248 / 5%), transparent 32rem),
-        radial-gradient(ellipse at 7% 18%, rgb(249 115 22 / 5%), transparent 30rem);
+        radial-gradient(ellipse at 92% 0, rgb(255 255 255 / 2%), transparent 32rem),
+        radial-gradient(ellipse at 7% 18%, rgb(255 122 26 / 7%), transparent 30rem);
 }
-html[data-theme="dark"] .app-header { box-shadow: 0 1px 0 rgb(56 189 248 / 10%), 0 5px 24px rgb(0 0 0 / 24%) !important; }
+html[data-theme="dark"] .app-header { box-shadow: 0 1px 0 rgb(255 122 26 / 22%), 0 5px 24px rgb(0 0 0 / 55%) !important; }
 html[data-theme="dark"] .app-header .app-brand > span:first-child {
-    background: #ff8a24 !important;
-    box-shadow: 0 0 10px rgb(255 138 36 / 38%), 0 0 24px rgb(255 138 36 / 20%);
+    background: #ff7a1a !important;
+    box-shadow: 0 0 10px rgb(255 122 26 / 65%), 0 0 26px rgb(255 122 26 / 35%);
 }
+html[data-theme="dark"] .app-header .app-brand > span:last-child { text-shadow: 0 0 12px rgb(255 255 255 / 18%); }
 html[data-theme="dark"] .app-sidebar nav a.bg-orange-50 {
-    box-shadow: inset 2px 0 #ff9d43, 0 0 18px rgb(255 138 36 / 12%) !important;
+    box-shadow: inset 2px 0 #ff9a45, 0 0 18px rgb(255 122 26 / 22%) !important;
+}
+html[data-theme="dark"] .app-header .theme-toggle:hover,
+html[data-theme="dark"] .app-header .language-toggle:hover { box-shadow: 0 0 14px rgb(255 255 255 / 14%); }
+html[data-theme="dark"] main .surface,
+html[data-theme="dark"] main .metric-card,
+html[data-theme="dark"] main .auth-panel {
+    border-color: #353535 !important;
+    box-shadow: 0 0 22px rgb(255 255 255 / 3%), 0 0 16px rgb(255 122 26 / 3%) !important;
 }
 html[data-theme="dark"] main .btn-primary {
-    box-shadow: 0 0 0 1px rgb(255 174 90 / 20%), 0 0 16px rgb(255 138 36 / 12%);
+    box-shadow: 0 0 0 1px rgb(255 174 90 / 40%), 0 0 20px rgb(255 122 26 / 32%);
 }
+html[data-theme="dark"] main .btn-primary:hover,
+html[data-theme="dark"] main .btn-primary:focus-visible { box-shadow: 0 0 0 1px #ffd0a1, 0 0 24px rgb(255 122 26 / 55%) !important; }
+html[data-theme="dark"] main .btn-secondary { border-color: #484848 !important; box-shadow: 0 0 12px rgb(255 255 255 / 5%); }
+html[data-theme="dark"] main .btn-secondary:hover { border-color: #8b552b !important; box-shadow: 0 0 16px rgb(255 122 26 / 20%); }
 html[data-theme="dark"] main :focus-visible {
-    outline-color: #ffad55 !important;
-    box-shadow: 0 0 0 3px rgb(255 173 85 / 28%), 0 0 18px rgb(255 138 36 / 20%) !important;
+    outline-color: #ff9a45 !important;
+    box-shadow: 0 0 0 3px rgb(255 154 69 / 32%), 0 0 18px rgb(255 122 26 / 28%) !important;
 }
 
 @keyframes leaderboard-24k-sweep {
@@ -1975,27 +1988,27 @@ html[data-theme="dark"] main .podium-card--silver .podium-card__name,
 html[data-theme="dark"] main .podium-card--silver .podium-card__points { color: #17202b !important; }
 
 html[data-theme="dark"] main .leaderboard-header .eyebrow,
-html[data-theme="dark"] main .leaderboard-table-heading .eyebrow { color: #ffad55 !important; text-shadow: 0 0 14px rgb(255 138 36 / 32%); }
+html[data-theme="dark"] main .leaderboard-table-heading .eyebrow { color: #ffb36b !important; text-shadow: 0 0 14px rgb(255 122 26 / 48%); }
 html[data-theme="dark"] main .leaderboard-period {
     border-color: #76502f !important;
     background: #211b17 !important;
     color: #ffd29a !important;
     box-shadow: 0 0 16px rgb(255 138 36 / 12%);
 }
-html[data-theme="dark"] main .leaderboard-period__dot { background: #ff9d43; box-shadow: 0 0 8px #ff8a24, 0 0 16px rgb(255 138 36 / 62%); }
+html[data-theme="dark"] main .leaderboard-period__dot { background: #ff9a45; box-shadow: 0 0 8px #ff7a1a, 0 0 16px rgb(255 122 26 / 72%); }
 html[data-theme="dark"] main .leaderboard-table-wrap,
 html[data-theme="dark"] main .podium-card:not(.podium-card--first):not(.podium-card--silver) {
-    border-color: #354154 !important;
-    box-shadow: 0 0 22px rgb(56 189 248 / 5%) !important;
+    border-color: #39312b !important;
+    box-shadow: 0 0 22px rgb(255 255 255 / 3%), 0 0 16px rgb(255 122 26 / 4%) !important;
 }
-html[data-theme="dark"] main .leaderboard-table thead { box-shadow: inset 0 -1px rgb(56 189 248 / 22%); }
+html[data-theme="dark"] main .leaderboard-table thead { box-shadow: inset 0 -1px rgb(255 255 255 / 12%); }
 html[data-theme="dark"] main .leaderboard-row:not(.leaderboard-row--first):not(.leaderboard-row--second):hover,
 html[data-theme="dark"] main .leaderboard-mobile-card:not(.leaderboard-row--first):not(.leaderboard-row--second):hover {
-    box-shadow: inset 3px 0 #38bdf8, 0 0 18px rgb(56 189 248 / 8%) !important;
+    box-shadow: inset 3px 0 #ff8a24, 0 0 18px rgb(255 122 26 / 16%) !important;
 }
 html[data-theme="dark"] main .leaderboard-search input:focus-visible {
-    border-color: #38bdf8 !important;
-    box-shadow: 0 0 0 3px rgb(56 189 248 / 20%), 0 0 16px rgb(56 189 248 / 18%) !important;
+    border-color: #ff9a45 !important;
+    box-shadow: 0 0 0 3px rgb(255 154 69 / 22%), 0 0 16px rgb(255 122 26 / 22%) !important;
 }
 html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--second {
     background-image: linear-gradient(180deg, #d2d9e1 0%, #c2cad4 100%) !important;
