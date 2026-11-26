@@ -1,0 +1,20 @@
+{
+  "name": "student-qa/day12-mini-mvc",
+  "description": "Day 12 coursework: a small PHP MVC application for Student Q&A, Variant 24",
+  "type": "project",
+  "require": {
+    "php": ">=8.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "scripts": {
+    "serve": "php -S localhost:8000 -t public"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}

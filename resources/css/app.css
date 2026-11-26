@@ -1751,3 +1751,78 @@ html[data-theme="dark"] .language-menu__check { color: #ffb36f; }
         main .leaderboard-mobile-card.leaderboard-row--first .medal-icon { animation: none !important; }
     }
 }
+
+/* Final landing corrections take precedence over legacy unlayered rules above. */
+main.page-landing {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 3vw, 2.75rem) clamp(1rem, 2.25vw, 2.25rem) 3.5rem;
+    overflow-x: clip;
+}
+main.page-landing .landing-page { display: grid; min-width: 0; gap: clamp(3.5rem, 6vw, 5.5rem); }
+main.page-landing .landing-hero {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+    align-items: center;
+    gap: clamp(2rem, 4vw, 4rem);
+    margin: 0;
+    border: 0 !important;
+    padding: clamp(1rem, 2vw, 2rem) 0;
+}
+main.page-landing .landing-hero__copy,
+main.page-landing .landing-product,
+main.page-landing .landing-how,
+main.page-landing .landing-stats,
+main.page-landing .landing-capabilities,
+main.page-landing .landing-questions,
+main.page-landing .landing-community,
+main.page-landing .landing-final-cta { min-width: 0; }
+main.page-landing .landing-hero h1 { max-width: 12ch; margin-top: 1.25rem; font-size: clamp(3.25rem, 5.4vw, 5.25rem); letter-spacing: -.065em; line-height: 1; }
+main.page-landing .landing-hero__description { max-width: 38rem; margin-top: 1.35rem; }
+main.page-landing .landing-how { margin: 0; }
+main.page-landing .landing-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+main.page-landing .landing-step {
+    display: flex;
+    min-width: 0;
+    min-height: 12rem;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid var(--color-border) !important;
+    border-radius: .9rem;
+    background: var(--color-surface) !important;
+    padding: clamp(1.1rem, 1.8vw, 1.5rem);
+    box-shadow: 0 4px 18px rgb(0 0 0 / 3%);
+}
+main.page-landing .landing-step h2 { margin-top: 1.1rem; color: var(--color-text-primary); font-size: 1.05rem; font-weight: 650; letter-spacing: -.025em; line-height: 1.35; }
+main.page-landing .landing-step > p { margin-top: .55rem; color: var(--color-text-muted); font-size: .86rem; line-height: 1.65; }
+main.page-landing .landing-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; }
+main.page-landing .landing-capabilities__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+main.page-landing .landing-question-list,
+main.page-landing .landing-question-card { min-width: 0; }
+main.page-landing .landing-community__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) {
+    main.page-landing .landing-hero { grid-template-columns: minmax(0, 1fr); }
+    main.page-landing .landing-hero__copy,
+    main.page-landing .landing-product { width: 100%; max-width: 48rem; }
+    main.page-landing .landing-community__list { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+    main.page-landing { padding: 1.25rem 1rem 2.5rem; }
+    main.page-landing .landing-page { gap: 3.25rem; }
+    main.page-landing .landing-hero { gap: 1.5rem; padding-block: .5rem; }
+    main.page-landing .landing-hero h1 { max-width: 11ch; font-size: clamp(2.7rem, 12vw, 3.75rem); }
+    main.page-landing .landing-hero__actions { display: grid; grid-template-columns: 1fr; }
+    main.page-landing .landing-hero__actions > a { width: 100%; }
+    main.page-landing .landing-steps,
+    main.page-landing .landing-capabilities__grid { grid-template-columns: minmax(0, 1fr); }
+    main.page-landing .landing-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    main.page-landing .landing-stats article:nth-child(3) { border-left: 0; border-top: 1px solid var(--color-divider); }
+    main.page-landing .landing-stats article:nth-child(4) { border-top: 1px solid var(--color-divider); }
+    main.page-landing .landing-feature--large,
+    main.page-landing .landing-feature--wide { grid-column: auto; }
+    main.page-landing .landing-section-heading--row { align-items: flex-start; flex-direction: column; }
+    main.page-landing .landing-final-cta { align-items: flex-start; flex-direction: column; }
+}

@@ -1,0 +1,1 @@
+<nav class="pagination-wrap" aria-label="Пагинация"><span class="pagination-note">Показаны демонстрационные записи</span><div class="pagination"><span class="page current">1</span><span class="page disabled">2</span><span class="page disabled">3</span></div></nav>
