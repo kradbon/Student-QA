@@ -2026,3 +2026,82 @@ html[data-theme="dark"] main .podium-card--silver {
     main .podium-card--first .medal-icon { animation: none !important; }
 }
 }
+
+@layer components {
+/* A consistent, natural metal palette for the three ranked places. */
+main tr.leaderboard-row--first,
+main .leaderboard-mobile-card.leaderboard-row--first,
+main .podium-card--first {
+    background-image:
+        linear-gradient(112deg, transparent 0%, transparent 39%, rgb(255 255 255 / 18%) 43%, rgb(255 255 255 / 92%) 48%, #fff 50%, #fff2bb 51%, rgb(255 255 255 / 96%) 53%, rgb(255 255 255 / 28%) 58%, transparent 63%, transparent 100%),
+        linear-gradient(105deg, #b9851d 0%, #e4c15c 18%, #c89b2d 36%, #f4e3a0 51%, #c9a33b 69%, #e5c660 85%, #b9851d 100%) !important;
+}
+html[data-theme="dark"] main tr.leaderboard-row--first,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--first,
+html[data-theme="dark"] main .podium-card--first {
+    background-image:
+        linear-gradient(112deg, transparent 0%, transparent 39%, rgb(255 255 255 / 18%) 43%, rgb(255 255 255 / 92%) 48%, #fff 50%, #fff2bb 51%, rgb(255 255 255 / 96%) 53%, rgb(255 255 255 / 28%) 58%, transparent 63%, transparent 100%),
+        linear-gradient(105deg, #b9851d 0%, #e4c15c 18%, #c89b2d 36%, #f4e3a0 51%, #c9a33b 69%, #e5c660 85%, #b9851d 100%) !important;
+}
+
+main tr.leaderboard-row--second,
+main tr.leaderboard-row--second.leaderboard-row--current,
+main .leaderboard-mobile-card.leaderboard-row--second,
+main .podium-card--silver {
+    border-color: #9da5ae !important;
+    background-color: #c5cbd2 !important;
+    background-image: linear-gradient(180deg, #d2d7dd 0%, #c1c7ce 100%) !important;
+}
+html[data-theme="dark"] main tr.leaderboard-row--second,
+html[data-theme="dark"] main tr.leaderboard-row--second.leaderboard-row--current,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--second,
+html[data-theme="dark"] main .podium-card--silver {
+    border-color: #9da5ae !important;
+    background-color: #c5cbd2 !important;
+    background-image: linear-gradient(180deg, #d2d7dd 0%, #c1c7ce 100%) !important;
+}
+
+main tr.leaderboard-row--third,
+main tr.leaderboard-row--third.leaderboard-row--current,
+main .leaderboard-mobile-card.leaderboard-row--third,
+main .podium-card--bronze {
+    border-color: #a76537 !important;
+    background-color: #c48655 !important;
+    background-image: linear-gradient(180deg, #cf9567 0%, #bd7b49 100%) !important;
+    animation: none !important;
+    box-shadow: inset 4px 0 #95572f !important;
+}
+html[data-theme="dark"] main tr.leaderboard-row--third,
+html[data-theme="dark"] main tr.leaderboard-row--third.leaderboard-row--current,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--third,
+html[data-theme="dark"] main .podium-card--bronze {
+    border-color: #a76537 !important;
+    background-color: #c48655 !important;
+    background-image: linear-gradient(180deg, #cf9567 0%, #bd7b49 100%) !important;
+    animation: none !important;
+    box-shadow: inset 4px 0 #95572f !important;
+}
+main tr.leaderboard-row--third td,
+main tr.leaderboard-row--third .leaderboard-student__name,
+main tr.leaderboard-row--third .leaderboard-points,
+main .leaderboard-mobile-card.leaderboard-row--third,
+main .leaderboard-mobile-card.leaderboard-row--third .leaderboard-student__name,
+main .leaderboard-mobile-card.leaderboard-row--third .leaderboard-points,
+main .podium-card--bronze,
+main .podium-card--bronze .podium-card__name,
+main .podium-card--bronze .podium-card__points,
+html[data-theme="dark"] main tr.leaderboard-row--third td,
+html[data-theme="dark"] main tr.leaderboard-row--third .leaderboard-student__name,
+html[data-theme="dark"] main tr.leaderboard-row--third .leaderboard-points,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--third,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--third .leaderboard-student__name,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--third .leaderboard-points,
+html[data-theme="dark"] main .podium-card--bronze,
+html[data-theme="dark"] main .podium-card--bronze .podium-card__name,
+html[data-theme="dark"] main .podium-card--bronze .podium-card__points { color: #2d1a0d !important; }
+
+main .medal-icon--gold { color: #bd8b25 !important; }
+main .medal-icon--silver { color: #828c97 !important; }
+main .medal-icon--bronze { color: #a86636 !important; }
+main .podium-card--bronze { box-shadow: inset 0 4px #a76537, 0 8px 24px rgb(15 23 42 / 12%) !important; }
+}
