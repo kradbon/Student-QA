@@ -8,6 +8,22 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+/* Unlayered theme tokens stay in effect when the utility layer is loaded later. */
+html[data-theme="dark"] {
+    --color-background: #090c12;
+    --color-content: #111722;
+    --color-surface: #151c28;
+    --color-surface-elevated: #202a39;
+    --color-text-primary: #f5f7fb;
+    --color-text-secondary: #c1cad8;
+    --color-text-muted: #929fb2;
+    --color-border: #344052;
+    --color-divider: #293444;
+    --color-brand: #ff8a24;
+    --color-brand-hover: #ffad55;
+    --color-focus: #ffad55;
+}
+
 /* Match the supplied public landing reference while keeping its content theme aware. */
 main.page-landing {
     position: relative;
@@ -1825,4 +1841,188 @@ main.page-landing .landing-community__list { grid-template-columns: repeat(3, mi
     main.page-landing .landing-feature--wide { grid-column: auto; }
     main.page-landing .landing-section-heading--row { align-items: flex-start; flex-direction: column; }
     main.page-landing .landing-final-cta { align-items: flex-start; flex-direction: column; }
+}
+
+@layer components {
+/* High-contrast night palette and a polished metallic leaderboard podium. */
+html[data-theme="dark"] {
+    --color-background: #090c12;
+    --color-content: #111722;
+    --color-surface: #151c28;
+    --color-surface-elevated: #202a39;
+    --color-text-primary: #f5f7fb;
+    --color-text-secondary: #c1cad8;
+    --color-text-muted: #929fb2;
+    --color-border: #344052;
+    --color-divider: #293444;
+    --color-brand: #ff8a24;
+    --color-brand-hover: #ffad55;
+    --color-focus: #ffad55;
+}
+
+html[data-theme="dark"] body {
+    background-image:
+        radial-gradient(ellipse at 92% 0, rgb(56 189 248 / 5%), transparent 32rem),
+        radial-gradient(ellipse at 7% 18%, rgb(249 115 22 / 5%), transparent 30rem);
+}
+html[data-theme="dark"] .app-header { box-shadow: 0 1px 0 rgb(56 189 248 / 10%), 0 5px 24px rgb(0 0 0 / 24%) !important; }
+html[data-theme="dark"] .app-header .app-brand > span:first-child {
+    background: #ff8a24 !important;
+    box-shadow: 0 0 10px rgb(255 138 36 / 38%), 0 0 24px rgb(255 138 36 / 20%);
+}
+html[data-theme="dark"] .app-sidebar nav a.bg-orange-50 {
+    box-shadow: inset 2px 0 #ff9d43, 0 0 18px rgb(255 138 36 / 12%) !important;
+}
+html[data-theme="dark"] main .btn-primary {
+    box-shadow: 0 0 0 1px rgb(255 174 90 / 20%), 0 0 16px rgb(255 138 36 / 12%);
+}
+html[data-theme="dark"] main :focus-visible {
+    outline-color: #ffad55 !important;
+    box-shadow: 0 0 0 3px rgb(255 173 85 / 28%), 0 0 18px rgb(255 138 36 / 20%) !important;
+}
+
+@keyframes leaderboard-24k-sweep {
+    0%, 100% { background-position: 145% 50%, 0 0; }
+    52% { background-position: -80% 50%, 0 0; }
+}
+@keyframes leaderboard-24k-glow {
+    from { box-shadow: inset 5px 0 #ffbf00, inset 0 0 12px rgb(255 215 0 / 15%), 0 0 0 rgb(255 191 0 / 0%); }
+    to { box-shadow: inset 5px 0 #fff06a, inset 0 0 28px rgb(255 215 0 / 28%), 0 0 22px rgb(255 191 0 / 25%); }
+}
+@keyframes leaderboard-medal-orbit {
+    0%, 100% { transform: translateY(0) rotate(-2deg); filter: drop-shadow(0 0 2px rgb(255 215 0 / 55%)); }
+    50% { transform: translateY(-3px) rotate(2deg); filter: drop-shadow(0 0 11px rgb(255 224 75 / 95%)); }
+}
+
+main tr.leaderboard-row--first,
+main .leaderboard-mobile-card.leaderboard-row--first,
+main .podium-card--first {
+    border-color: #e8b900 !important;
+    background-color: #ffd700 !important;
+    background-image:
+        linear-gradient(112deg, transparent 43%, rgb(255 255 255 / 0%) 46%, rgb(255 255 255 / 88%) 49%, #fff6b0 50%, #fff 50.5%, #fff6b0 51%, rgb(255 255 255 / 0%) 55%, transparent 58%),
+        linear-gradient(105deg, #ffd700 0%, #ffe86b 17%, #ffc900 35%, #fff176 51%, #e9b900 70%, #ffdf32 86%, #ffd700 100%) !important;
+    background-size: 260% 100%, 100% 100%;
+    animation: leaderboard-24k-sweep 5.2s cubic-bezier(.38, 0, .22, 1) infinite,
+        leaderboard-24k-glow 2.8s ease-in-out infinite alternate !important;
+}
+main tr.leaderboard-row--first td,
+main tr.leaderboard-row--first .leaderboard-student__name,
+main tr.leaderboard-row--first .leaderboard-points,
+main .leaderboard-mobile-card.leaderboard-row--first,
+main .leaderboard-mobile-card.leaderboard-row--first .leaderboard-student__name,
+main .leaderboard-mobile-card.leaderboard-row--first .leaderboard-points,
+main .podium-card--first,
+main .podium-card--first .podium-card__name,
+main .podium-card--first .podium-card__points { color: #241b00 !important; }
+main .leaderboard-row--first .medal-icon--gold,
+main .podium-card--first .podium-card__avatar,
+main .podium-card--first .medal-icon--gold { color: #bd8b00; }
+main .leaderboard-row--first .medal-icon,
+main .leaderboard-mobile-card.leaderboard-row--first .medal-icon,
+main .podium-card--first .medal-icon { animation: leaderboard-medal-orbit 2.4s ease-in-out infinite; }
+main .podium-card--first { box-shadow: inset 0 5px #ffbf00, 0 12px 38px rgb(255 191 0 / 24%) !important; }
+
+main tr.leaderboard-row--second,
+main tr.leaderboard-row--second.leaderboard-row--current,
+main .leaderboard-mobile-card.leaderboard-row--second,
+main .podium-card--silver {
+    border-color: #aab6c4 !important;
+    background-color: #cbd5e1 !important;
+    background-image: linear-gradient(105deg, #8e9bab 0%, #dce4ed 16%, #a9b5c3 33%, #f8fafc 51%, #bcc7d3 68%, #eef2f6 83%, #929eac 100%) !important;
+    animation: none !important;
+    box-shadow: inset 4px 0 #718096 !important;
+}
+main tr.leaderboard-row--second td,
+main tr.leaderboard-row--second .leaderboard-student__name,
+main tr.leaderboard-row--second .leaderboard-points,
+main .leaderboard-mobile-card.leaderboard-row--second,
+main .leaderboard-mobile-card.leaderboard-row--second .leaderboard-student__name,
+main .leaderboard-mobile-card.leaderboard-row--second .leaderboard-points,
+main .podium-card--silver,
+main .podium-card--silver .podium-card__name,
+main .podium-card--silver .podium-card__points { color: #17202b !important; }
+main .podium-card--silver { border-top: 4px solid #eef3f8 !important; box-shadow: inset 0 4px #8491a0, 0 8px 24px rgb(15 23 42 / 12%) !important; }
+main .leaderboard-row--second .medal-icon--silver,
+main .podium-card--silver .medal-icon--silver { color: #768493; }
+
+html[data-theme="dark"] main tr.leaderboard-row--first,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--first,
+html[data-theme="dark"] main .podium-card--first {
+    border-color: #ffdf32 !important;
+    background-color: #ffd700 !important;
+    background-image:
+        linear-gradient(112deg, transparent 43%, rgb(255 255 255 / 0%) 46%, rgb(255 255 255 / 88%) 49%, #fff6b0 50%, #fff 50.5%, #fff6b0 51%, rgb(255 255 255 / 0%) 55%, transparent 58%),
+        linear-gradient(105deg, #ffd700 0%, #ffe86b 17%, #ffc900 35%, #fff176 51%, #e9b900 70%, #ffdf32 86%, #ffd700 100%) !important;
+    background-size: 260% 100%, 100% 100%;
+    animation: leaderboard-24k-sweep 5.2s cubic-bezier(.38, 0, .22, 1) infinite,
+        leaderboard-24k-glow 2.8s ease-in-out infinite alternate !important;
+}
+html[data-theme="dark"] main tr.leaderboard-row--first td,
+html[data-theme="dark"] main tr.leaderboard-row--first .leaderboard-student__name,
+html[data-theme="dark"] main tr.leaderboard-row--first .leaderboard-points,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--first,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--first .leaderboard-student__name,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--first .leaderboard-points,
+html[data-theme="dark"] main .podium-card--first,
+html[data-theme="dark"] main .podium-card--first .podium-card__name,
+html[data-theme="dark"] main .podium-card--first .podium-card__points { color: #241b00 !important; }
+html[data-theme="dark"] main tr.leaderboard-row--second,
+html[data-theme="dark"] main tr.leaderboard-row--second.leaderboard-row--current,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--second,
+html[data-theme="dark"] main .podium-card--silver {
+    border-color: #dce5ef !important;
+    background-color: #bcc7d3 !important;
+    background-image: linear-gradient(105deg, #8995a3 0%, #e0e7ef 17%, #adb9c6 35%, #fff 52%, #bec9d5 70%, #e9eef4 85%, #8995a3 100%) !important;
+    animation: none !important;
+    box-shadow: inset 4px 0 #718096 !important;
+}
+html[data-theme="dark"] main tr.leaderboard-row--second td,
+html[data-theme="dark"] main tr.leaderboard-row--second .leaderboard-student__name,
+html[data-theme="dark"] main tr.leaderboard-row--second .leaderboard-points,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--second,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--second .leaderboard-student__name,
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--second .leaderboard-points,
+html[data-theme="dark"] main .podium-card--silver,
+html[data-theme="dark"] main .podium-card--silver .podium-card__name,
+html[data-theme="dark"] main .podium-card--silver .podium-card__points { color: #17202b !important; }
+
+html[data-theme="dark"] main .leaderboard-header .eyebrow,
+html[data-theme="dark"] main .leaderboard-table-heading .eyebrow { color: #ffad55 !important; text-shadow: 0 0 14px rgb(255 138 36 / 32%); }
+html[data-theme="dark"] main .leaderboard-period {
+    border-color: #76502f !important;
+    background: #211b17 !important;
+    color: #ffd29a !important;
+    box-shadow: 0 0 16px rgb(255 138 36 / 12%);
+}
+html[data-theme="dark"] main .leaderboard-period__dot { background: #ff9d43; box-shadow: 0 0 8px #ff8a24, 0 0 16px rgb(255 138 36 / 62%); }
+html[data-theme="dark"] main .leaderboard-table-wrap,
+html[data-theme="dark"] main .podium-card:not(.podium-card--first):not(.podium-card--silver) {
+    border-color: #354154 !important;
+    box-shadow: 0 0 22px rgb(56 189 248 / 5%) !important;
+}
+html[data-theme="dark"] main .leaderboard-table thead { box-shadow: inset 0 -1px rgb(56 189 248 / 22%); }
+html[data-theme="dark"] main .leaderboard-row:not(.leaderboard-row--first):not(.leaderboard-row--second):hover,
+html[data-theme="dark"] main .leaderboard-mobile-card:not(.leaderboard-row--first):not(.leaderboard-row--second):hover {
+    box-shadow: inset 3px 0 #38bdf8, 0 0 18px rgb(56 189 248 / 8%) !important;
+}
+html[data-theme="dark"] main .leaderboard-search input:focus-visible {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 0 3px rgb(56 189 248 / 20%), 0 0 16px rgb(56 189 248 / 18%) !important;
+}
+html[data-theme="dark"] main .leaderboard-mobile-card.leaderboard-row--second {
+    background-image: linear-gradient(105deg, #8995a3 0%, #e0e7ef 17%, #adb9c6 35%, #fff 52%, #bec9d5 70%, #e9eef4 85%, #8995a3 100%) !important;
+}
+html[data-theme="dark"] main .podium-card--silver {
+    background-image: linear-gradient(105deg, #7b8795 0%, #d8e1eb 16%, #a8b5c3 34%, #f5f8fb 52%, #b7c2cf 70%, #e5eaf0 85%, #818d9b 100%) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    main tr.leaderboard-row--first,
+    main .leaderboard-mobile-card.leaderboard-row--first,
+    main .podium-card--first,
+    main .leaderboard-row--first .medal-icon,
+    main .leaderboard-mobile-card.leaderboard-row--first .medal-icon,
+    main .podium-card--first .medal-icon { animation: none !important; }
+}
 }

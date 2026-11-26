@@ -41,6 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
     systemTheme.addEventListener?.('change', (event) => {
         if (!savedTheme()) applyTheme(event.matches ? 'dark' : 'light');
     });
+    window.addEventListener('storage', (event) => {
+        if (event.key !== themeKey) return;
+        const theme = event.newValue === 'dark' || event.newValue === 'light'
+            ? event.newValue
+            : (systemTheme.matches ? 'dark' : 'light');
+        applyTheme(theme);
+    });
 
     const languageMenu = document.querySelector('.language-menu');
     const languageSummary = languageMenu?.querySelector('summary');
